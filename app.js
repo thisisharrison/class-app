@@ -1,6 +1,10 @@
 // require necessary NPM packagaes
 const mongoose = require('mongoose');
 const express = require('express');
+const bodyParser = require('body-parser');
+
+// require route files
+const users = require('./routes/api/users');
 
 // require database config
 // `db` will be the actual Mongo URI as a string
@@ -15,8 +19,16 @@ mongoose.connect(db, { useNewUrlParser: true })
 // instantiate express application object
 const app = express();
 
+// set up middlewares
+// bodyParser parses request bodies before handlers
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // testing
 app.get("/", (req, res) => res.send("Hello World"));
+
+// register routes
+app.use('/api/users', users);
 
 // define port for API to run on
 const port = process.env.PORT || 5000;
