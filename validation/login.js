@@ -5,7 +5,7 @@ const validText = require('./valid-text');
 const validateLoginInput = data => {
   let errors = {};
   
-  const { email, password } = data;
+  let { email, password } = data;
 
   email = validText(email) ? email : '';
   password = validText(password) ? password : '';
