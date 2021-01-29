@@ -2,13 +2,14 @@ const Validator = require('validator');
 // custom text validator
 const validText = require('./valid-text');
 
-const validateLoginInput = data => {
+const validateRegisterInput = data => {
   let errors = {};
-  
-  const { email, password } = data;
+
+  const { email, password, password2 } = data;
 
   email = validText(email) ? email : '';
   password = validText(password) ? password : '';
+  password2 = validText(password2) ? password2 : '';
 
   // add error messages to errors object to pass to frontend
   if (!Validator.isEmail(email)) {
@@ -20,6 +21,15 @@ const validateLoginInput = data => {
   if (Validator.isEmpty(password)) {
     errors.password = 'Password is required.'
   }
+  if (Validator.isEmpty(password2)) {
+    errors.password = 'Confirm password field is required.'
+  }
+  if (!Validator.isLength(password, {min: 6, max: 30})) {
+    errors.password = 'Password must be at least 6 characters.'
+  }
+  if (!Validator.equals(password, password2)) {
+    errors.password = 'Passwords must match.'
+  }
 
   // return error object with messages if any
   // return boolean to for routes to check if data was valid
@@ -29,4 +39,4 @@ const validateLoginInput = data => {
   }
 }
 
-module.exports = validateLoginInput;
+module.exports = validateRegisterInput;
