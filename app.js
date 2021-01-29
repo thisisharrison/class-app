@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 // require route files
 const users = require('./routes/api/users');
@@ -23,9 +24,11 @@ const app = express();
 // bodyParser parses request bodies before handlers
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// testing
-app.get("/", (req, res) => res.send("Hello World"));
+// authenticate endpoints using json web token
+app.use(passport.initialize());
+// require a function that takes passport as parameter 
+// and construct the JWT authentication strategy 
+require('./config/passport')(passport);
 
 // register routes
 app.use('/api/users', users);

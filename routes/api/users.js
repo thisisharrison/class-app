@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const router = express.Router();
+// for our private routes 
+const passport = require('passport');
 
 const User = require('../../models/User');
 
@@ -47,7 +49,6 @@ router.post("/register", (req, res) => {
 // route to log in 
 // authenticate user (email and password)
 // setting json web token for authorization
-// returns Bearer + token that will be used in our axios request headers
 router.post("/login", (req, res) => {
     const { email, password } = req.body;
     User.findOne({ email })
@@ -55,11 +56,14 @@ router.post("/login", (req, res) => {
             if (!user) {
                 return res.status(404).json({email: 'This user does not exist.'})
             }
+            // check password 
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if (isMatch) {
-                        const payload = { id: user.id, fname: user.fname };
+                      // create payload for token
+                        const payload = { id: user.id, fname: user.fname, email: user.email };
 
+                        // returns Bearer + token that will be used in our axios request headers
                         jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
                             res.json({
                                 success: true,
@@ -71,6 +75,16 @@ router.post("/login", (req, res) => {
                         return res.status(400).json({password: 'Password incorrect'})
                     }
                 })
+        })
+});
+
+// specifiy 'jwt' as the strategy
+router.get('/current', passport.authenticate('jwt', {session: false}), 
+    (req, res) => {
+        res.json({
+            id: req.user.id,
+            fname: req.user.fname,
+            email: req.user.email
         })
 });
 
