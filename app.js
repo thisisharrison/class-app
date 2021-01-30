@@ -4,6 +4,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
+// use static build folder in the frontend 
+const path = require('path');
+// tell our server to load the static build folder in production
+if (process.env.NODE_ENV === 'production') {
+  app.user(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
+
 // require route files
 const users = require('./routes/api/users');
 
