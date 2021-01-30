@@ -24,8 +24,5 @@ const ClassTimeSchema = new Schema({
   timestamps: true
 })
 
-ClassTimeSchema.post('save', (doc, next) => {
-  debugger
-})
 
 module.exports = ClassTime = mongoose.model('ClassTime', ClassTimeSchema);

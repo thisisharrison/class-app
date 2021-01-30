@@ -9,29 +9,40 @@ const ClassTime = require('../../models/ClassTime');
 router.get("/test", (req, res) => res.json({ msg: "This is the bookings route" }));
 
 router.post('/', passport.authenticate('jwt', { session: false }),
-  (req, res) => {
+  async (req, res) => {
     const { classTimeId } = req.body;
     const { _id, fname, lname, email, photo } = req.user;
     const newStudent = { _id, fname, lname, email, photo };
-    
-    ClassTime.findByIdAndUpdate(classTimeId, 
-      { $addToSet: {students: newStudent } },
-      { new: true },
-      (err, result) => {
-        res.json(result);
-      }
-    )
+  
+    try {
+      await User.findByIdAndUpdate(req.user._id,
+        { $addToSet: { bookings: classTimeId } }
+      ).exec()
+      await ClassTime.findByIdAndUpdate(classTimeId,
+        { $addToSet: { students: newStudent } }, 
+        { new: true }, 
+        (err, result) => res.json(result)
+      ).exec()
+    } catch (err) {
+      res.status(422)
+    }
   });
 
 router.delete('/:id', passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    ClassTime.findByIdAndUpdate(req.params.id,
-      { $pull: { students: { _id: req.user._id } } },
-      { new: true },
-      (err, result) => {
-        res.json(result)
-      }
-    )
+  async (req, res) => {
+    
+    try {
+      await User.findByIdAndUpdate(req.user._id,
+        { $pull: { bookings: classTimeId } }
+      ).exec()
+      await ClassTime.findByIdAndUpdate(req.params.id,
+        { $pull: { students: { _id: req.user._id } } },
+        { new: true },
+        (err, result) => res.json(result)
+      ).exec()
+    } catch (err) {
+      res.status(422)
+    }
   });
 
 
