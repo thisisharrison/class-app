@@ -4,11 +4,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
+// instantiate express application object
+const app = express();
+
 // use static build folder in the frontend 
 const path = require('path');
 // tell our server to load the static build folder in production
 if (process.env.NODE_ENV === 'production') {
-  app.user(express.static('frontend/build'));
+  app.use(express.static('frontend/build'));
   app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   })
@@ -26,9 +29,6 @@ const db = require('./config/keys').mongoURI;
 mongoose.connect(db, { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDB successfully'))
     .catch(err => console.log(err));
-
-// instantiate express application object
-const app = express();
 
 // set up middlewares
 // bodyParser parses request bodies before handlers
