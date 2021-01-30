@@ -19,6 +19,8 @@ if (process.env.NODE_ENV === 'production') {
 
 // require route files
 const users = require('./routes/api/users');
+const classes = require('./routes/api/classes');
+const classtimes = require('./routes/api/classtimes');
 
 // require database config
 // `db` will be the actual Mongo URI as a string
@@ -26,7 +28,10 @@ const db = require('./config/keys').mongoURI;
 
 // establish database connection
 // user new version of URL parser 
-mongoose.connect(db, { useNewUrlParser: true })
+mongoose.connect(db, { 
+  useNewUrlParser: true, 
+  useCreateIndex: true,
+  useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB successfully'))
     .catch(err => console.log(err));
 
@@ -42,6 +47,8 @@ require('./config/passport')(passport);
 
 // register routes
 app.use('/api/users', users);
+app.use('/api/classes', classes);
+app.use('/api/classtimes', classtimes);
 
 // define port for API to run on
 const port = process.env.PORT || 5000;
