@@ -22,6 +22,7 @@ const users = require('./routes/api/users');
 const classes = require('./routes/api/classes');
 const classtimes = require('./routes/api/classtimes');
 const saves = require('./routes/api/saves');
+const bookings = require('./routes/api/bookings');
 
 // require database config
 // `db` will be the actual Mongo URI as a string
@@ -32,7 +33,8 @@ const db = require('./config/keys').mongoURI;
 mongoose.connect(db, { 
   useNewUrlParser: true, 
   useCreateIndex: true,
-  useUnifiedTopology: true })
+  useUnifiedTopology: true,
+  useFindAndModify: false })
     .then(() => console.log('Connected to MongoDB successfully'))
     .catch(err => console.log(err));
 
@@ -51,6 +53,7 @@ app.use('/api/users', users);
 app.use('/api/classes', classes);
 app.use('/api/classtimes', classtimes);
 app.use('/api/saves', saves);
+app.use('/api/bookings', bookings);
 
 // define port for API to run on
 const port = process.env.PORT || 5000;

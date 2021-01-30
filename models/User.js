@@ -33,8 +33,12 @@ const UserSchema = new Schema ({
       type: Boolean,
       default: false
   },
-  saves: [ClassSchema],
-  bookings: [ClassTimeSchema]
+  saves: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Class',
+    index: true
+  }],
+  bookings: []
 }, {
   timestamps: true
 })

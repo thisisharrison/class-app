@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const User = require('./User');
+const UserSchema = require('./User').schema;
 
 const ClassTimeSchema = new Schema({
   class: {
@@ -8,7 +8,10 @@ const ClassTimeSchema = new Schema({
     ref: 'Class',
     index: true
   },
-  students: [User],
+  students: {
+    type: [UserSchema],
+    default: undefined
+  },
   startTime: {
     type: Date,
     default: Date.now
@@ -19,6 +22,10 @@ const ClassTimeSchema = new Schema({
   }
 }, {
   timestamps: true
+})
+
+ClassTimeSchema.post('save', (doc, next) => {
+  debugger
 })
 
 module.exports = ClassTime = mongoose.model('ClassTime', ClassTimeSchema);

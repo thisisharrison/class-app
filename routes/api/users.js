@@ -100,7 +100,9 @@ router.get('/current', passport.authenticate('jwt', {session: false}),
     res.json({
         id: req.user.id,
         fname: req.user.fname,
-        email: req.user.email
+        email: req.user.email, 
+        saves: req.user.saves,
+        bookings: req.user.bookings
     })
 });
 
