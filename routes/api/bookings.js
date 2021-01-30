@@ -28,6 +28,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     }
   });
 
+// Delete Bookings
 router.delete('/:id', passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     
