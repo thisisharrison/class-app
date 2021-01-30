@@ -6,3 +6,5 @@ Class Pass App, a Class Pass / Airbnb Experience clone, is an extension of a ret
 [Class Pass App Live](https://hidden-retreat-15215.herokuapp.com/)
 
 + [MVP list](https://github.com/thisisharrison/class-pass-app/wiki/mvp-list)
+
+new stuff added
