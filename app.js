@@ -21,6 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 const users = require('./routes/api/users');
 const classes = require('./routes/api/classes');
 const classtimes = require('./routes/api/classtimes');
+const saves = require('./routes/api/saves');
 
 // require database config
 // `db` will be the actual Mongo URI as a string
@@ -49,6 +50,7 @@ require('./config/passport')(passport);
 app.use('/api/users', users);
 app.use('/api/classes', classes);
 app.use('/api/classtimes', classtimes);
+app.use('/api/saves', saves);
 
 // define port for API to run on
 const port = process.env.PORT || 5000;
