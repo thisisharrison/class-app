@@ -94,6 +94,22 @@ router.post("/login", (req, res) => {
      })
 });
 
+// Index of admin users, which are ambassadors
+router.get('/', 
+  (req, res) => {
+    User.find({ isAdmin: true })
+      .then(users => res.json({ users: users.map(user => user.toObject() )}))
+  }
+)
+
+// Show a user
+router.get('/:id',
+  (req, res) => {
+    User.findOne({ _id: req.params.id })
+      .then(user => res.json({ user: user.toObject() }))
+  }
+)
+
 // specifiy 'jwt' as the strategy
 router.get('/current', passport.authenticate('jwt', {session: false}), 
   (req, res) => {

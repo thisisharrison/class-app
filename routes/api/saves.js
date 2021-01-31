@@ -8,12 +8,14 @@ const Class = require('../../models/Class');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the saves route" }));
 
+// Index of current user's all saved classes
 router.get('/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id)
-      .then(user => res.json(user.saves))
+      .then(user => res.json({ saves: user.saves }))
   });
 
+// Add a class to current user's saved classes
 router.post('/', passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     const { classId } = req.body;
@@ -27,6 +29,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
     )
 });
 
+// Remove a class from current user's saved classes
 router.delete('/:classId', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findByIdAndUpdate(req.user._id,

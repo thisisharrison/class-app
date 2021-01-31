@@ -42,7 +42,15 @@ const UserSchema = new Schema ({
     index: true
   }]
 }, {
-  timestamps: true
+  timestamps: true,
+  toObject: {
+    transform: (_doc, user) => {
+      delete user.password
+      delete user.saves
+      delete user.bookings
+      return user
+    }
+  }
 })
 
 module.exports = User = mongoose.model('User', UserSchema);

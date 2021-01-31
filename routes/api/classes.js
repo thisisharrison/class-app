@@ -7,15 +7,22 @@ const Class = require('../../models/Class');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the classes route" }));
 
+// View all classes
 router.get('/', (req, res) => {
   Class.find()
     .then(classes => res.json(classes))
-    .catch(err => res.status(404).json({ noclassesfound: 'No classes found.' }))
+    .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
 });
 
+// Create a class
 router.post('/', 
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    // Validation
+    if (!req.user.isAdmin) {
+      return res.status(401).json({ notadmin: 'Only admin can create a class' })
+    }
+
     const newClass = new Class ({
       name: req.body.name,
       description: req.body.description,
@@ -29,6 +36,7 @@ router.post('/',
   }
 );
 
+// Show a class
 router.get('/:id', (req, res) => {
   Class.findById(req.params.id)
     .then(_class => res.json(_class))
@@ -37,9 +45,15 @@ router.get('/:id', (req, res) => {
     );
 });
 
+// Edit a class
 router.patch('/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    // Validation
+    if (!req.user.isAdmin) {
+      return res.status(401).json({ notadmin: 'Only admin can create a class' })
+    }
+
     // find by id, update, return modified class
     Class.findByIdAndUpdate(req.params.id,
       {$set: {
@@ -59,9 +73,15 @@ router.patch('/:id',
     )
 });
 
+// Delete a class
 router.delete('/:id', 
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    // Validation
+    if (!req.user.isAdmin) {
+      return res.status(401).json({ notadmin: 'Only admin can create a class' })
+    }
+    
     // find by id, delete
     Class.findByIdAndDelete(req.params.id, 
       (err, result) => {
