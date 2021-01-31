@@ -8,7 +8,7 @@ const _initialState = {
   all: {},
   new: undefined
 }
-export default function(state = {}, action) {
+export default function(state = _initialState, action) {
   Object.freeze(state);
   let newState = Object.assign({}, state);
 

@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
 
   window.ClassUtil = ClassUtil;
+  window.store = store
   window.dispatch = store.dispatch;
   ReactDOM.render(<Root store={store}/>, root);
 })

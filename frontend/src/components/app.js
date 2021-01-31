@@ -6,6 +6,8 @@ import HomePage from './home/home_page';
 import NavBarContainer from './nav/navbar_container';
 import SignUpFormContainer from './session/signup_form_container'
 import LoginFormContainer from './session/login_form_container';
+import ClassesContainer from './class/class_container';
+import ProfileContainer from './profile/profile_container';
 
 // Homepage: landing page of e-commerce site
 // Class Pass Landing Page: show classes, fitlers, prompt user to register / login
@@ -20,6 +22,8 @@ const App = () => (
       <AuthRoute exact path="/" component={HomePage} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
+      <AuthRoute exact path="/classes" component={ClassesContainer} />
+      <ProtectedRoute exact path="/profile" component={ProfileContainer} />
     </Switch>
   </div>
 );
