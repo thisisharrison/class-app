@@ -79,7 +79,7 @@ router.post("/login", (req, res) => {
               // create payload for token
               const payload = user.toObject();
 
-                // returns Bearer + token that will be used in our axios request headers
+              // returns Bearer + token that will be used in our axios request headers
               jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600}, (err, token) => {
                 res.json({
                     success: true,
@@ -114,12 +114,12 @@ router.get('/:id',
 router.get('/current', passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     res.json({
-        _id: req.user.id,
+        _id: req.user._id,
         fname: req.user.fname,
         email: req.user.email, 
         saves: req.user.saves,
         bookings: req.user.bookings
     })
-});
+}); 
 
 module.exports = router;

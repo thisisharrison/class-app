@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
 router.post('/', 
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+
     // Validation
     if (!req.user.isAdmin) {
       return res.status(401).json({ notadmin: 'Only admin can create a class' })

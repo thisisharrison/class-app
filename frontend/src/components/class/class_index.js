@@ -15,7 +15,6 @@ class ClassIndex extends Component {
   }
 
   componentWillReceiveProps(newState) {
-    debugger
     this.setState({ classes: newState.classes })
   }
 

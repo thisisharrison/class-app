@@ -48,6 +48,7 @@ const UserSchema = new Schema ({
       delete user.password
       delete user.saves
       delete user.bookings
+      user._id = user._id.toString()
       return user
     }
   }

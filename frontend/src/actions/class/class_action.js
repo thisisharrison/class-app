@@ -36,11 +36,16 @@ export const fetchClass = id => dispatch => (
     .catch(err => console.log(err))
 )
 
-export const createClass = data => dispatch => (
+export const createClass = data => dispatch => {
+  
+  return (
   postClass(data)
-    .then(_class => dispatch(receiveNewClass(_class)))
+    .then(_class => {
+      dispatch(receiveNewClass(_class))
+    })
     .catch(err => console.log(err))
-)
+  )
+}
 
 export const editClass = data => dispatch => (
   patchClass(data)
