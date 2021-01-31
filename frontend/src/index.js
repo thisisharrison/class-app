@@ -8,6 +8,8 @@ import configureStore from './store/store';
 import { setAuthToken } from './util/session/session_api_util';
 import { logout } from './actions/session/session_actions';
 
+import * as ClassUtil from './actions/class/class_action';
+
 document.addEventListener('DOMContentLoaded', () => {
   let store;
 
@@ -40,5 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // render root
   const root = document.getElementById('root');
 
+  window.ClassUtil = ClassUtil;
+  window.dispatch = store.dispatch;
   ReactDOM.render(<Root store={store}/>, root);
 })
