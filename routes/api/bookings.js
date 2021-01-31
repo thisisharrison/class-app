@@ -9,9 +9,9 @@ const ClassTime = require('../../models/ClassTime');
 router.get("/test", (req, res) => res.json({ msg: "This is the bookings route" }));
 
 router.get('/', passport.authenticate('jwt', { session: false }),
-  async (req, res) => {
-    User.find({_id: req.user._id})
-      .then(user => res.json(user))
+  (req, res) => {
+    User.findById(req.user._id)
+      .then(user => res.json(user.bookings))
   });
 
 router.post('/', passport.authenticate('jwt', { session: false }),

@@ -41,7 +41,7 @@ router.post("/register", (req, res) => {
                         .then(user => {
                             const payload = { id: user.id, fname: user.fname };
                             
-                            jwt.sign(payload, keys.secretOrKey, {expiresIn: 86400}, (err, token) => {
+                            jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
                                 res.json({
                                     success: true, 
                                     token: 'Bearer ' + token
@@ -80,7 +80,7 @@ router.post("/login", (req, res) => {
               const payload = { id: user.id, fname: user.fname, email: user.email };
 
                 // returns Bearer + token that will be used in our axios request headers
-              jwt.sign(payload, keys.secretOrKey, { expiresIn: 86400}, (err, token) => {
+              jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600}, (err, token) => {
                 res.json({
                     success: true,
                     token: 'Bearer ' + token 

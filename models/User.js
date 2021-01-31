@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const ClassSchema = require('./Class').schema
-const ClassTimeSchema = require('./ClassTime').schema
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema ({

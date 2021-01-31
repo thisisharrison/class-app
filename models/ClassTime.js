@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const UserSchema = require('./User').schema;
 
 const ClassTimeSchema = new Schema({
   class: {
@@ -9,14 +8,8 @@ const ClassTimeSchema = new Schema({
     index: true
   },
   students: [],
-  startTime: {
-    type: Date,
-    default: Date.now
-  },
-  endTime: {
-    type: Date,
-    default: Date.now
-  }
+  startTime: Number,
+  endTime: Number
 }, {
   timestamps: true
 })
