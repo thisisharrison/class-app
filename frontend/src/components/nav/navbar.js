@@ -12,17 +12,19 @@ export default class NavBar extends Component {
   getLinks() {
     if (this.props.loggedIn) {
       return (
-        <div>
+        <span>
+          <Link to={'/classes'}>Classes</Link>
           <Link to={`/users/${this.props.currentUserId}`}>My Account</Link>
           <button onClick={this.logoutUser}>Sign Out</button>
-        </div>
+        </span>
       )
     } else {
       return (
-        <div>
+        <span>
+          <Link to={'/login'}>Classes</Link>
           <Link to={'/signup'}>Signup</Link>
           <Link to={'/login'}>Log In</Link>
-        </div>
+        </span>
       )
     }
   }
@@ -40,7 +42,6 @@ export default class NavBar extends Component {
           <Link to={'/#'}>Men</Link>
           <Link to={'/#'}>Accessories</Link>
           <Link to={'/#'}>Community</Link>
-          <Link to={'/#'}>Classes</Link>
           {this.getLinks()}
       </div>
     )
