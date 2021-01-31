@@ -39,7 +39,7 @@ router.post("/register", (req, res) => {
                     newUser.password = hash;
                     newUser.save()
                         .then(user => {
-                            const payload = { id: user.id, fname: user.fname };
+                            const payload = user.toObject();
                             
                             jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
                                 res.json({
@@ -77,7 +77,7 @@ router.post("/login", (req, res) => {
         .then(isMatch => {
             if (isMatch) {
               // create payload for token
-              const payload = { id: user.id, fname: user.fname, email: user.email };
+              const payload = user.toObject();
 
                 // returns Bearer + token that will be used in our axios request headers
               jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600}, (err, token) => {
