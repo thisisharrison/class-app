@@ -15,7 +15,10 @@ const ClassSchema = new Schema({
     ref: 'User', 
     index: true
   },
-  tags: [String], // TaggingSchema
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  }], 
   languages: [String]
 }, {
   timestamps: true
