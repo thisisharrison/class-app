@@ -8,6 +8,12 @@ const ClassTime = require('../../models/ClassTime');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the bookings route" }));
 
+router.get('/', passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    User.find({_id: req.user._id})
+      .then(user => res.json(user))
+  });
+
 router.post('/', passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     const { classTimeId } = req.body;
@@ -28,15 +34,14 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     }
   });
 
-// Delete Bookings
-router.delete('/:id', passport.authenticate('jwt', { session: false }),
+router.delete('/:classTimeId', passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     
     try {
       await User.findByIdAndUpdate(req.user._id,
-        { $pull: { bookings: classTimeId } }
+        { $pull: { bookings: req.params.classTimeId } }
       ).exec()
-      await ClassTime.findByIdAndUpdate(req.params.id,
+      await ClassTime.findByIdAndUpdate(req.params.classTimeId,
         { $pull: { students: { _id: req.user._id } } },
         { new: true },
         (err, result) => res.json(result)

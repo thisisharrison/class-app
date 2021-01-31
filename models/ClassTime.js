@@ -8,10 +8,7 @@ const ClassTimeSchema = new Schema({
     ref: 'Class',
     index: true
   },
-  students: {
-    type: [UserSchema],
-    default: undefined
-  },
+  students: [],
   startTime: {
     type: Date,
     default: Date.now
