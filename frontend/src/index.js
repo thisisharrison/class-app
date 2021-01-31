@@ -1,17 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// parse the user's session token
+import jwt_decode from 'jwt-decode';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import Root from './components/root';
+import configureStore from './store/store';
+import { setAuthToken } from './util/session/session_api_util';
+import { logout } from './actions/session_actions';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+document.addEventListener('DOMContentLoaded', () => {
+  let store;
+
+  // if a returning user has a session token in localStorage
+  if (localStorage.jwtToken) {
+
+    // set the token as common header for all axios requests
+    setAuthToken(localStorage.jwtToken)
+
+    // decode the token to obtain user's info
+    const decodedUser = jwt_decode(localStorage.jwtToken);
+
+    // preconfigured State that we can load to our store
+    const preloadedState = { session: { isAuthenticated: true, user: decodedUser } };
+
+    store = configureStore(preloadedState);
+
+    const currentTime = Date.now() / 1000;
+
+    // If user's token has expired
+    if (decodedUser.exp < currentTime) {
+      // logout user and redirect to login page
+      store.dispatch(logout());
+      window.location.href = '/login';
+    } 
+  } else {
+    // this is a first time user, start with an empty store
+    store = configureStore({});
+  }
+  // render root
+  const root = document.getElementById('root');
+
+  ReactDOM.render(<Root store={store}/>, root);
+})
