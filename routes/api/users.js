@@ -45,7 +45,7 @@ router.post("/register", (req, res) => {
             newUser.save()
               .then(user => {
                 // Add token
-                const payload = { id: user.id, handle: user.handle };
+                const payload = { id: user.id, email: user.email, isAdmin: user.isAdmin };
                 jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                   res.json({
                     success: true,
@@ -78,7 +78,8 @@ router.post("/login", (req, res) => {
         .then(isMatch => {
           if (isMatch) {
             // Add webtoken
-            const payload = { id: user.id, email: user.email };
+            const payload = { id: user.id, email: user.email, isAdmin: user.isAdmin };
+            
             // Add webtoken so user stays signed in across multiple requests to backend
             jwt.sign(
               payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
