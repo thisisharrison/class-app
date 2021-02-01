@@ -9,6 +9,7 @@ import LoginFormContainer from './session/login_form_container';
 import ClassesContainer from './class/class_container';
 import ClassFormContainer from './class/class_form_container';
 import ProfileContainer from './profile/profile_container';
+import ClassTimeContainer from './classtime/classtime_container';
 
 // Homepage: landing page of e-commerce site
 // Class Pass Landing Page: show classes, fitlers, prompt user to register / login
@@ -26,6 +27,9 @@ const App = () => (
       <Route exact path="/classes" component={ClassesContainer} />
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       <AdminRoute exact path="/new-class" component={ClassFormContainer} />
+
+      <Route exact path="/classes/:id" component={ClassTimeContainer} />
+
     </Switch>
   </div>
 );
