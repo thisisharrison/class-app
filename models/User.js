@@ -46,9 +46,8 @@ const UserSchema = new Schema ({
   toObject: {
     transform: (_doc, user) => {
       delete user.password
-      delete user.saves
       delete user.bookings
-      user._id = user._id.toString()
+      delete user.saves
       return user
     }
   }

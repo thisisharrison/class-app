@@ -2,24 +2,24 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const keys = require('../config/keys');
+const keys = require('./keys');
 
-const options = {};
+const opts = {}
 // creates extractor that looks for the JWT in the authorization header with the scheme 'bearer '
-options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-options.secretOrKey = keys.secretOrKey;
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = keys.secretOrKey;
 
 module.exports = passport => {
-  passport.use(new JwtStrategy(options, (jwt_payload, done) => {
-      User.findById(jwt_payload._id)
-          .then(user => {
-              if (user) {
-                  // return user to front end
-                  return done(null, user);
-              }
-              // return false since there is no user
-              return done(null, false);
-          })
-          .catch(err => console.log(err));
-  }))
+  passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
+    User.findById(jwt_payload.id)
+      .then(user => {
+        if (user) {
+          // return user object to frontend 
+          return done(null, user);
+        }
+        // return false if no user
+        return done(null, false);
+      })
+      .catch(err => console.log(err));
+  }));
 }
