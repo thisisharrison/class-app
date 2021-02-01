@@ -8,6 +8,10 @@ const ClassTimeIndexItem = ({classTime}) => {
     <div>
       <p>Starts: {startTime}</p>
       <p>Ends: {endTime}</p>
+      <ul>
+        <li>Edit</li>
+        <li>Remove</li>
+      </ul>
     </div>
   )
 }

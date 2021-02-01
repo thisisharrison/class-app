@@ -8,8 +8,14 @@ const ClassTimeSchema = new Schema({
     index: true
   },
   students: [],
-  startTime: Number,
-  endTime: Number
+  startTime: {
+    type: Number,
+    required: true
+  },
+  endTime: {
+    type: Number, 
+    required: true
+  }
 }, {
   timestamps: true
 })
