@@ -14,7 +14,8 @@ export default class NavBar extends Component {
       return (
         <span>
           <Link to={'/classes'}>Classes</Link>
-          <Link to={`/users/${this.props.currentUserId}`}>My Account</Link>
+          {this.props.isAdmin ? (<Link to={'/new-class'}>New Class</Link>) : ''}
+          <Link to={`/profile`}>My Account</Link>
           <button onClick={this.logoutUser}>Sign Out</button>
         </span>
       )
@@ -32,6 +33,7 @@ export default class NavBar extends Component {
   logoutUser(e) {
     e.preventDefault();
     this.props.logout();
+    
   }
   
   render() {
