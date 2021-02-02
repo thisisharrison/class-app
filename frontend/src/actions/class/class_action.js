@@ -37,7 +37,6 @@ export const fetchClass = id => dispatch => (
 )
 
 export const createClass = data => dispatch => {
-  
   return (
   postClass(data)
     .then(_class => {
@@ -47,8 +46,8 @@ export const createClass = data => dispatch => {
   )
 }
 
-export const editClass = data => dispatch => (
-  patchClass(data)
+export const updateClass = (id, data) => dispatch => (
+  patchClass(id, data)
     .then(_class => dispatch(receiveClass(_class)))
     .catch(err => console.log(err))
 )

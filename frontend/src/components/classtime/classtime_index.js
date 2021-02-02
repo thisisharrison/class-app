@@ -19,26 +19,19 @@ class ClassTimeIndex extends Component {
     this.setState({ classTimes: newState.classTimes })
   }
 
+
   render() {
     if (this.state.classTimes.length === 0) {
-      return (
-      <div>
-          <h2>New Class Time</h2>
-          <ClassTimeFormContainer classId={this.props.classId} />
-          <p>There are no class times with this class.</p>
-      </div>
-      )
+      return (<div>No Class Times</div>)
     } else {
-      return (
-        <div>
-          <h2>New Class Time</h2>
-          <ClassTimeFormContainer classId={this.props.classId}/>
-          <h2>All Class Times</h2>
-          {this.state.classTimes.map(classTime => (
-            <ClassTimeIndexItem key={classTime.id} classTime={classTime} />
-          ))}
-        </div>
-      )
+      return(
+          <div>
+            <h2>All Class Times</h2>
+            {this.state.classTimes.map(classTime => (
+              <ClassTimeIndexItem key={classTime.id} classTime={classTime} />
+            ))}
+          </div>
+        )
     }
   }
 }

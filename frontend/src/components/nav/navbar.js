@@ -13,7 +13,6 @@ export default class NavBar extends Component {
     if (this.props.loggedIn) {
       return (
         <span>
-          <Link to={'/classes'}>Classes</Link>
           {this.props.isAdmin ? (<Link to={'/new-class'}>New Class</Link>) : ''}
           <Link to={`/profile`}>My Account</Link>
           <button onClick={this.logoutUser}>Sign Out</button>
@@ -22,9 +21,7 @@ export default class NavBar extends Component {
     } else {
       return (
         <span>
-          <Link to={'/login'}>Classes</Link>
-          <Link to={'/signup'}>Signup</Link>
-          <Link to={'/login'}>Log In</Link>
+          <Link to={'/account/login'}>Signup</Link>
         </span>
       )
     }
@@ -44,6 +41,7 @@ export default class NavBar extends Component {
           <Link to={'/#'}>Men</Link>
           <Link to={'/#'}>Accessories</Link>
           <Link to={'/#'}>Community</Link>
+          <Link to={'/classes'}>Classes</Link>
           {this.getLinks()}
       </div>
     )
