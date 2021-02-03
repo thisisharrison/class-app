@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
   classId: ownProps.match.params.id,
   _class: selectClass(state, ownProps.match.params.id),
   classTimes: selectClassTimes(state, ownProps.match.params.id),
-  isAdmin: state.session.isAdmin,
+  isAdmin: state.session.user.isAdmin,
+  currentUserId: state.session.user.id
 })
 
 const mapDispatchToProps = dispatch => ({

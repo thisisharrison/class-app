@@ -17,13 +17,16 @@ class ClassShow extends Component {
     }
   }
 
+  // only admin can see the edit button on their own classes
   renderEditButton() {
+    if (this.props.isAdmin && this.props.currentUserId === this.props._class.admin) {
       return (
         <div>
         <Link to={`/classes/${this.props.classId}/edit`}
           onClick={() => this.render()}>Edit</Link>
         </div>
       )
+    }
   }
 
   renderClassForm() {
