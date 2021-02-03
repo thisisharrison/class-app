@@ -14,7 +14,9 @@ const classTimeReducer = (state = _initialState, action) => {
 
   switch(action.type) {
     case RECEIVE_CLASSTIMES:
-      newState.all = action.classTimes.data
+      newState.all = {
+        ...newState.all, ...action.classTimes.data
+      }
       return newState;
     case RECEIVE_NEW_CLASSTIME:
       newState.new = action.classTime.data

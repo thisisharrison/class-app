@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
-import { fetchClassTimes, updateClassTime } from "../../actions/classtime_action";
-import { updateClass } from '../../actions/class/class_action';
+import { fetchClassTimes } from "../../actions/classtime_action";
+import { fetchClass } from '../../actions/class/class_action';
+import { selectClass, selectClassTimes } from '../../reducers/selectors'
 import ClassShow from './class_show';
 
 const mapStateToProps = (state, ownProps) => ({
   classId: ownProps.match.params.id,
-  _class: state.entities.classes.all[ownProps.match.params.id],
-  classTimes: state.entities.classTimes.all,
+  _class: selectClass(state, ownProps.match.params.id),
+  classTimes: selectClassTimes(state, ownProps.match.params.id),
   isAdmin: state.session.isAdmin,
 })
 
 const mapDispatchToProps = dispatch => ({
+  fetchClass: id => dispatch(fetchClass(id)),
   fetchClassTimes: id => dispatch(fetchClassTimes(id)),
-  updateClass: (id, data) => dispatch(updateClass(id, data)),
-  updateClassTime: (id, data) => dispatch(updateClassTime(id, data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassShow)

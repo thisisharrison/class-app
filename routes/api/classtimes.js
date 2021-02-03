@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 
 router.get('/class/:classId', (req, res) => {
   ClassTime.find({ class: req.params.classId })
-    .then(classtimes => res.json(classtimes))
+    .then(classtimes => res.json({ [req.params.classId]: classtimes }))
     .catch(err => res.status(404).json({ noclassstimefound: 'No class time found with that class ID.' }))
 });
 

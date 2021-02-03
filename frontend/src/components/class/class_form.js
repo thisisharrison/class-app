@@ -14,6 +14,16 @@ export default class ClassForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    if (!this.props.isNew) {
+      debugger
+      this.setState({
+        name: this.props._class.name,
+        description: this.props._class.description
+      })
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({ newClass: nextProps.newClass })
   }
@@ -22,7 +32,13 @@ export default class ClassForm extends Component {
     e.preventDefault();
     let _class = Object.assign({}, this.state);
     delete _class.newClass;
-    this.props.createClass(_class);
+    if (this.props.isNew) {
+      this.props.createClass(_class);
+    } else {
+      this.props.updateClass(
+        this.props._class._id, 
+        _class)
+    }
     this.setState({
       name: '',
       description: '',
@@ -51,10 +67,12 @@ export default class ClassForm extends Component {
             onChange={this.update('description')}
             placeholder="description"
           />
-          <input type="submit" value="Create Class" />
+          <input type="submit" value={
+            this.props.isNew ? 'Create Class' : 'Edit Class'
+          } />
         </form>
         <br />
-        <ClassIndexItem _class={this.state.newClass}/>
+        {/* <ClassIndexItem _class={this.state.newClass}/> */}
       </div>
     )
   }
