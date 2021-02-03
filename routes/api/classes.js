@@ -13,9 +13,17 @@ router.get("/test", (req, res) => res.json({ msg: "This is the classes route" })
 // View all classes
 router.get('/', (req, res) => {
   Class.find()
-    .then(classes => res.json(classes))
+    .then(classes => res.json(classesObject(classes)))
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
 });
+
+// return object using class.id as key
+// [{}, {}] => {key: {}, key: {}}
+function classesObject(classes) {
+  return classes.reduce((acc, curr) => {
+    return { ...acc, [curr.id]: curr }
+  }, {})
+}
 
 // Create a class
 router.post('/', 

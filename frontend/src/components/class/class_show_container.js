@@ -5,7 +5,7 @@ import ClassShow from './class_show';
 
 const mapStateToProps = (state, ownProps) => ({
   classId: ownProps.match.params.id,
-  _class: {name: 'yoga', description: 'streching'},
+  _class: state.entities.classes.all[ownProps.match.params.id],
   classTimes: state.entities.classTimes.all,
   isAdmin: state.session.isAdmin,
 })

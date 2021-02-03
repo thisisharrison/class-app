@@ -36,7 +36,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <div>
-          <h1>Logo</h1>
+        <strong>Logo</strong>
           <Link to={'/#'}>Women</Link>
           <Link to={'/#'}>Men</Link>
           <Link to={'/#'}>Accessories</Link>
