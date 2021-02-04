@@ -6,12 +6,9 @@ export const getClassTimes = id => (
 )
 
 // create a class time for a class
-export const postClassTime = (id, data) => {
-  debugger
-  return (
+export const postClassTime = (id, data) => (
   axios.post(`/api/classtimes/class/${id}`, data)
 )
-  }
 
 // edit a class time 
 export const patchClassTime = (id, data) => (

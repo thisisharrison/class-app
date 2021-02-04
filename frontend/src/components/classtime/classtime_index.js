@@ -12,7 +12,11 @@ class ClassTimeIndex extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchClassTimes(this.props.classId)
+    if (this.props.classTimes.length === 0) {
+      this.props.fetchClassTimes(this.props.classId)
+    } else {
+      this.setState({ classTimes: this.props.classTimes})
+    }
   }
 
   componentDidUpdate(prevProps) {

@@ -16,7 +16,6 @@ export default class ClassForm extends Component {
 
   componentDidMount() {
     if (!this.props.isNew) {
-      debugger
       this.setState({
         name: this.props._class.name,
         description: this.props._class.description
