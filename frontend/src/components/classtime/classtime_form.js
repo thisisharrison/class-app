@@ -14,7 +14,9 @@ class ClassTimeForm extends Component {
   }
 
   update(field) {
-    return e => this.setState({ [field]: e.currentTargetValue })
+    return e => this.setState({
+      [field]: e.currentTarget.value
+     })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,6 +39,7 @@ class ClassTimeForm extends Component {
   render() {
     return (
       <div>
+        <h2>Add new class time</h2>
         <form onSubmit={this.handleSubmit}>
           <label>Start Time</label>
           <input 

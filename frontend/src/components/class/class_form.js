@@ -54,8 +54,12 @@ export default class ClassForm extends Component {
   }
   
   render() {
+    const header = this.props.isNew ? 
+      (<h2>Create New Class</h2>) : 
+      (<h2>Edit {this.props._class.name}</h2>)
     return (
       <div>
+        {header}
         <form onSubmit={this.handleSubmit}>
           <input
             value={this.state.name}
