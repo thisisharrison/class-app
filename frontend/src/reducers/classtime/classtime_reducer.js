@@ -12,6 +12,7 @@ const _initialState = {
 const classTimeReducer = (state = _initialState, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
+  let classId;
 
   switch(action.type) {
     case RECEIVE_CLASSTIMES:

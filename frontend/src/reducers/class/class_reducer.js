@@ -16,6 +16,7 @@ const _initialState = {
 export default function(state = _initialState, action) {
   Object.freeze(state);
   let newState = Object.assign({}, state);
+  let classId;
 
   switch(action.type) {
     case RECEIVE_CLASSES:
@@ -25,19 +26,9 @@ export default function(state = _initialState, action) {
       newState.new = action._class.data;
       return newState;
     case RECEIVE_CLASS:
-      let k = action._class.data._id;
-      newState.all[k] = { ...newState.all[k], ...action._class.data }
+      classId = action._class.data._id;
+      newState.all[classId] = { ...newState.all[classId], ...action._class.data }
       return newState;
-    // For now do not implement
-    // case RECEIVE_CLASSTIMES:
-    //   let key = Object.keys(action.classTimes.data)[0];
-    //   newState.all[key] = { ...newState.all[key], classTimes: action.classTimes.data }
-    //   return newState;
-    // case REMOVE_CLASSTIME:
-    //   let classId = action.classTime.data.class
-    //   let classTimeId = action.classTime.data._id
-    //   newState.all[classId].classTimes = newState.all[classId].classTimes.filter(classtime => classtime._id !== classTimeId)
-    //   return newState;
     default: 
       return state;
   }

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Class = require('./Class');
 const Schema = mongoose.Schema;
 
 const ClassTimeSchema = new Schema({
@@ -18,6 +19,18 @@ const ClassTimeSchema = new Schema({
   }
 }, {
   timestamps: true
+})
+
+ClassTimeSchema.post('save', (doc, next) => {
+  Class.findByIdAndUpdate(doc.class, { $push: { classTimes: doc._id } })
+    .then(result => next())
+})
+
+ClassTimeSchema.post('remove', { document: true, query: false }, function(doc){
+  Class.findByIdAndUpdate(doc.class, 
+    { $pull: { classTimes: doc._id } },
+    { new: true }
+  ).exec()
 })
 
 

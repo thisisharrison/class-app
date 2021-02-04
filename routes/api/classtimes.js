@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 
 router.get('/class/:classId', (req, res) => {
   ClassTime.find({ class: req.params.classId })
-    .then(classtimes => res.json({ [req.params.classId]: classtimes }))
+    .then(classtimes => res.json(classtimes))
     .catch(err => res.status(404).json({ noclassstimefound: 'No class time found with that class ID.' }))
 });
 
@@ -46,15 +46,10 @@ router.patch('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  ClassTime.findByIdAndDelete(req.params.id,
-    (err, result) => {
-      if (err) {
-        res.status(404).json({ noclasstimefound: 'No class time found with that ID.' })
-      } else {
-        res.json(result)
-      }
-    }
-  )
+  ClassTime.findOne({_id: req.params.id})
+    .then(classtime => classtime.remove().then(classtime => {
+      res.json(classtime);
+    }))
 })
 
 module.exports = router;

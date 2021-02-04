@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 const Class = require('../../models/Class');
+const ClassTime = require('../../models/ClassTime');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the classes route" }));
 

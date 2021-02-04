@@ -15,13 +15,18 @@ const ClassSchema = new Schema({
     ref: 'User', 
     index: true
   },
-  tags: [{
+  classTimes: [{
     type: Schema.Types.ObjectId,
-    ref: 'Tag'
-  }], 
+    ref: 'ClassTime'
+  }],
+  tags: [String], 
   languages: [String]
 }, {
   timestamps: true
+})
+
+ClassSchema.post('remove', { document: true, query: false }, function (doc) {
+  ClassSchema.deleteMany({ class: doc.id }).exec()
 })
 
 module.exports = Class = mongoose.model('Class', ClassSchema);

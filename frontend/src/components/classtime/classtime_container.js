@@ -1,17 +1,19 @@
 import { connect } from "react-redux"
-import { fetchClassTimes, destroyClassTime, updateClassTime } from "../../actions/classtime_action";
+import { fetchClassTimes, destroyClassTime, editClassTime } from "../../actions/classtime_action";
+import { selectClass, selectClassTimes } from '../../reducers/selectors'
 import ClassTimeIndex from './classtime_index'
 
 const mapStateToProps = (state, ownProps) => ({
-  classId: ownProps.classId.id,
-  classTimes: state.entities.classTimes.all,
-  classTimes: ownProps.classTimes
+  classId: ownProps.classId,
+  classTimes: selectClassTimes(state, ownProps.classId),
+  isEdit: ownProps.isEdit,
+  isAdmin: ownProps.isAdmin
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchClassTimes: id => dispatch(fetchClassTimes(id)),
   destroyClassTime: id => dispatch(destroyClassTime(id)),
-  updateClassTime: (id, data) => dispatch(updateClassTime(id, data))
+  editClassTime: classTime => dispatch(editClassTime(classTime))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassTimeIndex)

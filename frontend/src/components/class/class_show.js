@@ -48,6 +48,12 @@ class ClassShow extends Component {
         {this.renderEditButton()}
         {this.renderClassForm()}
         
+        <ClassTimeContainer 
+          classId={classId}
+          isEdit={this.props.match.path.includes('edit')}
+          isAdmin={isAdmin}
+        />
+        {/* TO BE REMOVED */}
         <ClassTimeIndex
           classId={classId}
           classTimes={classTimes}
