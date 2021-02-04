@@ -11,11 +11,9 @@ export const postClassTime = (id, data) => (
 )
 
 // edit a class time 
-export const patchClassTime = (id, data) => {
-  debugger
-  return (
+export const patchClassTime = (id, data) => (
   axios.patch(`/api/classtimes/${id}`, data)
-)}
+)
 
 // delete a class time 
 export const deleteClassTime = (id) => (

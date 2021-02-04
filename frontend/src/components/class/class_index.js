@@ -10,16 +10,14 @@ class ClassIndex extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchClasses();
   }
 
-  componentWillReceiveProps(newState) {
-    this.setState({ classes: newState.classes })
-  }
-
-  render() {
-    
+  componentDidUpdate(prevProps) {
+    if (this.props.classes !== prevProps.classes) {
+      this.setState({ classes: this.props.classes })  
+    }
   }
 
   render() {

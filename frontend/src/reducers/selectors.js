@@ -7,8 +7,8 @@ export const selectClass = ({ entities: { classes } }, id ) => {
   return classes.all[id] || {}
 }
 
-export const selectClassTimes = ({ entities: { classTimes } }, id) => {
-  return classTimes.all[id] || [];
+export const selectClassTimes = ({entities}, id) => {
+  return entities.classTimes.all || []
 }
 
 export const getUserBookings = state => (

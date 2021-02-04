@@ -4,10 +4,10 @@ import { selectClass, selectClassTimes } from '../../reducers/selectors'
 import ClassTimeIndex from './classtime_index'
 
 const mapStateToProps = (state, ownProps) => ({
+  classTimes: selectClassTimes(state),
   classId: ownProps.classId,
-  classTimes: selectClassTimes(state, ownProps.classId),
   isEdit: ownProps.isEdit,
-  isAdmin: ownProps.isAdmin
+  isClassOwner: ownProps.isClassOwner
 })
 
 const mapDispatchToProps = dispatch => ({

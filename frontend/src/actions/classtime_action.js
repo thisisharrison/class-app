@@ -9,6 +9,7 @@ export const RECEIVE_CLASSTIMES = 'RECEIVE_CLASSTIMES';
 export const RECEIVE_NEW_CLASSTIME = 'RECEIVE_NEW_CLASSTIME';
 export const REMOVE_CLASSTIME = 'REMOVE_CLASSTIME'
 export const EDIT_CLASSTIME = 'EDIT_CLASSTIME'
+export const RECEIVE_UPDATE_CLASSTIME = 'RECEIVE_UPDATE_CLASSTIME';
 
 export const receiveClassTimes = classTimes => ({
   type: RECEIVE_CLASSTIMES,
@@ -28,6 +29,11 @@ export const removeClassTime = classTime => ({
 
 export const editClassTime = classTime => ({
   type: EDIT_CLASSTIME,
+  classTime
+})
+
+export const receiveUpdateClassTime = classTime => ({
+  type: RECEIVE_UPDATE_CLASSTIME,
   classTime
 })
 
@@ -55,6 +61,6 @@ export const destroyClassTime = id => dispatch => (
 
 export const updateClassTime = (id, data) => dispatch => (
   patchClassTime(id, data)
-    .then(classTime => dispatch(receiveNewClassTime(classTime)))
+    .then(classTime => dispatch(receiveUpdateClassTime(classTime)))
     .catch(err => console.log(err))
 )

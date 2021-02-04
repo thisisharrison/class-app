@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ClassDetail from './class_detail'
 import ClassTimeIndex from '../classtime/classtime_index';
 import { Link, withRouter } from 'react-router-dom';
-import ClassFormContainer from './class_form_container';
 import ClassTimeFormContainer from '../classtime/classtime_form_container';
 import ClassTimeContainer from '../classtime/classtime_container';
 
@@ -12,57 +11,42 @@ class ClassShow extends Component {
   }
 
   componentDidMount() {
-    // If we don't have class in store, fetchClass
-    if (Object.keys(this.props._class).length === 0) {
-      this.props.fetchClass(this.props.classId)
-    }
+    this.props.fetchClass(this.props.classId)
   }
 
   // only admin can see the edit button on their own classes
   renderEditButton() {
-    if (this.props.isAdmin && this.props.currentUserId === this.props._class.admin) {
+    if (this.isClassOwner()) {
       return (
         <div>
-        <Link to={`/classes/${this.props.classId}/edit`}
-          onClick={() => this.render()}>Edit</Link>
+        <Link to={`/classes/${this.props.classId}/edit`}>Edit</Link>
         </div>
       )
     }
   }
 
-  renderClassForm() {
-    if (this.props.match.path.includes('edit')) {
-      return <ClassFormContainer isNew={false} _class={this.props._class} />
-    }
+  isClassOwner() {
+    return this.props.isAdmin && this.props.currentUserId === this.props._class.admin
   }
 
   render() {
-    const { classId, _class, classTimes, fetchClassTimes, destroyClassTime, editClassTime, isAdmin } = this.props;
+    const { classId, _class, isAdmin } = this.props;
     return (
       <div>
         <Link to="/classes">Back to All Classes</Link>
         <ClassDetail 
+          isEdit={this.props.match.path.includes('edit')}
           classId={classId}
           _class={_class}
         /> 
         {this.renderEditButton()}
-        {this.renderClassForm()}
         
         <ClassTimeContainer 
           classId={classId}
           isEdit={this.props.match.path.includes('edit')}
-          isAdmin={isAdmin}
+          isClassOwner={this.isClassOwner()}
         />
-        {/* TO BE REMOVED */}
-        <ClassTimeIndex
-          classId={classId}
-          classTimes={classTimes}
-          fetchClassTimes={fetchClassTimes}
-          destroyClassTime={destroyClassTime}
-          editClassTime={editClassTime}
-          isAdmin={isAdmin}
-          isEdit={this.props.match.path.includes('edit')}
-        />
+        
       </div>
     )
   }

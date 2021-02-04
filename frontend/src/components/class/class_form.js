@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import ClassIndexItem from './class_index_item';
+import { withRouter } from 'react-router-dom';
 
-export default class ClassForm extends Component {
+class ClassForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +12,7 @@ export default class ClassForm extends Component {
       newClass: {}
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,12 @@ export default class ClassForm extends Component {
       [field]: e.currentTarget.value
     })
   }
+
+  handleDelete(e) {
+    e.preventDefault();
+    const {destroyClass, history} = this.props
+    Promise.all([destroyClass(this.props._class._id), history.push('/classes')])
+  }
   
   render() {
     const header = this.props.isNew ? 
@@ -74,9 +81,11 @@ export default class ClassForm extends Component {
             this.props.isNew ? 'Create Class' : 'Edit Class'
           } />
         </form>
+          <button onClick={this.handleDelete}>Delete Class</button>
         <br />
-        {/* <ClassIndexItem _class={this.state.newClass}/> */}
       </div>
     )
   }
 }
+
+export default withRouter(ClassForm);

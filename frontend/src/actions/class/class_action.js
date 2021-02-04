@@ -9,6 +9,7 @@ import {
 export const RECEIVE_CLASSES = 'RECEIVE_CLASSES';
 export const RECEIVE_NEW_CLASS = 'RECEIVE_NEW_CLASS';
 export const RECEIVE_CLASS = 'RECEIVE_CLASS';
+export const REMOVE_CLASS = 'REMOVE_CLASS';
 
 
 export const receiveClasses = classes => ({ 
@@ -21,6 +22,10 @@ export const receiveNewClass = _class => ({
 })
 export const receiveClass = (_class) => ({ 
   type: RECEIVE_CLASS,
+  _class
+})
+export const removeClass = (_class) => ({
+  type: REMOVE_CLASS,
   _class
 })
 
@@ -54,6 +59,6 @@ export const updateClass = (id, data) => dispatch => (
 
 export const destroyClass = id => dispatch => (
   deleteClass(id)
-    .then(_class => dispatch(receiveClass(_class)))
+    .then(_class => dispatch(removeClass(_class)))
     .catch(err => console.log(err))
 )
