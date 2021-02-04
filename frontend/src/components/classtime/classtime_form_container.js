@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { createClassTime } from "../../actions/classtime_action";
+import { createClassTime, editClassTime, updateClassTime } from "../../actions/classtime_action";
 import ClassTimeForm from './classtime_form'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createClassTime: (id, data) => dispatch(createClassTime(id, data))
+  createClassTime: (id, data) => dispatch(createClassTime(id, data)),
+  updateClassTime: (id, data) => dispatch(updateClassTime(id, data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassTimeForm);

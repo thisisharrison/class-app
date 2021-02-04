@@ -36,14 +36,8 @@ class ClassShow extends Component {
     }
   }
 
-  renderClassTimeForm() {
-    if (this.props.match.path.includes('edit')) {
-      return (<ClassTimeFormContainer classId={this.props.classId}/>)
-    }
-  }
-
   render() {
-    const { classId, _class, classTimes, fetchClassTimes, destroyClassTime, isAdmin } = this.props;
+    const { classId, _class, classTimes, fetchClassTimes, destroyClassTime, editClassTime, isAdmin } = this.props;
     return (
       <div>
         <Link to="/classes">Back to All Classes</Link>
@@ -53,17 +47,13 @@ class ClassShow extends Component {
         /> 
         {this.renderEditButton()}
         {this.renderClassForm()}
-        {this.renderClassTimeForm()}
-        {/* <ClassTimeContainer 
-          classId={classId}
-          isAdmin={isAdmin}
-          isEdit={this.props.match.path.includes('edit')}
-        /> */}
+        
         <ClassTimeIndex
           classId={classId}
           classTimes={classTimes}
           fetchClassTimes={fetchClassTimes}
           destroyClassTime={destroyClassTime}
+          editClassTime={editClassTime}
           isAdmin={isAdmin}
           isEdit={this.props.match.path.includes('edit')}
         />

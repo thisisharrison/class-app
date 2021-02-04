@@ -8,6 +8,7 @@ import {
 export const RECEIVE_CLASSTIMES = 'RECEIVE_CLASSTIMES';
 export const RECEIVE_NEW_CLASSTIME = 'RECEIVE_NEW_CLASSTIME';
 export const REMOVE_CLASSTIME = 'REMOVE_CLASSTIME'
+export const EDIT_CLASSTIME = 'EDIT_CLASSTIME'
 
 export const receiveClassTimes = classTimes => ({
   type: RECEIVE_CLASSTIMES,
@@ -22,6 +23,11 @@ export const receiveNewClassTime = classTime => ({
 // Remove classTime from state
 export const removeClassTime = classTime => ({
   type: REMOVE_CLASSTIME,
+  classTime
+})
+
+export const editClassTime = classTime => ({
+  type: EDIT_CLASSTIME,
   classTime
 })
 

@@ -32,20 +32,38 @@ class ClassTimeForm extends Component {
     this.setState({ newClassTime: nextProps.newClassTime })
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.newClassTime !== prevProps.newClassTime && this.props.newClassTime) {
+      const { startTime, endTime } = this.props.newClassTime;
+      this.setState({
+        startTime: moment.unix(startTime).format("YYYY-MM-DDTHH:mm"), 
+        endTime: moment.unix(endTime).format("YYYY-MM-DDTHH:mm")
+      })
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const payload = {
       startTime: moment(this.state.startTime).unix(),
       endTime: moment(this.state.endTime).unix()
     }
-    this.props.createClassTime(this.props.classId, payload);
+    if (this.props.newClassTime) {
+      // Editing
+      this.props.updateClassTime(this.props.newClassTime._id, payload);
+    } else {
+      // Creating
+      this.props.createClassTime(this.props.classId, payload);
+    }
     this.setState({
       startTime: '',
-      endTime: ''
+      endTime: '',
+      newClassTime: ''
     })
   }
 
   render() {
+    const btn = !!this.props.newClassTime ?  'Edit Class Time' : 'Create Class Time';
     return (
       <div>
         <h2>Add New Class Time</h2>
@@ -63,10 +81,9 @@ class ClassTimeForm extends Component {
             type="datetime-local"
             onChange={this.update('endTime')}
           />
-          <input type="submit" value="Create Class Time" />
+          <input type="submit" value={btn} />
         </form>
         <br />
-        <ClassTimeIndexItem classTime={this.state.newClassTime} />
       </div>
     )
   }

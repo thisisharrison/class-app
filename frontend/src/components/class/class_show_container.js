@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { destroyClassTime, fetchClassTimes } from "../../actions/classtime_action";
+import { destroyClassTime, fetchClassTimes, editClassTime } from "../../actions/classtime_action";
 import { fetchClass } from '../../actions/class/class_action';
 import { selectClass, selectClassTimes } from '../../reducers/selectors'
 import ClassShow from './class_show';
@@ -15,7 +15,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   fetchClass: id => dispatch(fetchClass(id)),
   fetchClassTimes: id => dispatch(fetchClassTimes(id)),
-  destroyClassTime: id => dispatch(destroyClassTime(id))
+  destroyClassTime: id => dispatch(destroyClassTime(id)),
+  editClassTime: classTime => dispatch(editClassTime(classTime))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassShow)
