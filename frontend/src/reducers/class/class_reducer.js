@@ -27,9 +27,8 @@ export default function(state = _initialState, action) {
       newState.all = {...newState.all, [action._class.data._id]: action._class.data }
       return newState;
     case RECEIVE_CLASSTIMES:
-      let data = action.classTimes.data
-      let classId = Object.keys(data)[0]
-      newState.all[classId]['classTimes'] = data;
+      const classId = action.classTimes.data.class;
+      newState.all[classId] = { ...newState.all[classId], classTimes: action.classTimes.data }
       return newState;
     default: 
       return state;

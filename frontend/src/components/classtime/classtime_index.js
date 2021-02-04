@@ -30,8 +30,10 @@ class ClassTimeIndex extends Component {
           <div>
             <h2>All Class Times</h2>
             {this.state.classTimes.map(classTime => (
-              <ClassTimeIndexItem key={classTime._id} classTime={classTime} 
+              <ClassTimeIndexItem key={classTime._id} 
+                classTime={classTime} 
                 isEdit={this.props.isEdit}
+                destroyClassTime={this.props.destroyClassTime}
               />
             ))}
           </div>

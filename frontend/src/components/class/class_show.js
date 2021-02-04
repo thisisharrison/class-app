@@ -4,6 +4,7 @@ import ClassTimeIndex from '../classtime/classtime_index';
 import { Link, withRouter } from 'react-router-dom';
 import ClassFormContainer from './class_form_container';
 import ClassTimeFormContainer from '../classtime/classtime_form_container';
+import ClassTimeContainer from '../classtime/classtime_container';
 
 class ClassShow extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class ClassShow extends Component {
   }
 
   render() {
-    const { classId, _class, classTimes, fetchClassTimes, isAdmin } = this.props;
+    const { classId, _class, classTimes, fetchClassTimes, destroyClassTime, isAdmin } = this.props;
     return (
       <div>
         <Link to="/classes">Back to All Classes</Link>
@@ -53,10 +54,16 @@ class ClassShow extends Component {
         {this.renderEditButton()}
         {this.renderClassForm()}
         {this.renderClassTimeForm()}
+        {/* <ClassTimeContainer 
+          classId={classId}
+          isAdmin={isAdmin}
+          isEdit={this.props.match.path.includes('edit')}
+        /> */}
         <ClassTimeIndex
           classId={classId}
           classTimes={classTimes}
           fetchClassTimes={fetchClassTimes}
+          destroyClassTime={destroyClassTime}
           isAdmin={isAdmin}
           isEdit={this.props.match.path.includes('edit')}
         />

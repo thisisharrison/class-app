@@ -22,6 +22,7 @@ const classTimeReducer = (state = _initialState, action) => {
       newState.new = action.classTime.data
       return newState;
     case REMOVE_CLASSTIME:
+      delete newState.all[action.classTime.data._id]
       return state;
 
     default: 

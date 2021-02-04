@@ -21,7 +21,7 @@ export const receiveNewClassTime = classTime => ({
 
 // Remove classTime from state
 export const removeClassTime = classTime => ({
-  type: REMOVE_CLASSTIME.length,
+  type: REMOVE_CLASSTIME,
   classTime
 })
 
