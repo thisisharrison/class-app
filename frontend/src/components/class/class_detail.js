@@ -1,9 +1,12 @@
 import ClassFormContainer from './class_form_container';
 
-const ClassDetail = ({ _class, isEdit }) => {
+const ClassDetail = ({ _class, isEdit, isNew }) => {
   let classform;
   if (isEdit) {
     classform = <ClassFormContainer isNew={false} _class={_class} />;
+  }
+  if (isNew) {
+    return (<ClassFormContainer isNew={true} _class={_class} />)
   }
   return (
   <div>

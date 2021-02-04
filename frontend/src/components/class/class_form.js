@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom';
+import { Redirect, useHistory, withRouter } from 'react-router-dom';
 
 class ClassForm extends Component {
   constructor(props) {
@@ -25,17 +25,22 @@ class ClassForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ newClass: nextProps.newClass })
+    if (nextProps.newClass._id) {
+      this.props.history.push(`/classes/${nextProps.newClass._id}`)
+    } else {
+      this.setState({ newClass: nextProps.newClass })
+    }
   }
   
   handleSubmit(e) {
     e.preventDefault();
     let _class = Object.assign({}, this.state);
     delete _class.newClass;
-    if (this.props.isNew) {
-      this.props.createClass(_class);
+    const {isNew, createClass, updateClass } = this.props;
+    if (isNew) {
+      createClass(_class);
     } else {
-      this.props.updateClass(
+      updateClass(
         this.props._class._id, 
         _class)
     }
@@ -53,10 +58,17 @@ class ClassForm extends Component {
     })
   }
 
-  handleDelete(e) {
-    e.preventDefault();
-    const {destroyClass, history} = this.props
-    Promise.all([destroyClass(this.props._class._id), history.push('/classes')])
+  handleDelete() {
+    return e => {
+      e.preventDefault();
+      const {destroyClass, history} = this.props
+      destroyClass(this.props._class._id)
+      history.push('/classes')
+    }
+  }
+
+  renderDeleteButton() {
+    return this.props.isNew ? '' : <button onClick={this.handleDelete()}>Delete Class</button>
   }
   
   render() {
@@ -81,7 +93,7 @@ class ClassForm extends Component {
             this.props.isNew ? 'Create Class' : 'Edit Class'
           } />
         </form>
-          <button onClick={this.handleDelete}>Delete Class</button>
+          {this.renderDeleteButton()}
         <br />
       </div>
     )

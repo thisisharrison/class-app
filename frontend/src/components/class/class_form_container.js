@@ -5,8 +5,8 @@ import ClassForm from './class_form'
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.session.user,
   newClass: state.entities.classes.new,
-  isNew: ownProps.isNew, 
-  _class: ownProps._class
+  _class: ownProps._class,
+  isNew: ownProps.isNew
 });
 
 const mapDispatchToProps = dispatch => ({

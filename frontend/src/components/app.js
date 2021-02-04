@@ -8,9 +8,10 @@ import Session from './session/session_container';
 import SearchContainer from './search/search_container';
 import ClassShowContainer from './class/class_show_container';
 
-import ClassFormContainer from './class/class_form_container';
+
 import ProfileContainer from './profile/profile_container';
 import ClassTimeContainer from './classtime/classtime_container';
+import ClassFormContainer from './class/class_form_container';
 
 
 // Homepage: landing page of e-commerce site
@@ -28,10 +29,13 @@ const App = () => (
       <Route exact path="/classes" component={SearchContainer} />
       <Route exact path="/classes/:id" component={ClassShowContainer} />
       <Route exact path="/classes/:id/edit" component={ClassShowContainer} />
+      <Route exact path="/new-class" render={(props) => <ClassFormContainer isNew={true} /> } />
+      <Route exact path="/props-through-render" render={(props) => <PropsPage {...props} title={`Props through render`} />} />
+
 
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       
-      <AdminRoute exact path="/new-class" component={ClassFormContainer} />
+      
 
       
 
