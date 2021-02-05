@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Redirect, useHistory, withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
+import Taggings from './class_taggings'
 
 class ClassForm extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class ClassForm extends Component {
       description: '',
       tags: [],
       languages: [],
-      newClass: {}
+      newClass: {},
+      redirect: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -24,11 +26,12 @@ class ClassForm extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.newClass._id) {
-      this.props.history.push(`/classes/${nextProps.newClass._id}`)
-    } else {
-      this.setState({ newClass: nextProps.newClass })
+  componentDidUpdate(prevProps) {
+    if (prevProps.newClass !== this.props.newClass) {
+      this.setState({ newClass: this.props.newClass })
+      if (this.props.isNew) {
+        this.props.history.push(`/classes/${this.props.newClass._id}`)
+      }
     }
   }
   
@@ -44,12 +47,8 @@ class ClassForm extends Component {
         this.props._class._id, 
         _class)
     }
-    this.setState({
-      name: '',
-      description: '',
-      tags: [],
-      languages: [],
-    })
+    // do not clear form with setState
+    // easier for user to make new updates
   }
 
   update(field) {
@@ -58,12 +57,18 @@ class ClassForm extends Component {
     })
   }
 
+  updateTags(taggings) {
+    this.setState({
+      tags: taggings
+    })
+  }
+
   handleDelete() {
     return e => {
       e.preventDefault();
-      const {destroyClass, history} = this.props
+      const {destroyClass} = this.props
       destroyClass(this.props._class._id)
-      history.push('/classes')
+      this.setState({ redirect: true })
     }
   }
 
@@ -92,9 +97,16 @@ class ClassForm extends Component {
           <input type="submit" value={
             this.props.isNew ? 'Create Class' : 'Edit Class'
           } />
+          <Taggings 
+            updateTags={(taggings) => this.updateTags(taggings)}
+          />
+          
         </form>
           {this.renderDeleteButton()}
         <br />
+        {this.state.redirect && (
+          <Redirect to="/classes" />
+        )}
       </div>
     )
   }

@@ -13,6 +13,10 @@ const ClassDetail = ({ _class, isEdit, isNew }) => {
     <h2>{_class.name}</h2>
     <p><strong>Class Name:</strong>{_class.name}</p>
     <p><strong>Class Description:</strong>{_class.description}</p> 
+    <p><strong>Tags:</strong></p>
+    <ul>
+    {_class.tags.map((tag, idx) => <li key={`tag-${idx}`}>{tag}</li>)}
+    </ul>
     <p><strong>Ambassador:</strong>John Doe</p>
     <p><strong>Bio:</strong>Hey there...</p>
     {classform}

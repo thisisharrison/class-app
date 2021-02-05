@@ -4,12 +4,9 @@ export const getClasses = () => (
   axios.get('/api/classes')
 )
 
-export const postClass = data => {
-  debugger
-  return (
+export const postClass = data => (
   axios.post('/api/classes', data)
 )
-  }
 
 export const showClass = id => (
   axios.get(`/api/classes/${id}`)

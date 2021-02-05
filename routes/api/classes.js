@@ -96,15 +96,14 @@ router.delete('/:id',
     }
     
     // find by id, delete
-    Class.findByIdAndDelete(req.params.id, 
-      (err, result) => {
-        if (err) {
-          res.status(404).json({ noclassfound: 'No class found with that ID' })
-        } else {
-          res.json(result)
-        }
-      }  
-    )
+    Class.findById(req.params.id)
+      .then(_class => {
+        _class.remove()
+        res.json(_class)
+      })
+      .catch(err => res.status(404).json({ noclassfound: 'No class found with that ID' })) 
+
+
   }
 )
 

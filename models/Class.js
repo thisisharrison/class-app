@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ClassTime = require('./ClassTime');
 const Schema = mongoose.Schema;
 
 const ClassSchema = new Schema({
@@ -26,7 +27,7 @@ const ClassSchema = new Schema({
 })
 
 ClassSchema.post('remove', { document: true, query: false }, function (doc) {
-  ClassSchema.deleteMany({ class: doc.id }).exec()
+  ClassTime.deleteMany({ class: doc.id }).exec()
 })
 
 module.exports = Class = mongoose.model('Class', ClassSchema);
