@@ -1,16 +1,17 @@
-import ClassContainer from '../class/class_container';
+import { connect } from 'react-redux';
+import { fetchAllClassTimes } from '../../actions/classtime_action';
+import { fetchClasses } from '../../actions/class/class_action';
+import { toArray } from '../../reducers/selectors'
+import Search from './search';
 
-const SearchContainer = () => (
-  <div>
-    <h2>SearchContainer</h2>
-      {/* <ul>
-        <li>Date</li>
-        <li>Time of Day</li>
-        <li>Languages offtered</li>
-        <li>Interests</li>
-      </ul> */}
-    <ClassContainer />
-  </div>
-)
+const mapStateToProps = ({entities}) => ({
+  classes: toArray(entities.classes.all),
+  classTimes: entities.classTimes.all,
+})
 
-export default SearchContainer;
+const mapDispatchToProps = dispatch => ({
+  fetchClasses: () => dispatch(fetchClasses()),
+  fetchAllClassTimes: () => dispatch(fetchAllClassTimes())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

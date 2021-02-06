@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ClassTimeIndexItem from '../classtime/classtime_index_item'
 
 export default class Profile extends Component {
   constructor(props) {
@@ -21,7 +22,10 @@ export default class Profile extends Component {
         </ul>
         <h2>Your Booked Class Times</h2>
         <ul>
-          {bookings.map(classTimeId => <li key={classTimeId}>{classTimeId}</li>)}
+          {/* {bookings.map(classTimeId => 
+            <ClassTimeIndexItem key={classTimeId} 
+              isEdit={false} />
+            )} */}
         </ul>
       </div>
     )

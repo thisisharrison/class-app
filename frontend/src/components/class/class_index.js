@@ -12,6 +12,7 @@ class ClassIndex extends Component {
 
   componentDidMount() {
     this.props.fetchClasses();
+    // this.props.fetchAllClassTimes();
   }
 
   componentDidUpdate(prevProps) {

@@ -15,11 +15,20 @@ const ClassTimeIndexItem = ({ classTime, isEdit, destroyClassTime, updateClassTi
       >Remove</button>
     </ul>) : ''
 
+  const bookingButtons = !isEdit ? (
+    <ul>
+      <button type="button"
+        value="Book"
+      />
+    </ul>
+  ) : ''
+
   return (
     <div>
       <p>Starts: {startTime}</p>
       <p>Ends: {endTime}</p>
       {editButtons}
+      {bookingButtons}
     </div>
   )
 }

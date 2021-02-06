@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+export const getAllClassTimes = () => (
+  axios.get('/api/classtimes')
+)
 // get all class times of a given class
 export const getClassTimes = id => (
   axios.get(`/api/classtimes/class/${id}`)

@@ -22,7 +22,8 @@ const ClassTimeSchema = new Schema({
 })
 
 ClassTimeSchema.post('save', (doc, next) => {
-  Class.findByIdAndUpdate(doc.class, { $push: { classTimes: doc._id } })
+  Class.findByIdAndUpdate(doc.class, 
+    { $push: { classTimes: doc._id } })
     .then(result => next())
 })
 

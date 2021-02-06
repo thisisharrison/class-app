@@ -1,4 +1,4 @@
-export const getClassArray = obj => (
+export const toArray = obj => (
   Object.keys(obj).map(key => obj[key])
 )
 

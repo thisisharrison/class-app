@@ -1,4 +1,5 @@
 import { 
+  getAllClassTimes,
   getClassTimes,
   postClassTime,
   patchClassTime,
@@ -36,6 +37,13 @@ export const receiveUpdateClassTime = classTime => ({
   type: RECEIVE_UPDATE_CLASSTIME,
   classTime
 })
+
+// query all classtimes
+export const fetchAllClassTimes = () => dispatch => (
+  getAllClassTimes()
+    .then(classTimes => dispatch(receiveClassTimes(classTimes)))
+    .catch(err => console.log(err))
+);
 
 // frontend pass classId to fetch class's class times
 export const fetchClassTimes = classId => dispatch => (
