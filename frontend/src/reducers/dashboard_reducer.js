@@ -5,7 +5,7 @@ import {
   RECEIVE_SAVES,
   RECEIVE_SAVE,
   REMOVE_SAVE
-} from '../actions/profile_actions';
+} from '../actions/dashboard_actions';
 
 const initialState = { bookings: [], saves: [] };
 

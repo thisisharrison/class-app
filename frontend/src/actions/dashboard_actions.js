@@ -5,7 +5,7 @@ import {
   getSaves,
   createSave,
   deleteSave
-} from '../util/profile_api_util';
+} from '../util/dashboard_api_util';
 
 export const RECEIVE_BOOKINGS = 'RECEIVE_BOOKINGS'
 export const RECEIVE_BOOKING = 'RECEIVE_BOOKING'
