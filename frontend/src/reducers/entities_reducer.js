@@ -5,5 +5,6 @@ import dashboard from './dashboard_reducer';
 
 export default combineReducers({
   classes,
-  classTimes
+  classTimes,
+  dashboard
 })

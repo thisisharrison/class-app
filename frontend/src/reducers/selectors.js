@@ -11,10 +11,10 @@ export const selectClassTimes = ({entities}, id) => {
   return entities.classTimes.all || []
 }
 
-export const getUserBookings = state => (
-  state.session.user.bookings || []
+export const getBookings = state => (
+  state.entities.dashboard.bookings || []
 ) 
 
-export const getUserSaves = state => (
-  state.session.user.saves || []
+export const getSaves = state => (
+  state.entities.dashboard.saves || []
 ) 

@@ -12,7 +12,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the saves route" }));
 router.get('/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id)
-      .then(user => res.json({ saves: user.saves }))
+      .then(user => res.json(user.saves))
   });
 
 // Add a class to current user's saved classes
@@ -24,7 +24,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
       { $addToSet: { saves: classId } }, 
       { new: true },
       (err, result) => {
-        res.json({ saves: result.saves });
+        res.json(result.saves);
       }
     )
 });
@@ -36,7 +36,7 @@ router.delete('/:classId', passport.authenticate('jwt', { session: false }),
       { $pull: { saves: req.params.classId } },
       { new: true },
       (err, result) => {
-        res.json({ saves: result.saves });
+        res.json(result.saves);
       }
     )
   });

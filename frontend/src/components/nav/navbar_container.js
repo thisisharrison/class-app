@@ -5,7 +5,7 @@ import NavBar from './navbar';
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,
-  isAdmin: state.session.user.isAdmin
+  isAdmin: state.session.isAdmin
 });
 
 export default connect(mapStateToProps, { logout })(NavBar);

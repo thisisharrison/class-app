@@ -7,7 +7,6 @@ import {
 const initialState = {
   isAuthenticated: false,
   isAdmin: false,
-  user: {isAdmin: false}
 };
 
 export default function(state = initialState, action) {

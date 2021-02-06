@@ -44,7 +44,7 @@ export const removeSave = saves => ({
   saves
 })
 
-export const fetchBookings = dispatch => (
+export const fetchBookings = () => dispatch => (
   getBookings().then(bookings => dispatch(receiveBookings(bookings)))
 )
 
@@ -56,7 +56,7 @@ export const destroyBooking = classTimeId => dispatch => (
   deleteBooking(classTimeId).then(bookings => dispatch(removeBooking(bookings)))
 )
 
-export const fetchSaves = dispatch => (
+export const fetchSaves = () => dispatch => (
   getSaves().then(saves => dispatch(receiveSaves(saves)))
 )
 

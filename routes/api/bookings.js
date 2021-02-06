@@ -12,7 +12,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the bookings route" }
 router.get('/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id)
-      .then(user => res.json({ bookings: user.bookings }))
+      .then(user => res.json(user.bookings))
   });
 
 // Add a class time to current user's bookings
@@ -29,7 +29,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       await User.findByIdAndUpdate(req.user._id,
         { $addToSet: { bookings: classTimeId } },
         { new: true },
-        (err, result) => res.json({ bookings: result.bookings })
+        (err, result) => res.json(result.bookings)
       ).exec()
     } catch (err) {
       res.status(422)
@@ -48,7 +48,7 @@ router.delete('/:classTimeId', passport.authenticate('jwt', { session: false }),
       await User.findByIdAndUpdate(req.user._id,
         { $pull: { bookings: req.params.classTimeId } },
         { new: true },
-        (err, result) => res.json({ bookings: result.bookings })
+        (err, result) => res.json(result.bookings)
       ).exec()
     } catch (err) {
       res.status(422)

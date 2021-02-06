@@ -1,16 +1,21 @@
 import { connect } from "react-redux"
 import Profile from './profile'
-import { getUserBookings, getUserSaves } from '../../reducers/selectors';
+import { getBookings, getSaves } from '../../reducers/selectors';
+import { destroyBooking, destroySave, fetchBookings, fetchSaves, newBooking, newSave } from "../../actions/dashboard_actions";
 
 const mapStateToProps = (state) => ({
-  bookings: getUserBookings(state),
-  saves: getUserSaves(state),
+  bookings: getBookings(state),
+  saves: getSaves(state),
   currentUser: state.session.user
 })
 
 const mapDispatchToProps = dispatch => ({
-  // remove saves
-  // remove bookings
+  fetchBookings: () => dispatch(fetchBookings()),
+  newBooking: (classTimeId) => dispatch(newBooking(classTimeId)),
+  destroyBooking: (classTimeId) => dispatch(destroyBooking(classTimeId)),
+  fetchSaves: () => dispatch(fetchSaves()),
+  newSave: (classId) => dispatch(newSave(classId)),
+  destroySave: (classId) => dispatch(destroySave(classId))
 })
 
-export default connect(mapStateToProps, null)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
