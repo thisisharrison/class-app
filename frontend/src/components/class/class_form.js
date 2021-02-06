@@ -33,13 +33,14 @@ class ClassForm extends Component {
     if (prevProps.newClass !== this.props.newClass) {
       this.setState({ 
         newClass: this.props.newClass,
-        name: this.props._class.name,
-        description: this.props._class.description,
-        tags: this.props._class.tags,
-        languages: this.props._class.languages
+        // name: this.props._class.name,
+        // description: this.props._class.description,
+        // tags: this.props._class.tags,
+        // languages: this.props._class.languages
       })
       if (this.props.isNew) {
-        this.setState({ redirect: true, redirectPath: `/classes/${this.props.newClass._id}` })
+        // this.setState({ redirect: true, redirectPath: `/classes/${this.props.newClass._id}` })
+        this.props.history.push(`/classes/${this.props.newClass._id}`)
       }
     }
   }
