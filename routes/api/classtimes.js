@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const Class = require('../../models/Class')
 const ClassTime = require('../../models/ClassTime');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the class times route" }));
