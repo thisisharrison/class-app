@@ -30,7 +30,7 @@ class ClassShow extends Component {
   }
 
   render() {
-    const { classId, _class, isAdmin } = this.props;
+    const { classId, _class, classTimes, isAdmin } = this.props;
     return (
       <div>
         <Link to="/classes">Back to All Classes</Link>
@@ -42,6 +42,7 @@ class ClassShow extends Component {
         {this.renderEditButton()}
         
         <ClassTimeContainer 
+          classTimes={classTimes}
           classId={classId}
           isEdit={this.props.match.path.includes('edit')}
           isClassOwner={this.isClassOwner()}

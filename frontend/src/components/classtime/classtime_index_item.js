@@ -17,9 +17,9 @@ const ClassTimeIndexItem = ({ classTime, isEdit, destroyClassTime, updateClassTi
 
   const bookingButtons = !isEdit ? (
     <ul>
-      <button type="button"
-        value="Book"
-      />
+      <button type="button">
+        Book
+      </button>
     </ul>
   ) : ''
 

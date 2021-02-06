@@ -1,15 +1,16 @@
 import ClassContainer from '../class/class_container';
 import ClassIndex from '../class/class_index';
+import FilterForm from './filter_form'
 
 const Search = ({classes, fetchClasses, fetchAllClassTimes}) => (
   <div>
-    <h2>FilterForm</h2>
-    <ClassContainer />
-    {/* <ClassIndex 
-      classes={classes}
+    <FilterForm 
       fetchClasses={fetchClasses}
-      fetchAllClassTimes={fetchAllClassTimes} */}
-    {/* /> */}
+      fetchAllClassTimes={fetchAllClassTimes}
+    />
+    <ClassIndex 
+      classes={classes}
+    />
   </div>
 )
 

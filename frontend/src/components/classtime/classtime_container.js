@@ -4,7 +4,7 @@ import { selectClass, selectClassTimes } from '../../reducers/selectors'
 import ClassTimeIndex from './classtime_index'
 
 const mapStateToProps = (state, ownProps) => ({
-  classTimes: selectClassTimes(state),
+  classTimes: ownProps.classTimes,
   classId: ownProps.classId,
   isEdit: ownProps.isEdit,
   isClassOwner: ownProps.isClassOwner

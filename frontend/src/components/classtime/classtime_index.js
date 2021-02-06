@@ -6,20 +6,22 @@ import ClassTimeIndexItem from './classtime_index_item'
 class ClassTimeIndex extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      classTimes: []
+    // this.state = {
+    //   classTimes: []
+    // }
+  }
+
+  componentDidMount() {
+    if (this.props.classTimes.length === 0) {
+      this.props.fetchClassTimes(this.props.classId)
     }
   }
 
-  componentDidMount() {    
-    this.props.fetchClassTimes(this.props.classId)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.classTimes !== prevProps.classTimes) {
-      this.setState({ classTimes: this.props.classTimes })
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.classTimes !== prevProps.classTimes) {
+  //     this.setState({ classTimes: this.props.classTimes })
+  //   }
+  // }
 
   renderClassTimeForm() {
     if (this.props.isEdit) {
@@ -29,7 +31,7 @@ class ClassTimeIndex extends Component {
   
   render() {
     console.log('render')
-    if (this.state.classTimes.length === 0) {
+    if (this.props.classTimes.length === 0) {
       return (
       <div>
           {this.renderClassTimeForm()}
@@ -41,7 +43,7 @@ class ClassTimeIndex extends Component {
           <div>
           {this.renderClassTimeForm()}
             <h2>All Class Times</h2>
-            {this.state.classTimes.map(classTime => (
+            {this.props.classTimes.map(classTime => (
               <ClassTimeIndexItem 
                 key={classTime._id} 
                 classTime={classTime} 
