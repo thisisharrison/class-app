@@ -11,11 +11,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchBookings: () => dispatch(fetchBookings()),
-  newBooking: (classTimeId) => dispatch(newBooking(classTimeId)),
-  destroyBooking: (classTimeId) => dispatch(destroyBooking(classTimeId)),
   fetchSaves: () => dispatch(fetchSaves()),
-  newSave: (classId) => dispatch(newSave(classId)),
-  destroySave: (classId) => dispatch(destroySave(classId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

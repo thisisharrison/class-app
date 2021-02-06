@@ -11,8 +11,8 @@ const mapStateToProps = (state) => ({
   
 })
 const mapDispatchToProps = dispatch => ({
-  newBooking: (classTimeId) => dispatch(newBooking(classTimeId)),
-  destroyBooking: (classTimeId) => dispatch(destroyBooking(classTimeId)),
+  // newBooking: (classTimeId) => dispatch(newBooking(classTimeId)),
+  // destroyBooking: (classTimeId) => dispatch(destroyBooking(classTimeId)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClassIndex);
+export default connect(mapStateToProps, null)(ClassIndex);
