@@ -5,11 +5,11 @@ export const getBookings = () => (
 )
 
 export const createBooking = classTimeId => (
-  axios.post('/api/bookings', classTimeId)
+  axios.post('/api/bookings', { classTimeId: classTimeId })
 )
 
 export const deleteBooking = classTimeId => (
-  axios.delete('/api/bookings', classTimeId)
+  axios.delete(`/api/bookings/${classTimeId}`)
 )
 
 export const getSaves = () => (
@@ -17,10 +17,10 @@ export const getSaves = () => (
 )
 
 export const createSave = classId => (
-  axios.post('/api/saves', classId)
+  axios.post('/api/saves', { classId: classId })
 )
 
 export const deleteSave = classId => (
-  axios.delete('/api/saves', classId)
+  axios.delete(`/api/saves/${classId}`)
 )
 
