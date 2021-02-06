@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, withRouter } from 'react-router-dom';
 import Taggings from './class_taggings'
+import Languages from './class_languages'
 
 class ClassForm extends Component {
   constructor(props) {
@@ -21,16 +22,24 @@ class ClassForm extends Component {
     if (!this.props.isNew) {
       this.setState({
         name: this.props._class.name,
-        description: this.props._class.description
+        description: this.props._class.description,
+        tags: this.props._class.tags,
+        languages: this.props._class.languages
       })
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.newClass !== this.props.newClass) {
-      this.setState({ newClass: this.props.newClass })
+      this.setState({ 
+        newClass: this.props.newClass,
+        name: this.props._class.name,
+        description: this.props._class.description,
+        tags: this.props._class.tags,
+        languages: this.props._class.languages
+      })
       if (this.props.isNew) {
-        this.props.history.push(`/classes/${this.props.newClass._id}`)
+        this.setState({ redirect: true, redirectPath: `/classes/${this.props.newClass._id}` })
       }
     }
   }
@@ -63,12 +72,18 @@ class ClassForm extends Component {
     })
   }
 
+  updateLanguages(languages) {
+    this.setState({
+      languages: languages
+    })
+  }
+
   handleDelete() {
     return e => {
       e.preventDefault();
       const {destroyClass} = this.props
       destroyClass(this.props._class._id)
-      this.setState({ redirect: true })
+      this.setState({ redirect: true, redirectPath: '/classes' })
     }
   }
 
@@ -99,13 +114,17 @@ class ClassForm extends Component {
           } />
           <Taggings 
             updateTags={(taggings) => this.updateTags(taggings)}
+            prexistTags={this.state.tags}
           />
-          
+          <Languages 
+            updateLanguages={(languages) => this.updateLanguages(languages)}
+            prexistLanguages={this.state.languages}
+          />
         </form>
           {this.renderDeleteButton()}
         <br />
         {this.state.redirect && (
-          <Redirect to="/classes" />
+          <Redirect to={this.state.redirectPath} />
         )}
       </div>
     )

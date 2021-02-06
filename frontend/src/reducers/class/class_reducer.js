@@ -25,6 +25,7 @@ export default function(state = _initialState, action) {
       return newState;
     case RECEIVE_NEW_CLASS:
       newState.new = action._class.data;
+      newState.all = {...newState.all, [action._class.data._id]: action._class.data }
       return newState;
     case RECEIVE_CLASS:
       classId = action._class.data._id;

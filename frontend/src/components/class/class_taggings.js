@@ -8,9 +8,10 @@ const INTERESTS = [
   'CrossFit'
 ]
 
-const Taggings = ({updateTags}) => {
+const Taggings = ({ updateTags, prexistTags = []}) => {
   const [tag, setTag] = useState('');
-  const [taggings, setTaggings] = useState([])
+  const [taggings, setTaggings] = useState([...prexistTags])
+  
   const onKeyDown = e => {
     if ((e.key === 'Enter' || e.keyCode === 13) && tag) {
       setTaggings([...taggings, tag])
