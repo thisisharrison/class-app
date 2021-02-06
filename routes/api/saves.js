@@ -24,7 +24,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
       { $addToSet: { saves: classId } }, 
       { new: true },
       (err, result) => {
-        res.json(result);
+        res.json({ saves: result.saves });
       }
     )
 });
@@ -36,7 +36,7 @@ router.delete('/:classId', passport.authenticate('jwt', { session: false }),
       { $pull: { saves: req.params.classId } },
       { new: true },
       (err, result) => {
-        res.json(result);
+        res.json({ saves: result.saves });
       }
     )
   });

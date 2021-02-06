@@ -23,13 +23,13 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     const newStudent = req.user.toObject();
   
     try {
-      await User.findByIdAndUpdate(req.user._id,
-        { $addToSet: { bookings: classTimeId } }
-      ).exec()
       await ClassTime.findByIdAndUpdate(classTimeId,
-        { $addToSet: { students: newStudent } }, 
-        { new: true }, 
-        (err, result) => res.json(result)
+        { $addToSet: { students: newStudent } }
+      ).exec()
+      await User.findByIdAndUpdate(req.user._id,
+        { $addToSet: { bookings: classTimeId } },
+        { new: true },
+        (err, result) => res.json({ bookings: result.bookings })
       ).exec()
     } catch (err) {
       res.status(422)
@@ -42,13 +42,13 @@ router.delete('/:classTimeId', passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     
     try {
-      await User.findByIdAndUpdate(req.user._id,
-        { $pull: { bookings: req.params.classTimeId } }
-      ).exec()
       await ClassTime.findByIdAndUpdate(req.params.classTimeId,
-        { $pull: { students: { _id: req.user._id } } },
+        { $pull: { students: { _id: req.user._id } } }
+      ).exec()
+      await User.findByIdAndUpdate(req.user._id,
+        { $pull: { bookings: req.params.classTimeId } },
         { new: true },
-        (err, result) => res.json(result)
+        (err, result) => res.json({ bookings: result.bookings })
       ).exec()
     } catch (err) {
       res.status(422)
