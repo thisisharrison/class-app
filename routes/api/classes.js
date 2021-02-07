@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const url = require('url')
+const querystring = require('querystring');
 
 const mongoose = require('mongoose');
 const keys = require('../../config/keys');
@@ -13,8 +15,9 @@ router.get("/test", (req, res) => res.json({ msg: "This is the classes route" })
 
 // View all classes
 router.get('/', (req, res) => {
-  // query body
-  const { tags, languages, unix } = req.body
+
+  const { tags, languages, unix } = req.query
+
   const classQuery = []
   if (tags) {
     classQuery.push({ tags: { $in: [req.body.tags] } })
