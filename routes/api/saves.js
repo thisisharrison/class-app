@@ -12,6 +12,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the saves route" }));
 router.get('/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id)
+      .populate('Class')
       .then(user => res.json(user.saves))
   });
 
