@@ -30,8 +30,6 @@ const App = () => (
       <Route exact path="/classes/:id" component={ClassShowContainer} />
       <Route exact path="/classes/:id/edit" component={ClassShowContainer} />
       <Route exact path="/new-class" render={(props) => <ClassFormContainer {...props} isNew={true} /> } />
-
-
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       
       

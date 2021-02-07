@@ -1,4 +1,5 @@
 import moment from 'moment';
+import BookContainer from '../toggles/book_container';
 
 const ClassTimeIndexItem = ({ classTime, isEdit, destroyClassTime, updateClassTime, editClassTime}) => {
   let { startTime, endTime } = classTime;
@@ -15,20 +16,11 @@ const ClassTimeIndexItem = ({ classTime, isEdit, destroyClassTime, updateClassTi
       >Remove</button>
     </ul>) : ''
 
-  const bookingButtons = !isEdit ? (
-    <ul>
-      <button type="button">
-        Book
-      </button>
-    </ul>
-  ) : ''
-
   return (
     <div>
       <p>Starts: {startTime}</p>
       <p>Ends: {endTime}</p>
-      {editButtons}
-      {bookingButtons}
+      {!isEdit ? <BookContainer booked={false} classTimeId={classTime._id} /> : editButtons }
     </div>
   )
 }
