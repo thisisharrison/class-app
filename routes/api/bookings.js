@@ -50,9 +50,11 @@ router.delete('/:classTimeId', passport.authenticate('jwt', { session: false }),
       ).exec()
       await User.findByIdAndUpdate(req.user._id,
         { $pull: { bookings: req.params.classTimeId } },
-        { new: true },
-        (err, result) => res.json(result.bookings)
-      ).exec()
+        { new: true })
+        .populate({ path: 'bookings', select: ['class', 'startTime', 'endTime'], populate: { path: 'class', select: ['name', 'description'] } })
+        .exec(
+          (err, result) => res.json(result.bookings)
+        )
     } catch (err) {
       res.status(422)
     }

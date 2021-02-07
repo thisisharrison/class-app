@@ -13,9 +13,24 @@ router.get("/test", (req, res) => res.json({ msg: "This is the classes route" })
 
 // View all classes
 router.get('/', (req, res) => {
-  Class.find()
+  // query body
+  const { tags, languages, unix } = req.body
+  const classQuery = []
+  if (tags) {
+    classQuery.push({ tags: { $in: [req.body.tags] } })
+  }
+  if (languages) {
+    classQuery.push({ languages: { $in: req.body.languages } })
+  }
+  const currentUserUnix = unix ? unix : 0
+  // ({ $and: [{ price: { $ne: 1.99 } }, { price: { $exists: true } }] })
+
+  const query = classQuery.length > 0 ? {$and: classQuery} : {} 
+  
+  Class
+    .find(query)
     .populate({ path: 'admin', select: ['fname', 'lname'] })
-    .populate({ path: 'classTimes', select: ['startTime', 'endTime'] })
+    .populate({ path: 'classTimes', match: { startTime: { $gte: currentUserUnix }}, select: ['startTime', 'endTime']})
     .then(classes => res.json(classesObject(classes)))
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
 });
