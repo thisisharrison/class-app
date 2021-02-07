@@ -8,6 +8,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the class times route
 
 router.get('/', (req, res) => {
   ClassTime.find()
+    .populate({ path: 'class', select: ['name', 'description'] })
     .then(classtimes => res.json(classtimes))
     .catch(err => res.status(404).json({ noclasstimesfound: 'No class times found.' }))
 });
@@ -33,6 +34,7 @@ router.post('/class/:classId', (req, res) => {
   });
 
   newClassTime.save()
+    .populate({ path: 'class', select: ['name', 'description'] })
     .then(classtime => res.json(classtime))
 });
 
@@ -55,6 +57,7 @@ router.patch('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   ClassTime.findOne({_id: req.params.id})
+    .populate({ path: 'class', select: ['name', 'description'] })
     .then(classtime => classtime.remove().then(classtime => {
       res.json(classtime);
     }))

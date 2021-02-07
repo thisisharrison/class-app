@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
   Class
     .find(query)
     .populate({ path: 'admin', select: ['fname', 'lname'] })
-    .populate({ path: 'classTimes', match: { startTime: { $gte: currentUserUnix }}, select: ['startTime', 'endTime']})
+    .populate({ path: 'classTimes', match: { startTime: { $gte: currentUserUnix }}, options: { sort: { startTime: 1 }}, select: ['startTime', 'endTime']})
     .then(classes => res.json(classesObject(classes)))
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
 });
@@ -73,7 +73,7 @@ router.post('/',
 router.get('/:id', (req, res) => {
   Class.findById(req.params.id)
     .populate({ path: 'admin', select: ['fname', 'lname'] })
-    .populate({ path: 'classTimes', select: ['startTime', 'endTime'] })
+    .populate({ path: 'classTimes', options: { sort: { startTime: 1 } }, select: ['startTime', 'endTime'] })
     .then(_class => res.json(_class))
     .catch(err => 
       res.status(404).json({ noclassfound: 'No class found with that ID' })

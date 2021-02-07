@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ClassIndexItem from '../class/class_index_item'
 import ClassTimeIndexItem from '../classtime/classtime_index_item'
 import BookContainer from '../toggles/book_container'
 import SaveContainer from '../toggles/save_container'
@@ -41,28 +42,31 @@ export default class Profile extends Component {
         <ul>
           {saves.map(_class => 
             <div>
-              <li key={_class._id}>{_class.name}</li>
-              <ul>
-                <li key={`${_class._id}-teacher`}>{_class.admin.fname} {_class.admin.lname}</li>
-              </ul>
-              <SaveContainer 
-                classId={_class._id}
-                saved={this.state.saveIds.includes(_class._id)}/>
-            </div>)}
+            <ClassIndexItem 
+              key={_class._id}
+              _class={_class}
+              savesIds={this.state.saveIds}/>
+            </div>
+            )}
         </ul>
         <h2>Your Booked Class Times</h2>
         <ul>
-          {bookings.map(booking => 
-            <div key={booking._id}>
-            <li>{booking.class.name}</li>
-            <li>{booking.class.description}</li>
-            <li>{booking.startTime}</li>
-            <li>{booking.endTime}</li>
-            <BookContainer 
-              classTimeId={booking._id} 
-              booked={this.state.bookingIds.includes(booking._id)} />
-            </div>
-            )}
+          {bookings.map(classTime => 
+            
+            <ClassTimeIndexItem 
+              key={classTime._id}
+              classTime={classTime}
+              booked={this.state.bookingIds.includes(classTime._id)}/>
+            // <div key={booking._id}>
+            // <li>{booking.class.name}</li>
+            // <li>{booking.class.description}</li>
+            // <li>{booking.startTime}</li>
+            // <li>{booking.endTime}</li>
+            // <BookContainer 
+            //   classTimeId={booking._id} 
+            //   booked={this.state.bookingIds.includes(booking._id)} />
+            
+          )}
         </ul>
       </div>
     )

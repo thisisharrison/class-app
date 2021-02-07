@@ -12,7 +12,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the saves route" }));
 router.get('/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id)
-      .populate({ path: 'saves', select: ['name', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
+      .populate({ path: 'saves', select: ['name', 'description', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
       .then(user => res.json(user.saves))
   });
 
@@ -24,7 +24,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
     User.findByIdAndUpdate(req.user._id, 
       { $addToSet: { saves: classId } }, 
       { new: true })
-      .populate({ path: 'saves', select: ['name', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
+      .populate({ path: 'saves', select: ['name', 'description', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
       .exec(
       (err, result) => {
         res.json(result.saves);
@@ -38,7 +38,7 @@ router.delete('/:classId', passport.authenticate('jwt', { session: false }),
     User.findByIdAndUpdate(req.user._id,
       { $pull: { saves: req.params.classId } },
       { new: true })
-      .populate({ path: 'saves', select: ['name', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
+      .populate({ path: 'saves', select: ['name', 'description', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
       .exec(
       (err, result) => {
         res.json(result.saves);
