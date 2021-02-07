@@ -14,6 +14,8 @@ router.get("/test", (req, res) => res.json({ msg: "This is the classes route" })
 // View all classes
 router.get('/', (req, res) => {
   Class.find()
+    .populate({ path: 'admin', select: ['fname', 'lname'] })
+    .populate({ path: 'classTimes', select: ['startTime', 'endTime'] })
     .then(classes => res.json(classesObject(classes)))
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
 });
@@ -52,6 +54,8 @@ router.post('/',
 // Show a class
 router.get('/:id', (req, res) => {
   Class.findById(req.params.id)
+    .populate({ path: 'admin', select: ['fname', 'lname'] })
+    .populate({ path: 'classTimes', select: ['startTime', 'endTime'] })
     .then(_class => res.json(_class))
     .catch(err => 
       res.status(404).json({ noclassfound: 'No class found with that ID' })

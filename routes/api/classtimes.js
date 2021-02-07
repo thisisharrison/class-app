@@ -20,6 +20,7 @@ function arrangeById(classtimes) {
 
 router.get('/class/:classId', (req, res) => {
   ClassTime.find({ class: req.params.classId })
+    .populate({ path: 'class', select: ['name', 'description'] })
     .then(classtimes => res.json(classtimes))
     .catch(err => res.status(404).json({ noclassstimefound: 'No class time found with that class ID.' }))
 });

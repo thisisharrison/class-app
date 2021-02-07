@@ -12,6 +12,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the bookings route" }
 router.get('/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id)
+      .populate({ path: 'bookings', select: ['class', 'startTime', 'endTime'], populate: { path: 'class', select: ['name', 'description'] } })
       .then(user => res.json(user.bookings))
   });
 
