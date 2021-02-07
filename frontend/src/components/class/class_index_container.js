@@ -1,13 +1,13 @@
 import { connect } from "react-redux"
-import { getSaves, getBookings, toArray } from '../../reducers/selectors'
+import { getSaves, getBookings, toArray, getBookingsIds, getSavesIds } from '../../reducers/selectors'
 import { destroyBooking, destroySave, newBooking, newSave, fetchSaves } from '../../actions/dashboard_actions';
 import ClassIndex from './class_index'
 
 const mapStateToProps = (state) => ({
-  userSaves: getSaves(state),
-  userBookings: getBookings(state),
+  // bookings: getBookings(state),
+  saves: getSaves(state),
   classes: toArray(state.entities.classes.all),
-  classTimes: state.entities.classTimes.all,
+  // classTimes: state.entities.classTimes.all,
   
 })
 const mapDispatchToProps = dispatch => ({

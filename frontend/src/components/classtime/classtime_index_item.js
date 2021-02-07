@@ -1,7 +1,8 @@
 import moment from 'moment';
 import BookContainer from '../toggles/book_container';
 
-const ClassTimeIndexItem = ({ classTime, isEdit, destroyClassTime, updateClassTime, editClassTime}) => {
+const ClassTimeIndexItem = ({ classTime, booked, isEdit, destroyClassTime, updateClassTime, editClassTime}) => {
+  
   let { startTime, endTime } = classTime;
   startTime = moment.unix(startTime).format("dddd, MMMM Do YYYY, h:mm:ss a")
   endTime = moment.unix(endTime).format("dddd, MMMM Do YYYY, h:mm:ss a")
@@ -20,7 +21,7 @@ const ClassTimeIndexItem = ({ classTime, isEdit, destroyClassTime, updateClassTi
     <div>
       <p>Starts: {startTime}</p>
       <p>Ends: {endTime}</p>
-      {!isEdit ? <BookContainer booked={false} classTimeId={classTime._id} /> : editButtons }
+      {!isEdit ? <BookContainer booked={booked} classTimeId={classTime._id} /> : editButtons }
     </div>
   )
 }

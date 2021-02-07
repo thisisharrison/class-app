@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import Profile from './profile'
-import { getBookings, getSaves } from '../../reducers/selectors';
+import { getBookings, getBookingsIds, getSaveIds, getSaves } from '../../reducers/selectors';
 import { destroyBooking, destroySave, fetchBookings, fetchSaves, newBooking, newSave } from "../../actions/dashboard_actions";
 
 const mapStateToProps = (state) => ({

@@ -80,11 +80,13 @@ class ClassForm extends Component {
   }
 
   handleDelete() {
-    return e => {
+    return async e => {
       e.preventDefault();
       const {destroyClass} = this.props
-      destroyClass(this.props._class._id)
-      this.setState({ redirect: true, redirectPath: '/classes' })
+      const destroyed = await destroyClass(this.props._class._id)
+      if (destroyed) {
+        this.setState({ redirect: true, redirectPath: '/classes' })
+      }
     }
   }
 

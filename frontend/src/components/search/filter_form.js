@@ -3,7 +3,7 @@ import React, { useEffect } from "react"
 const FilterForm = ({ fetchClasses, fetchAllClassTimes, fetchSaves}) => {
   useEffect(() => {
     fetchClasses()
-    fetchAllClassTimes()
+    // fetchAllClassTimes()
     fetchSaves()
   }, [])
   return (

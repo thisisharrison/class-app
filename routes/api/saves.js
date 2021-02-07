@@ -23,7 +23,9 @@ router.post('/', passport.authenticate('jwt', {session: false}),
 
     User.findByIdAndUpdate(req.user._id, 
       { $addToSet: { saves: classId } }, 
-      { new: true },
+      { new: true })
+      .populate({ path: 'saves', select: ['name', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
+      .exec(
       (err, result) => {
         res.json(result.saves);
       }
@@ -35,7 +37,9 @@ router.delete('/:classId', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findByIdAndUpdate(req.user._id,
       { $pull: { saves: req.params.classId } },
-      { new: true },
+      { new: true })
+      .populate({ path: 'saves', select: ['name', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
+      .exec(
       (err, result) => {
         res.json(result.saves);
       }

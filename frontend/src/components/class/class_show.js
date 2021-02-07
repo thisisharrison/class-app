@@ -26,7 +26,11 @@ class ClassShow extends Component {
   }
 
   isClassOwner() {
-    return this.props.isAdmin && this.props.currentUserId === this.props._class.admin
+    return this.props._class && this.props.isAdmin
+  }
+
+  isEdit() {
+    return this.props.match.path.includes('edit')
   }
 
   render() {
@@ -35,16 +39,16 @@ class ClassShow extends Component {
       <div>
         <Link to="/classes">Back to All Classes</Link>
         <ClassDetail 
-          isEdit={this.props.match.path.includes('edit')}
+          isEdit={this.isEdit()}
           classId={classId}
           _class={_class}
         /> 
         {this.renderEditButton()}
         
         <ClassTimeContainer 
-          classTimes={classTimes}
+          _class={_class}
           classId={classId}
-          isEdit={this.props.match.path.includes('edit')}
+          isEdit={this.isEdit()}
           isClassOwner={this.isClassOwner()}
         />
         

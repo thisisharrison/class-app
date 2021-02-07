@@ -9,16 +9,32 @@ export const selectClass = (classes, id ) => {
 
 export const selectClassTimes = (classTimes, id) => {
   if (classTimes.all.length > 0) {
-    return classTimes.all.filter(classtime => classtime.class === id)
+    return classTimes.all.filter(classtime => classtime._id === id)
   } else {
     return []
   }
 }
 
-export const getBookings = state => (
-  state.entities.dashboard.bookings || []
-) 
+export const getBookingsIds = ({ entities: { dashboard: { bookings } } }) => {
+  if (bookings.length) {
+    return []
+  } else {
+    return bookings.map(classTime => classTime._id)
+  }
+}
 
-export const getSaves = state => (
-  state.entities.dashboard.saves || []
-) 
+export const getSavesIds = ({ entities: { dashboard: { saves } } }) => {
+  if (saves.length) {
+    return []
+  } else {
+    return saves.map(_class => _class._id)
+  }
+}
+
+export const getBookings = ({ entities: { dashboard: { bookings } } }) => {
+  return bookings.length ? bookings : []
+}
+
+export const getSaves = ({ entities: { dashboard: { saves } } }) => {
+  return saves.length ? saves : []
+}
