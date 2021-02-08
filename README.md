@@ -1,4 +1,4 @@
-# Class Pass App - Comming Soon
+# Class Pass App - Coming Soon
 
 Class Pass App, a Class Pass / Airbnb Experience clone, is an extension of a retail e-commerce site that allows users to find and attend brand ambassadors’ classes.
 
