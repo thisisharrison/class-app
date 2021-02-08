@@ -14,6 +14,7 @@ router.get('/', passport.authenticate('jwt', { session: false }),
     User.findById(req.user._id)
       .populate({ path: 'saves', select: ['name', 'description', 'admin'], populate: { path: 'admin', select: ['fname', 'lname'] } })
       .then(user => res.json(user.saves))
+      .catch(err => console.log(err))
   });
 
 // Add a class to current user's saved classes

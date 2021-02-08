@@ -16,14 +16,16 @@ router.get("/test", (req, res) => res.json({ msg: "This is the classes route" })
 // View all classes
 router.get('/', (req, res) => {
 
-  const { tags, languages, unix } = req.query
+  // First attempt: req.body first
+  // const { tags, languages, unix } = req.query
+  const { tags, languages, unix } = req.body
 
   const classQuery = []
   if (tags) {
-    classQuery.push({ tags: { $in: [req.body.tags] } })
+    classQuery.push({ tags: { $in: tags } })
   }
   if (languages) {
-    classQuery.push({ languages: { $in: req.body.languages } })
+    classQuery.push({ languages: { $in: languages } })
   }
   const currentUserUnix = unix ? unix : 0
   // ({ $and: [{ price: { $ne: 1.99 } }, { price: { $exists: true } }] })

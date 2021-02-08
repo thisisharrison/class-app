@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const getClasses = () => (
-  axios.get('/api/classes')
+export const getClasses = data => (
+  axios.get('/api/classes', data)
 )
 
 export const postClass = data => (
