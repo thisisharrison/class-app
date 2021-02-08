@@ -1,4 +1,4 @@
-import ClassFormContainer from './class_form_container';
+import ClassFormContainer from '../class_form/class_form_container';
 
 import languages from 'languages';
 const langscodes = languages.getAllLanguageCode()

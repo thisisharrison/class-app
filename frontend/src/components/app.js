@@ -10,8 +10,7 @@ import ClassShowContainer from './class/class_show_container';
 
 
 import ProfileContainer from './profile/profile_container';
-import ClassTimeContainer from './classtime/classtime_container';
-import ClassFormContainer from './class/class_form_container';
+import ClassFormContainer from './class_form/class_form_container';
 
 
 // Homepage: landing page of e-commerce site

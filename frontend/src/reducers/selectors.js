@@ -38,3 +38,19 @@ export const getBookings = ({ entities: { dashboard: { bookings } } }) => {
 export const getSaves = ({ entities: { dashboard: { saves } } }) => {
   return saves.length ? saves : []
 }
+
+export const isSaved = (classId, { entities: { dashboard: { saves } } }) => {
+  if (!saves) {
+    return false;
+  } else {
+    return saves.find(_class => _class._id === classId) ? true : false;
+  }
+}
+
+export const isBooked = (classTimeId, { entities: { dashboard: { bookings } } }) => {
+  if (!bookings) {
+    return false;
+  } else {
+    return bookings.find(classTime => classTime._id === classTimeId) ? true : false;
+  }
+}

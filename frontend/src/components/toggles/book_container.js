@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { destroyBooking, destroySave, newBooking, newSave, fetchSaves } from '../../actions/dashboard_actions';
+import { destroyBooking, newBooking } from '../../actions/dashboard_actions';
+import { isBooked } from '../../reducers/selectors'
 import BookToggle from './book_toggle'
 
 const mapStateToProps = (state, ownProps) => ({
-  booked: ownProps.booked,
+  booked: isBooked(ownProps.classTimeId, state),
   classTimeId: ownProps.classTimeId
 })
 

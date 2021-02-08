@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import ClassDetail from './class_detail'
-import ClassTimeIndex from '../classtime/classtime_index';
 import { Link, withRouter } from 'react-router-dom';
-import ClassTimeFormContainer from '../classtime/classtime_form_container';
-import ClassTimeContainer from '../classtime/classtime_container';
+import ClassTimeIndexContainer from '../classtime/classtime_index_container';
 
 class ClassShow extends Component {
   constructor(props) {
@@ -45,7 +43,7 @@ class ClassShow extends Component {
         /> 
         {this.renderEditButton()}
         
-        <ClassTimeContainer 
+        <ClassTimeIndexContainer 
           _class={_class}
           classId={classId}
           isEdit={this.isEdit()}

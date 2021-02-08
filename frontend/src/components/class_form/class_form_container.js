@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { createClass, destroyClass, updateClass } from "../../actions/class/class_action";
-import ClassForm from '../class/class_form'
+import ClassForm from './class_form'
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.session.user,

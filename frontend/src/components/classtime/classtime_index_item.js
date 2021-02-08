@@ -4,7 +4,7 @@ import BookContainer from '../toggles/book_container';
 // These should be handled separately
 // isEdit, destroyClassTime, updateClassTime, editClassTime
 
-const ClassTimeIndexItem = ({ classTime, booked }) => {
+const ClassTimeIndexItem = ({ classTime }) => {
   
   let { startTime, endTime } = classTime;
   
@@ -27,8 +27,7 @@ const ClassTimeIndexItem = ({ classTime, booked }) => {
       {classTime.class ? <p>{classTime.class.description}</p> : ''}
       <p>Starts: {startTime}</p>
       <p>Ends: {endTime}</p>
-      {/* {!isEdit ? <BookContainer booked={booked} classTimeId={classTime._id} /> : editButtons } */}
-      <BookContainer booked={booked} classTimeId={classTime._id} />
+      <BookContainer classTimeId={classTime._id} />
     </div>
   )
 }
