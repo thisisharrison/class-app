@@ -14,12 +14,6 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ noclasstimesfound: 'No class times found.' }))
 });
 
-function arrangeById(classtimes) {
-  return classtimes.reduce((acc, curr) => {
-    return {...acc, [curr.id]: curr}
-  }, {})
-}
-
 router.get('/class/:classId', (req, res) => {
   ClassTime.find({ class: req.params.classId })
     .sort({ startTime: 1 })
