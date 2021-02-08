@@ -65,7 +65,10 @@ router.post('/',
     })
 
     newClass.save()
-      .then(_class => res.json(_class))
+      .then(_class => 
+        _class.populate({ path: 'admin', select: ['fname', 'lname'] }, 
+          (err, result) => res.json(result))
+        )
   }
 );
 

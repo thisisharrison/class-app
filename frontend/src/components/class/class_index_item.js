@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { destroyClass } from "../../actions/class/class_action";
 import SaveContainer from "../toggles/save_container";
 
 const ClassIndexItem = ({ _class }) => {

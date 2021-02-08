@@ -34,11 +34,15 @@ class ClassForm extends Component {
     if (prevProps.newClass !== this.props.newClass) {
       this.setState({ 
         newClass: this.props.newClass,
-        name: this.props._class.name,
-        description: this.props._class.description,
-        tags: this.props._class.tags,
-        languages: this.props._class.languages
+        // name: this.props._class.name,
+        // description: this.props._class.description,
+        // tags: this.props._class.tags,
+        // languages: this.props._class.languages
       })
+      if (this.props.isNew) {
+        this.setState({ redirect: true, redirectPath: `/classes/${this.props.newClass._id}` })
+        this.setState({ redirect: false, redirectPath: '/' })
+      }
     }
   }
   
@@ -49,13 +53,14 @@ class ClassForm extends Component {
     const {isNew, createClass, updateClass } = this.props;
     if (isNew) {
       createClass(_class);
-      this.setState({ redirect: true, redirectPath: `/classes/${this.props.newClass._id}` })
     } else {
       updateClass(
         this.props._class._id, 
         _class)
       this.setState({ redirect: true, redirectPath: `/classes/${this.props._class._id}` })
     }
+    // Clean up
+    this.setState({ redirect: false, redirectPath: '/' })
   }
 
   update(field) {
