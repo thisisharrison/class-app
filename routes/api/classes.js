@@ -97,8 +97,10 @@ router.patch('/:id',
         tags: req.body.tags,
         languages: req.body.languages
       }},
-      {new: true},
-      (err, result) => {
+      {new: true})
+      .populate({ path: 'admin', select: ['fname', 'lname'] })
+      .populate({ path: 'classTimes', options: { sort: { startTime: 1 } }, select: ['startTime', 'endTime'] })
+      .then((err, result) => {
         if (err) {
           res.status(404).json({ noclassfound: 'No class found with that ID' })
         } else {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // autocomplete feature (bonus)
 const INTERESTS = [
@@ -8,9 +8,10 @@ const INTERESTS = [
   'CrossFit'
 ]
 
-const Taggings = ({ updateTags, prexistTags = []}) => {
+const Taggings = ({ updateTags, prexistTags}) => {
+  
   const [tag, setTag] = useState('');
-  const [taggings, setTaggings] = useState([...prexistTags])
+  const [taggings, setTaggings] = useState([])
   
   const onKeyDown = e => {
     if ((e.key === 'Enter' || e.keyCode === 13) && tag) {
@@ -24,6 +25,10 @@ const Taggings = ({ updateTags, prexistTags = []}) => {
       updateTags([...taggings])
     }
   }
+
+  useEffect(() => {
+    setTaggings([...prexistTags])
+  }, [prexistTags])
   
   return (
     <div>

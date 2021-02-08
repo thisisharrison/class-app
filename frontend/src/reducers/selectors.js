@@ -54,3 +54,11 @@ export const isBooked = (classTimeId, { entities: { dashboard: { bookings } } })
     return bookings.find(classTime => classTime._id === classTimeId) ? true : false;
   }
 }
+
+export const currentUserId = session => (
+  session.user ? session.user.id : null
+)
+
+export const sortClassTimes = classTimes => (
+  classTimes.sort((c1, c2) => c1.startTime - c2.startTime)
+)

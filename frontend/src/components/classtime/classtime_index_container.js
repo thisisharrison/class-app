@@ -1,9 +1,11 @@
 import { connect } from "react-redux"
 import { fetchClassTimes, destroyClassTime, editClassTime } from "../../actions/classtime_action";
+import { sortClassTimes } from "../../reducers/selectors";
 import ClassTimeIndex from './classtime_index'
 
 const mapStateToProps = (state, ownProps) => ({
-  _class: ownProps._class,
+  classId: ownProps.classId,
+  classTimes: sortClassTimes(state.entities.classTimes.all),
   isEdit: ownProps.isEdit,
   isClassOwner: ownProps.isClassOwner,
 })

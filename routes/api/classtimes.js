@@ -8,6 +8,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the class times route
 
 router.get('/', (req, res) => {
   ClassTime.find()
+    .sort({ startTime: 1 })
     .populate({ path: 'class', select: ['name', 'description'] })
     .then(classtimes => res.json(classtimes))
     .catch(err => res.status(404).json({ noclasstimesfound: 'No class times found.' }))
@@ -21,6 +22,7 @@ function arrangeById(classtimes) {
 
 router.get('/class/:classId', (req, res) => {
   ClassTime.find({ class: req.params.classId })
+    .sort({ startTime: 1 })
     .populate({ path: 'class', select: ['name', 'description'] })
     .then(classtimes => res.json(classtimes))
     .catch(err => res.status(404).json({ noclassstimefound: 'No class time found with that class ID.' }))
@@ -34,8 +36,8 @@ router.post('/class/:classId', (req, res) => {
   });
 
   newClassTime.save()
-    .populate({ path: 'class', select: ['name', 'description'] })
-    .then(classtime => res.json(classtime))
+    .then(classtime => classtime.populate({ path: 'class', select: ['name', 'description'] }, 
+      (err, result) => res.json(result)))
 });
 
 router.patch('/:id', (req, res) => {
@@ -44,7 +46,9 @@ router.patch('/:id', (req, res) => {
       startTime: req.body.startTime,
       endTime: req.body.endTime
     }},
-    {new: true},
+    {new: true})
+    .populate({ path: 'class', select: ['name', 'description'] })
+    .exec(
     (err, result) => {
       if (err) {
         res.status(404).json({ noclasstimefound: 'No class time found with that ID.' })

@@ -7,17 +7,16 @@ import {
 } from '../../actions/classtime_action';
 
 const _initialState = {
-  all: {},
+  all: [],
   new: undefined
 }
 const classTimeReducer = (state = _initialState, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
-  let classId;
 
   switch(action.type) {
     case RECEIVE_CLASSTIMES:
-      newState.all = [...action.classTimes.data]
+      newState.all = action.classTimes.data
       return newState;
     
     case RECEIVE_NEW_CLASSTIME:
@@ -34,13 +33,13 @@ const classTimeReducer = (state = _initialState, action) => {
 
     case RECEIVE_UPDATE_CLASSTIME:
       newState.new = undefined;
-      newState.all = newState.all.map(classTime => {
-        if (classTime._id !== action.classTime.data._id) {
-          return classTime;
-        } else {
+      newState.all = newState.all.map(classtime => {
+        if (classtime._id === action.classTime.data._id) {
           return action.classTime.data;
+        } else {
+          return classtime;
         }
-      }) 
+      })
       return newState;
 
     default: 
