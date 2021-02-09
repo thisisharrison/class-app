@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-export const getClasses = data => (
-  axios.get('/api/classes', data)
-)
+export const getClasses = queryString => {
+  
+  return axios.get(`/api/classes${queryString}`)
+}
 
 export const postClass = data => (
   axios.post('/api/classes', data)

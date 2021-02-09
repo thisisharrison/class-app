@@ -16,10 +16,10 @@ router.get("/test", (req, res) => res.json({ msg: "This is the classes route" })
 // View all classes
 router.get('/', (req, res) => {
 
-  // First attempt: req.body first
-  // const { tags, languages, unix } = req.query
-  const { tags, languages, unix } = req.body
-
+  console.log(req.query)
+  
+  const { tags, languages, unix } = req.query
+  
   const classQuery = []
   if (tags) {
     classQuery.push({ tags: { $in: tags } })
