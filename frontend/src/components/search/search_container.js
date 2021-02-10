@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch => ({
   fetchSaves: () => dispatch(fetchSaves())
 })
 
-export default connect(null, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -6,13 +6,17 @@ const langscodes = languages.getAllLanguageCode()
 
 const FilterForm = ({ updateFilter, filters, fetchClasses, fetchAllClassTimes, fetchSaves}) => {
   const [filter, setFilter] = useState({});
-  
+  const [tags, setTags] = useState({});
+  // {key: true,
+  // key2: true} => to deselect, if e.target.value is true in tags, delete from tags
+
+  // TODO 2 Use previous filters from state on mount
+
+  // Component did mount => fetch class with redux store's filter
+  // Other subsequent rerender will be caused by dispatching updateFilter
+  // which calls fetchClasses with redux store's filter
   useEffect(() => {
-    if (Object.values(filters)[0]) {
-      fetchClasses(filters)
-    } else {
-      fetchClasses({})
-    }
+    fetchClasses({})
   }, [])
   
   useEffect(() => {
@@ -20,23 +24,32 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, fetchAllClassTimes, f
   }, [])
   
   // handle deselect and remove key from filter
-  const handleChange = e => {
-    const updatedField = { [e.target.name]: [e.target.value] };
-    updateFilter(e.target.name, e.target.value)
+  const handleChange = (e, value = undefined) => {
+    let updatedField;
+    if (value) {
+      updatedField = { [e.target.name]: value };
+      updateFilter(e.target.name, value)
+    } else {
+      if (filter[e.target.name]) {
+        updatedField = { [e.target.name]: [...filter[e.target.name], e.target.value] };
+      } else {
+        updatedField = { [e.target.name]: [e.target.value] };
+      }
+      updateFilter(e.target.name, e.target.value)
+    }
     const editedFitler = Object.assign({}, filter, updatedField);
     setFilter(editedFitler);
   }
 
   const handleTimeChange = e => {
-    const unixTime = moment(e.target.value).unix()
-    const updatedField = { [e.target.name]: unixTime };
-    updateFilter(e.target.name, e.target.value)
-    const editedFitler = Object.assign({}, filter, updatedField);
-    setFilter(editedFitler);
+    const unixTime = moment(e.target.value).unix();
+    handleChange(e, unixTime);
   }
 
   return (
     <div>
+      <pre>{JSON.stringify(filters)}</pre>
+      <pre>{JSON.stringify(filter)}</pre>
       <form>
         <label>Interests:</label>
         <input 
