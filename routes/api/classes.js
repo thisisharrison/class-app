@@ -16,14 +16,16 @@ router.get("/test", (req, res) => res.json({ msg: "This is the classes route" })
 // View all classes
 router.get('/', (req, res) => {
 
+  console.log(req.query)
+  
   const { tags, languages, unix } = req.query
-
+  
   const classQuery = []
   if (tags) {
-    classQuery.push({ tags: { $in: [req.body.tags] } })
+    classQuery.push({ tags: { $in: tags } })
   }
   if (languages) {
-    classQuery.push({ languages: { $in: req.body.languages } })
+    classQuery.push({ languages: { $in: languages } })
   }
   const currentUserUnix = unix ? unix : 0
   // ({ $and: [{ price: { $ne: 1.99 } }, { price: { $exists: true } }] })
@@ -65,7 +67,10 @@ router.post('/',
     })
 
     newClass.save()
-      .then(_class => res.json(_class))
+      .then(_class => 
+        _class.populate({ path: 'admin', select: ['fname', 'lname'] }, 
+          (err, result) => res.json(result))
+        )
   }
 );
 
@@ -97,8 +102,10 @@ router.patch('/:id',
         tags: req.body.tags,
         languages: req.body.languages
       }},
-      {new: true},
-      (err, result) => {
+      {new: true})
+      .populate({ path: 'admin', select: ['fname', 'lname'] })
+      .populate({ path: 'classTimes', options: { sort: { startTime: 1 } }, select: ['startTime', 'endTime'] })
+      .then((err, result) => {
         if (err) {
           res.status(404).json({ noclassfound: 'No class found with that ID' })
         } else {

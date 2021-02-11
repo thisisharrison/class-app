@@ -7,7 +7,8 @@ import {
 
 import { 
   RECEIVE_NEW_CLASSTIME,
-  REMOVE_CLASSTIME
+  REMOVE_CLASSTIME,
+  RECEIVE_UPDATE_CLASSTIME
 } from '../../actions/classtime_action';
 
 const _initialState = {
@@ -18,6 +19,7 @@ export default function(state = _initialState, action) {
   Object.freeze(state);
   let newState = Object.assign({}, state);
   let classId;
+  let classTimeId;
 
   switch(action.type) {
     case RECEIVE_CLASSES:
@@ -29,7 +31,7 @@ export default function(state = _initialState, action) {
       return newState;
     case RECEIVE_CLASS:
       classId = action._class.data._id;
-      newState.all[classId] = action._class.data
+      newState.all = { ...newState.all, [classId] : action._class.data }
       return newState;
     case REMOVE_CLASS:
       classId = action._class.data._id;
@@ -37,13 +39,25 @@ export default function(state = _initialState, action) {
       return newState; 
 
     case RECEIVE_NEW_CLASSTIME:
-      classId = action.classTime.data.class;
-      newState.all[classId].classTimes = [...action.classTime.data._id]
+      classId = action.classTime.data.class._id;
+      newState.all[classId].classTimes = [...newState.all[classId].classTimes, action.classTime.data]
       return newState;
     case REMOVE_CLASSTIME:
-      classId = action.classTime.data.class;
-      let classTimeId = action.classTime.data._id;
-      newState.all[classId].classTimes = newState.all[classId].classTimes.filter(id => id !== classTimeId)
+      classId = action.classTime.data.class._id;
+      classTimeId = action.classTime.data._id;
+      newState.all[classId].classTimes = newState.all[classId].classTimes.filter(classtime => classtime._id !== classTimeId)
+      return newState;
+    case RECEIVE_UPDATE_CLASSTIME:
+      classId = action.classTime.data.class._id;
+      classTimeId = action.classTime.data._id;
+      newState.all[classId].classTimes = newState.all[classId].classTimes.map(classtime => {
+        if (classtime._id === classTimeId) {
+          return action.classTime.data;
+        } else {
+          return classtime;
+        }
+      })
+      return newState;
 
     default: 
       return state;

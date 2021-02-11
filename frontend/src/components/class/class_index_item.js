@@ -1,11 +1,9 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import React, { Component, useEffect, useState } from 'react'
+import { destroyClass } from "../../actions/class/class_action";
 import SaveContainer from "../toggles/save_container";
-import { useSelector } from "react-redux";
-import { getSavesIds } from "../../reducers/selectors";
 
-
-const ClassIndexItem = ({ _class, savesIds}) => {
+const ClassIndexItem = ({ _class }) => {
 
   const teacherName = _class.admin.fname + ' ' + _class.admin.lname
   
@@ -22,7 +20,6 @@ const ClassIndexItem = ({ _class, savesIds}) => {
       </ul>
       <SaveContainer 
         classId={_class._id}
-        saved={savesIds.includes(_class._id)}
         />
     </div>
   )

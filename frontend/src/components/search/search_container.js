@@ -4,16 +4,20 @@ import { fetchClasses } from '../../actions/class/class_action';
 import { getSaves, getBookings, toArray, getBookingsIds, getSavesIds } from '../../reducers/selectors'
 import Search from './search';
 import { destroyBooking, destroySave, newBooking, newSave, fetchSaves } from '../../actions/dashboard_actions';
+import { updateFilter } from '../../actions/filter_actions';
 
-// const mapStateToProps = state => ({
-//   bookingsIds: getBookingsIds(state),
-//   savesIds: getSavesIds(state),
-// })
+const mapStateToProps = state => ({
+  // classes: toArray(state.entities.classes.all),  
+  filters: state.ui.filters
+  // bookingsIds: getBookingsIds(state),
+  // savesIds: getSavesIds(state),
+})
 
 const mapDispatchToProps = dispatch => ({
-  fetchClasses: () => dispatch(fetchClasses()),
+  updateFilter: (filter, value) => dispatch(updateFilter(filter, value)),
+  fetchClasses: (data) => dispatch(fetchClasses(data)),
   fetchAllClassTimes: () => dispatch(fetchAllClassTimes()),
   fetchSaves: () => dispatch(fetchSaves())
 })
 
-export default connect(null, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

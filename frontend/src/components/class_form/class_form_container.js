@@ -3,7 +3,7 @@ import { createClass, destroyClass, updateClass } from "../../actions/class/clas
 import ClassForm from './class_form'
 
 const mapStateToProps = (state, ownProps) => ({
-  currentUser: state.session.user,
+  // currentUser: state.session.user,
   newClass: state.entities.classes.new,
   _class: ownProps._class,
   isNew: ownProps.isNew

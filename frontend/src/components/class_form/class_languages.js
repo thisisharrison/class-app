@@ -1,11 +1,15 @@
 import languages from 'languages';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const langscodes = languages.getAllLanguageCode()
 
 
-const Languages = ({updateLanguages, prexistLanguages = []}) => {
-  const [_languages, setLanguages] = useState([...prexistLanguages]);
+const Languages = ({updateLanguages, prexistLanguages}) => {
+  const [_languages, setLanguages] = useState([]);
+
+  useEffect(() => {
+    setLanguages([...prexistLanguages])
+  }, [prexistLanguages])
 
   return (
     <div>

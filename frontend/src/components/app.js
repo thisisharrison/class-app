@@ -10,8 +10,7 @@ import ClassShowContainer from './class/class_show_container';
 
 
 import ProfileContainer from './profile/profile_container';
-import ClassTimeContainer from './classtime/classtime_container';
-import ClassFormContainer from './class/class_form_container';
+import ClassFormContainer from './class_form/class_form_container';
 
 
 // Homepage: landing page of e-commerce site
@@ -19,6 +18,8 @@ import ClassFormContainer from './class/class_form_container';
 // Session Pages (register and login)
 // User Profile (show saves and bookings if any)
 // Class Show Page (show Class Times)
+
+// Class edit should show ClassFormContainer isNew false 
 
 const App = () => (
   <div>
@@ -28,7 +29,7 @@ const App = () => (
       <AuthRoute exact path="/account/login" component={Session} />
       <Route exact path="/classes" component={SearchContainer} />
       <Route exact path="/classes/:id" component={ClassShowContainer} />
-      <Route exact path="/classes/:id/edit" component={ClassShowContainer} />
+      <Route exact path="/classes/:id/edit" component={ClassShowContainer} /> 
       <Route exact path="/new-class" render={(props) => <ClassFormContainer {...props} isNew={true} /> } />
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       

@@ -22,7 +22,7 @@ class SessionForm extends Component {
       }
     } else {
       if (nextProps.isSignedIn === true) {
-        this.props.history.push('/login');
+        this.props.history.push('/account/login');
       }
     }
     // Set or clear errors

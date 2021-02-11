@@ -3,12 +3,16 @@ import FilterForm from './filter_form'
 
 const Search = ({
   // classes, 
+  filters,
+  updateFilter,
   fetchSaves,
   fetchClasses, 
   fetchAllClassTimes,
   }) => (
   <div>
     <FilterForm 
+      filters={filters}
+      updateFilter={updateFilter}
       fetchClasses={fetchClasses}
       fetchAllClassTimes={fetchAllClassTimes}
       fetchSaves={fetchSaves}

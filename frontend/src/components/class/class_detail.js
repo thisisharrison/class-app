@@ -1,16 +1,10 @@
-import ClassFormContainer from './class_form_container';
+import ClassFormContainer from '../class_form/class_form_container';
 
 import languages from 'languages';
 const langscodes = languages.getAllLanguageCode()
 
-const ClassDetail = ({ _class, isEdit, isNew }) => {
-  let classform;
-  if (isEdit) {
-    classform = <ClassFormContainer isNew={false} _class={_class} />;
-  }
-  if (isNew) {
-    return (<ClassFormContainer isNew={true} _class={_class} />)
-  }
+const ClassDetail = ({ _class }) => {
+  
   return (
   <div>
     <h2>{_class.name}</h2>
@@ -26,7 +20,7 @@ const ClassDetail = ({ _class, isEdit, isNew }) => {
     </ul>
     <p><strong>Ambassador:</strong>John Doe</p>
     <p><strong>Bio:</strong>Hey there...</p>
-    {classform}
+    
   </div>
 )}
 

@@ -4,22 +4,22 @@ import BookContainer from '../toggles/book_container';
 // These should be handled separately
 // isEdit, destroyClassTime, updateClassTime, editClassTime
 
-const ClassTimeIndexItem = ({ classTime, booked }) => {
+const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTime, updateClassTime, editClassTime }) => {
   
   let { startTime, endTime } = classTime;
-  
+
   startTime = moment.unix(startTime).format("dddd, MMMM Do YYYY, h:mm:ss a")
   endTime = moment.unix(endTime).format("dddd, MMMM Do YYYY, h:mm:ss a")
-  // const editButtons = isEdit ? 
-  //   (<ul>
-  //     <button
-  //       onClick={() => editClassTime(classTime)}>
-  //       Edit
-  //     </button>
-  //     <button 
-  //       onClick={() => destroyClassTime(classTime._id) }
-  //     >Remove</button>
-  //   </ul>) : ''
+  const editButtons = isEdit ? 
+    (<ul>
+      <button
+        onClick={() => editClassTime(classTime)}>
+        Edit
+      </button>
+      <button 
+        onClick={() => destroyClassTime(classTime._id) }
+      >Remove</button>
+    </ul>) : ''
 
   return (
     <div>
@@ -27,8 +27,7 @@ const ClassTimeIndexItem = ({ classTime, booked }) => {
       {classTime.class ? <p>{classTime.class.description}</p> : ''}
       <p>Starts: {startTime}</p>
       <p>Ends: {endTime}</p>
-      {/* {!isEdit ? <BookContainer booked={booked} classTimeId={classTime._id} /> : editButtons } */}
-      <BookContainer booked={booked} classTimeId={classTime._id} />
+      { isEdit ? editButtons : <BookContainer classTimeId={classTime._id} /> }
     </div>
   )
 }
