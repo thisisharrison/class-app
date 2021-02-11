@@ -46,12 +46,40 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, fetchAllClassTimes, f
     handleChange(e, unixTime);
   }
 
+  const handleClick = (e, value) => {
+    e.preventDefault();
+    let updatedTags;
+    if (e.target.name === 'tags') {
+      if (tags[value]) {
+        updatedTags = Object.assign({}, tags)
+        delete updatedTags[value]
+      } else {
+        updatedTags = Object.assign({}, tags, { [value]: true })
+      }
+      setTags(updatedTags)
+    }
+  }
+
+  useEffect(() => {
+    const newTags = Object.keys(tags)
+    const editedFilter = Object.assign({}, filter, { tags: newTags });
+    setFilter(editedFilter)
+  }, [tags])
+
+  const INTERESTS = ['Yoga', 'Meditation', 'Chess', 'Karate'];
   return (
     <div>
       <pre>{JSON.stringify(filters)}</pre>
       <pre>{JSON.stringify(filter)}</pre>
+      <pre>{JSON.stringify(tags)}</pre>
       <form>
         <label>Interests:</label>
+        {INTERESTS.map(interest => 
+          <button
+            name='tags'
+            onClick={e => handleClick(e, `${interest}`)}
+          >{interest}</button>
+        )}
         <input 
           name='tags' 
           value={filter.tags}

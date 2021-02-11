@@ -6,6 +6,8 @@ const initialState = {
   unix: 0
 }
 
+// unix to startTime endTime
+
 const filterReducer = (state = initialState, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
