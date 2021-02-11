@@ -12,6 +12,7 @@ import ClassShowContainer from './class/class_show_container';
 import ProfileContainer from './profile/profile_container';
 import ClassFormContainer from './class_form/class_form_container';
 
+import styled, { createGlobalStyle } from 'styled-components'
 
 // Homepage: landing page of e-commerce site
 // Class Pass Landing Page: show classes, fitlers, prompt user to register / login
@@ -21,9 +22,37 @@ import ClassFormContainer from './class_form/class_form_container';
 
 // Class edit should show ClassFormContainer isNew false 
 
+const Global = createGlobalStyle`
+  html {
+    font-family: Sans-Serif;
+    font-weight: normal;
+    background-color:#fafafa;
+    color:#000;
+  }
+  body {
+    margin-top: 50px;
+    margin-left: 50px;
+  }
+  body,
+  button,
+  input,
+  select,
+  textarea {
+    font-family:inherit;
+    font-size:1rem;
+    font-style:normal;
+    font-weight:400;
+    line-height:1.2
+  }
+`
+
+
 const App = () => (
   <div>
+    <Global />
+
     <NavBarContainer />
+
     <Switch>
       <Route exact path="/" component={HomePage} />
       <AuthRoute exact path="/account/login" component={Session} />
@@ -33,10 +62,6 @@ const App = () => (
       <Route exact path="/new-class" render={(props) => <ClassFormContainer {...props} isNew={true} /> } />
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       
-      
-
-      
-
     </Switch>
   </div>
 );

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import NavLink from './NavLink'
+import Nav from './Nav'
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -12,17 +15,17 @@ export default class NavBar extends Component {
   getLinks() {
     if (this.props.loggedIn) {
       return (
-        <span>
-          {this.props.isAdmin ? (<Link to={'/new-class'}>New Class</Link>) : ''}
-          <Link to={`/profile`}>My Account</Link>
-          <button onClick={this.logoutUser}>Sign Out</button>
-        </span>
+        <>
+          {this.props.isAdmin ? (<NavLink to={'/new-class'}>New Class</NavLink>) : ''}
+          <NavLink to={`/profile`}>My Account</NavLink>
+          <button onClick={this.logoutUser} as="NavLink">Sign Out</button>
+        </>
       )
     } else {
       return (
-        <span>
-          <Link to={'/account/login'}>Signup</Link>
-        </span>
+        <>
+          <NavLink to={'/account/login'}>Sign In</NavLink>
+        </>
       )
     }
   }
@@ -35,15 +38,16 @@ export default class NavBar extends Component {
   
   render() {
     return (
-      <div>
-        <strong>Logo</strong>
-          <Link to={'/#'}>Women</Link>
-          <Link to={'/#'}>Men</Link>
-          <Link to={'/#'}>Accessories</Link>
-          <Link to={'/#'}>Community</Link>
-          <Link to={'/classes'}>Classes</Link>
-          {this.getLinks()}
-      </div>
+      <Nav>
+        <Avatar src="https://cdn.dribbble.com/users/87003/screenshots/926295/dri1.jpg?compress=1&resize=400x300" 
+          />
+        <NavLink to={'/#'}>Women</NavLink>
+        <NavLink to={'/#'}>Men</NavLink>
+        <NavLink to={'/#'}>Accessories</NavLink>
+        <NavLink to={'/#'}>Community</NavLink>
+        <NavLink to={'/classes'}>Classes</NavLink>
+        {this.getLinks()}
+      </Nav>
     )
   }
 }
