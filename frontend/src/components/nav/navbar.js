@@ -45,7 +45,7 @@ export default class NavBar extends Component {
         <NavLink to={'/#'}>Men</NavLink>
         <NavLink to={'/#'}>Accessories</NavLink>
         <NavLink to={'/#'}>Community</NavLink>
-        <NavLink to={'/classes'}>Classes</NavLink>
+        <NavLink promo={true} to={'/classes'}>Classes</NavLink>
         {this.getLinks()}
       </Nav>
     )

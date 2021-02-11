@@ -26,23 +26,19 @@ const Global = createGlobalStyle`
   html {
     font-family: Sans-Serif;
     font-weight: normal;
-    background-color:#fafafa;
-    color:#000;
-  }
-  body {
-    margin-top: 50px;
-    margin-left: 50px;
+    background-color: #fff;
+    color: #000;
   }
   body,
   button,
   input,
   select,
   textarea {
-    font-family:inherit;
-    font-size:1rem;
-    font-style:normal;
-    font-weight:400;
-    line-height:1.2
+    font-family: inherit;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2
   }
 `
 

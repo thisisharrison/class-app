@@ -14,6 +14,7 @@ const NavLink = styled(Link)`
   line-height: 1.25rem;
   display: inline-block;
   position: relative;
+  color: inherit;
   :visited {
     color: inherit;
   }
@@ -26,12 +27,21 @@ const NavLink = styled(Link)`
     top: auto;
     left: 0;
     right: 100%;
-    background:#d31334;
+    background: #d31334;
     transition: right .25s ease-in-out
   }
   :hover:after {
     right: 0;
   }
+
+  ${props => props.promo && 
+    `
+      color: #d31334;
+      :visited {
+        color: #d31334;
+      }
+    `}
+  }}
 `
 
 export default NavLink;

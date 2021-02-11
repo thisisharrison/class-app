@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
+import { FormControl, TextField, ThemeProvider } from '@material-ui/core';
+import { theme, SubmitInput } from './session_style';
 
 class SessionForm extends Component {
   constructor(props) {
@@ -78,11 +80,11 @@ class SessionForm extends Component {
   renderButton() {
     if (this.props.formType === 'Sign Up') {
       return (
-        'Create Account'
+        'CREATE ACCOUNT'
       )
     } else {
       return (
-        'Sign In'
+        'SIGN IN'
       )
     }
   }
@@ -90,11 +92,14 @@ class SessionForm extends Component {
   renderConfirmPassword() {
     if (this.props.formType === "Sign Up") {
       return (
-        <label>
-          Confirm Password:
-          <input type="password"
-            onChange={this.update('password2')} />
-        </label>
+        <TextField 
+            type="password"
+            label="Confirm Password"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.update('password2')} 
+          />
       )
     }
   }
@@ -102,26 +107,48 @@ class SessionForm extends Component {
   render() {
     return (
       <div>
-        {this.renderHeaders()}
-        {this.renderErrors()}
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Email:
-              <input type="text"
-              onChange={this.update('email')} />
-          </label>
+        <ThemeProvider theme={theme}>
 
-          <label>
-            Password:
-              <input type="password"
-              onChange={this.update('password')} />
-          </label>
-            {this.renderConfirmPassword()}
-          <input type="submit" value={this.renderButton()} />
+        {this.renderHeaders()}
+        {this.renderErrors()}    
+
+        <form onSubmit={this.handleSubmit}>
+        
+        <FormControl  
+          fullWidth
+          variant="outlined"
+        >
+          <TextField
+            type="text"
+            label="Email Address"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.update('email')} 
+          />
+          <br />
+          
+          <TextField 
+            type="password"
+            label="Password"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.update('password')} 
+          />
+          <br />
+          
+          {this.renderConfirmPassword()}
+          
+          <SubmitInput type="submit" value={this.renderButton()} />
+        </FormControl>
+        
         </form>
+        
+        </ThemeProvider>
       </div>
     )
   }
 }
 
-export default withRouter(SessionForm);
+export default SessionForm;
