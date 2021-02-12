@@ -1,6 +1,7 @@
 import { withRouter } from 'react-router-dom';
 import ClassIndexItem from './class_index_item';
 import React, { Component, useEffect, useState } from 'react'
+import { Container } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
 
 const ClassIndex = ({classes}) => {
@@ -9,17 +10,19 @@ const ClassIndex = ({classes}) => {
   } else {
     return (
       <div>
-        <h2>All Classes</h2>
-        <Grid container spacing={4}>
-          {classes.map(_class => (
-            <Grid item xs={3}>
-              <ClassIndexItem
-                key={_class._id}
-                _class={_class}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        
+          <h1>All Classes</h1>
+          <Grid container spacing={4}>
+            {classes.map(_class => (
+              <Grid item xs={4}>
+                <ClassIndexItem
+                  key={_class._id}
+                  _class={_class}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        
       </div>
     )
   }

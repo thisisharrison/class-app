@@ -1,3 +1,4 @@
+/* CSS Reset */
 html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
@@ -26,44 +27,47 @@ img {
   height: auto;
 }
 
-
-
-
-/* .App {
-  text-align: center;
+/* Custom CSS */
+html {
+  font-family: Sans-Serif;
+  font-weight: normal;
+  background-color: #fafafa;
+  color: #000;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body,
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+h2 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  line-height: 1.1;
+  margin: 0 auto 1.875rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h3 {
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 0;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

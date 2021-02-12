@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
@@ -41,9 +40,9 @@ export default class SaveToggle extends Component {
   }
 
   render() {
-    const button = this.state.save ? <FavoriteRoundedIcon color={'secondary'}/> : <FavoriteBorderRoundedIcon />
+    const button = this.state.save ? <FavoriteRoundedIcon style={{ color: '#d31334' }}/> : <FavoriteBorderRoundedIcon />
     return (
-      <IconButton aria-label="add to favorites" onClick={() => this.toggleSave(this.props.classId)}>
+      <IconButton aria-label="save" onClick={() => this.toggleSave(this.props.classId)}>
         {button}
       </IconButton>
     )

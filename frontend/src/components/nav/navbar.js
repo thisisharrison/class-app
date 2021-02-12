@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import NavLink from './NavLink'
-import Nav from './Nav'
+import { NavWrapper, Nav } from './Nav'
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -18,7 +18,8 @@ export default class NavBar extends Component {
         <>
           {this.props.isAdmin ? (<NavLink to={'/new-class'}>New Class</NavLink>) : ''}
           <NavLink to={`/profile`}>My Account</NavLink>
-          <button onClick={this.logoutUser} as="NavLink">Sign Out</button>
+          {/* Polymorphic button looks like NavLink */}
+          <NavLink as="button" onClick={this.logoutUser}>Sign Out</NavLink>
         </>
       )
     } else {
@@ -38,6 +39,7 @@ export default class NavBar extends Component {
   
   render() {
     return (
+      <NavWrapper>
       <Nav>
         <Avatar src="https://cdn.dribbble.com/users/87003/screenshots/926295/dri1.jpg?compress=1&resize=400x300" 
           />
@@ -48,6 +50,7 @@ export default class NavBar extends Component {
         <NavLink promo={true} to={'/classes'}>Classes</NavLink>
         {this.getLinks()}
       </Nav>
+      </NavWrapper>
     )
   }
 }

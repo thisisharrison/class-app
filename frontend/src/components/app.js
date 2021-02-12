@@ -13,6 +13,7 @@ import ProfileContainer from './profile/profile_container';
 import ClassFormContainer from './class_form/class_form_container';
 
 import styled, { createGlobalStyle } from 'styled-components'
+import { Container } from '@material-ui/core'
 
 // Homepage: landing page of e-commerce site
 // Class Pass Landing Page: show classes, fitlers, prompt user to register / login
@@ -39,26 +40,30 @@ const Global = createGlobalStyle`
     font-style: normal;
     font-weight: 400;
     line-height: 1.2
+  },
+  h2 {
+    color: blue;
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0 auto 1.875rem;
   }
 `
 
 
 const App = () => (
   <div>
-    <Global />
-
     <NavBarContainer />
-
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <AuthRoute exact path="/account/login" component={Session} />
-      <Route exact path="/classes" component={SearchContainer} />
-      <Route exact path="/classes/:id" component={ClassShowContainer} />
-      <Route exact path="/classes/:id/edit" component={ClassShowContainer} /> 
-      <Route exact path="/new-class" render={(props) => <ClassFormContainer {...props} isNew={true} /> } />
-      <ProtectedRoute exact path="/profile" component={ProfileContainer} />
-      
-    </Switch>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <AuthRoute exact path="/account/login" component={Session} />
+        <Container maxwidth="sm">
+            <Route exact path="/classes" component={SearchContainer} />
+            <Route exact path="/classes/:id" component={ClassShowContainer} />
+            <Route exact path="/classes/:id/edit" component={ClassShowContainer} /> 
+            <Route exact path="/new-class" render={(props) => <ClassFormContainer {...props} isNew={true} /> } />
+            <ProtectedRoute exact path="/profile" component={ProfileContainer} />
+        </Container>
+      </Switch>
   </div>
 );
 
