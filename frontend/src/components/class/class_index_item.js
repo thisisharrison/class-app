@@ -3,34 +3,26 @@ import SaveContainer from "../toggles/save_container";
 import useStyles from './class_card_style'
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import styled from 'styled-components'
 import Divider from "@material-ui/core/Divider";
 import IconButton from '@material-ui/core/IconButton';
 import CalendarTodayRoundedIcon from '@material-ui/icons/CalendarTodayRounded';
+import Chip from '@material-ui/core/Chip';
+import { Grid } from '@material-ui/core'
 
-const TeacherCardBio = styled.ul`
+
+const ContentUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  align-content: flex-start;
-  padding-bottom: 10px;
-`
-
-const TeacherCardDetail = styled.ul`
-  margin-left: 15px;
-  font-size: 16px;
-  font-weight: 400;
 `
 
 const ClassIndexItem = ({ _class }) => {
 
   const styles = useStyles();
-
+  
   const teacherInitials = _class.admin.fname[0] + _class.admin.lname[0]
   const teacherName = _class.admin.fname + ' ' + _class.admin.lname
   
@@ -44,28 +36,46 @@ const ClassIndexItem = ({ _class }) => {
   const subheader = (
   <ul>
     <li>{teacherName}</li>
-    <li>Australia</li>
-    <li>F45</li>
+    <li>{_class.admin.city}</li>
+    <li>{_class.admin.affiliate}</li>
   </ul>
   )
+
+  const avatar = (
+    _class.admin.photo ? <Avatar alt={teacherName} src={_class.admin.photo} /> : <Avatar>{teacherInitials}</Avatar>
+  )
+
+  const tags = (
+    _class.tags.map(tag => <Chip key={`${_class._id}-${tag}`} label={tag} />)
+  )
+
+  const languages = (
+    _class.languages.map(language => <Chip key={`${_class._id}-${language}`} label={language} />)
+  )
+
   return (
     <div>
       <Card className={styles.card}>
         <CardHeader
-          avatar={
-            <Avatar>{teacherInitials}</Avatar>
-          }
+          avatar={avatar}
           title={header}
           subheader={subheader}
         >
         </CardHeader>
         <CardContent>
-          <ul>
-            <li>5+ Class Times Available</li>
-          </ul>
-          <ul>
-            <li>Yoga CrossFit Tags ENglish Chinese</li>
-          </ul>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+          >
+            <ContentUl>
+              {tags}
+            </ContentUl>
+            <ContentUl>
+              {languages}
+            </ContentUl>
+          </Grid>
         </CardContent>
         
         <Divider />

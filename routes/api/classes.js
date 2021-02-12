@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
   
   Class
     .find(query)
-    .populate({ path: 'admin', select: ['fname', 'lname'] })
+    .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo'] })
     .populate({ path: 'classTimes', match: { startTime: { $gte: currentUserUnix }}, options: { sort: { startTime: 1 }}, select: ['startTime', 'endTime']})
     .then(classes => res.json(classesObject(classes)))
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))

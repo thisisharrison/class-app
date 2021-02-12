@@ -1,11 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Divider from "@material-ui/core/Divider";
-import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles ((theme) => ({
   palette: {
@@ -18,7 +11,7 @@ const useStyles = makeStyles ((theme) => ({
   },
   card: {
     maxWidth: 400,
-    height: 280,
+    height: 250,
     boxSizing: "border-box",
     display: "block",
     margin: "auto",

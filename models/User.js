@@ -23,6 +23,14 @@ const UserSchema = new Schema ({
       type: String,
       required: false
   },
+  city: {
+    type: String,
+    required: false
+  },
+  affiliate: {
+    type: String,
+    required: false
+  },
   photo: {
       type: String,
       required: false

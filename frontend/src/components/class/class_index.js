@@ -13,10 +13,10 @@ const ClassIndex = ({classes}) => {
         
           <h1>All Classes</h1>
           <Grid container spacing={4}>
-            {classes.map(_class => (
+            {classes.map((_class, i) => (
               <Grid item xs={4}>
                 <ClassIndexItem
-                  key={_class._id}
+                  key={`${_class._id}-${i}`}
                   _class={_class}
                 />
               </Grid>
