@@ -3,6 +3,9 @@ import { Redirect, withRouter } from 'react-router-dom';
 import Taggings from './class_taggings'
 import Languages from './class_languages'
 
+import { Container, FormControl, Grid, TextField, ThemeProvider } from '@material-ui/core'
+import { theme, SubmitInput } from '../session/session_style';
+
 class ClassForm extends Component {
   constructor(props) {
     super(props);
@@ -101,10 +104,39 @@ class ClassForm extends Component {
       (<h2>Create New Class</h2>) : 
       (<h2>Edit {this.props._class.name}</h2>)
     return (
-      <div>
+      <div className="formWrapper">
+        <ThemeProvider theme={theme}>
+        <Container maxwidth="sm">
         {header}
         <form onSubmit={this.handleSubmit}>
-          <input
+          
+          <FormControl
+              fullWidth
+              variant="outlined"
+            >
+          <TextField 
+            type="text"
+            label="Name"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            onChange={this.update('name')}
+          />
+          <br />
+
+          <TextField
+            label="Description"
+            multiline
+            rows={4}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            onChange={this.update('description')}
+          />
+          <br />
+          {/* <input
             value={this.state.name}
             onChange={this.update('name')}
             placeholder="name"
@@ -113,10 +145,8 @@ class ClassForm extends Component {
             value={this.state.description}
             onChange={this.update('description')}
             placeholder="description"
-          />
-          <input type="submit" value={
-            this.props.isNew ? 'Create Class' : 'Edit Class'
-          } />
+          /> */}
+          
           <Taggings 
             updateTags={(taggings) => this.updateTags(taggings)}
             prexistTags={this.state.tags}
@@ -125,12 +155,21 @@ class ClassForm extends Component {
             updateLanguages={(languages) => this.updateLanguages(languages)}
             prexistLanguages={this.state.languages}
           />
-        </form>
+          <input type="submit" value={
+            this.props.isNew ? 'Create Class' : 'Edit Class'
+          } />
           {this.renderDeleteButton()}
+          
+          </FormControl>
+        
+        </form>
+        
         <br />
         {this.state.redirect && (
           <Redirect to={this.state.redirectPath} />
         )}
+        </Container>
+        </ThemeProvider>
       </div>
     )
   }

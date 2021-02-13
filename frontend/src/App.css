@@ -109,3 +109,31 @@ p{
   justify-content: space-between;
   text-align: left;
 }
+.formWrapper {
+  background-color: white;
+}
+.myTagging {
+  background: white;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 5px 5px 0;
+  height: 45px;
+}
+.myTagging:hover {
+  border: 1px solid #000;
+  cursor: text;
+}
+.myTagging input {
+  width: 100%;
+}
+.myTagging ul {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}

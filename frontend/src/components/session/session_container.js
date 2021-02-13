@@ -1,15 +1,11 @@
 import LoginFormContainer from './login_form_container';
 import SignUpFormContainer from './signup_form_container';
-import styled from 'styled-components';
 import { Container, Grid } from '@material-ui/core'
 
-const SessionWrapper = styled.section`
-  background-color: white;
-`
 
 const Session = () => {
   return (
-    <SessionWrapper>
+    <div className="formWrapper">
       <Container maxwidth="sm">
       <Grid container spacing={4}>
         <Grid item xs={6}>
@@ -21,7 +17,7 @@ const Session = () => {
         </Grid>
       </Grid>
       </Container>
-    </SessionWrapper>
+    </div>
   )
 }
 
