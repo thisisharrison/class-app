@@ -4,6 +4,22 @@ import { Link, withRouter } from 'react-router-dom';
 import ClassTimeIndexContainer from '../classtime/classtime_index_container';
 import ClassFormContainer from '../class_form/class_form_container'
 import ClassTimeFormContainer from '../classtime/classtime_form_container';
+import styled from 'styled-components';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { Grid } from '@material-ui/core'
+
+const BackToAll = styled(Link)`
+  font-size: 14px;
+  border-bottom: 1px solid #d5d5d5;
+  :hover {
+    border-bottom: 3px solid #d22030;
+  }
+`
+const BreadCrumb = styled.section`
+  padding-top: 40px;
+  padding-bottom: 40px;
+`
+
 
 class ClassShow extends Component {
   constructor(props) {
@@ -39,28 +55,47 @@ class ClassShow extends Component {
     if (!this.isEdit()) {
       return (
         <div>
-          <h1>Not editing</h1>
-
-          <Link to="/classes">Back to All Classes</Link>
-          <ClassDetail 
-            _class={_class}
-          /> 
-          
-          <ClassTimeIndexContainer 
-            // _class={_class}
-            classId={classId}
-            isEdit={false}
-            isClassOwner={this.isClassOwner()}
-          />
-          
+          <pre>Not editing</pre>
+          <Grid
+            container
+            spacing={4}
+            direction="column"
+            justify="flex-start"
+            alignItems="flex-start"
+          >
+            <BreadCrumb>
+              <BackToAll to="/classes"><ArrowBackIosIcon style={{ fontSize: 14 }}/> Back to All Classes</BackToAll>
+            </BreadCrumb>
+            
+            <Grid
+              container
+              direction="row"
+              spacing={4}
+            >
+              <Grid item xs={8}>
+                <ClassDetail 
+                  _class={_class}
+                />
+              </Grid>
+              
+              <Grid item xs={4}>
+                <ClassTimeIndexContainer 
+                  // _class={_class}
+                  classId={classId}
+                  isEdit={false}
+                  isClassOwner={this.isClassOwner()}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
         </div>
       )
     } else {
       return (
         <div>
-          <h1>Editing</h1>
+          <pre>Editing</pre>
 
-          <Link to="/classes">Back to All Classes</Link>
+          <BackToAll to="/classes">Back to All Classes</BackToAll>
 
           <ClassFormContainer 
             _class={_class}

@@ -12,12 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CalendarTodayRoundedIcon from '@material-ui/icons/CalendarTodayRounded';
 import Chip from '@material-ui/core/Chip';
 import { Grid } from '@material-ui/core'
+import { ContentUl } from './class_chip_style'
 
-
-const ContentUl = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-`
 
 const ClassIndexItem = ({ _class }) => {
 

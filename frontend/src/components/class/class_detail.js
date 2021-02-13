@@ -1,26 +1,75 @@
 import ClassFormContainer from '../class_form/class_form_container';
-
+import SaveContainer from '../toggles/save_container';
 import languages from 'languages';
+
+import { Avatar, Divider, Grid } from '@material-ui/core'
+import styled from 'styled-components'
+import { ContentUl } from './class_chip_style'
+import Chip from '@material-ui/core/Chip';
+
+
+const DetailSection = styled.section`
+  padding-top: 48px;
+  padding-bottom: 48px;
+`
+const H3 = styled.h3`
+  line-height: 30px;
+  margin-bottom: 32px;
+`
+
 const langscodes = languages.getAllLanguageCode()
 
 const ClassDetail = ({ _class }) => {
-  
+  const langs = _class.languages.map((langcode) => languages.getLanguageInfo(langcode).nativeName).join(', ')
+  const tags = _class.tags.map((tag, idx) => <Chip key={`tag-${idx}`} label={tag} />)
   return (
   <div>
-    <h2>{_class.name}</h2>
-    <p><strong>Class Name:</strong>{_class.name}</p>
-    <p><strong>Class Description:</strong>{_class.description}</p> 
-    <p><strong>Tags:</strong></p>
-    <ul>
-    {_class.tags.map((tag, idx) => <li key={`tag-${idx}`}>{tag}</li>)}
-    </ul>
-    <p><strong>Languages Offered:</strong></p>
-    <ul>
-      {_class.languages.map((langcode, idx) => <li key={langcode}>{languages.getLanguageInfo(langcode).nativeName}</li>)}
-    </ul>
-    <p><strong>Ambassador:</strong>John Doe</p>
-    <p><strong>Bio:</strong>Hey there...</p>
-    
+      <Grid item xs={12}>
+        <div className="class-detail-name">
+        <h2>{_class.name}</h2>
+        <SaveContainer classId={_class._id} />
+        </div>
+      <p>{_class.admin.city}</p>
+      <p>{_class.admin.affiliate}</p>
+      
+
+      <DetailSection>
+      <Divider />
+      <div className="class-detail-instructor-top">
+        <H3>Online Class taught by {_class.admin.fname + _class.admin.lname}</H3>
+        <Avatar alt={`${_class.admin.fname + _class.admin.lname}`} src={_class.admin.photo} />
+      </div>
+      <ul>
+        <li>Taught in {langs}</li>
+      </ul>
+      </DetailSection>
+      
+      <DetailSection>
+      <Divider />
+        <H3>What you'll do</H3>
+        <p>{_class.description}</p> 
+        <ContentUl>
+          {tags}
+        </ContentUl>
+      </DetailSection>
+
+      <DetailSection>
+      <Divider />
+        <H3>How to participate</H3>
+        <p>Zoom</p>
+      </DetailSection>
+
+      <DetailSection>
+      <Divider />
+          <div className="class-detail-instructor-bottom">
+            <Avatar alt={`${_class.admin.fname + _class.admin.lname}`} src={_class.admin.photo} />
+            <H3>Meet your instructor, {_class.admin.fname + _class.admin.lname}</H3>
+          </div>
+          <p>{_class.admin.bio}</p>
+      </DetailSection>
+
+      </Grid>
+
   </div>
 )}
 

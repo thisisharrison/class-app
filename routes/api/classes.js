@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
   
   Class
     .find(query)
-    .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo'] })
+    .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
     .populate({ path: 'classTimes', match: { startTime: { $gte: currentUserUnix }}, options: { sort: { startTime: 1 }}, select: ['startTime', 'endTime']})
     .then(classes => res.json(classesObject(classes)))
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
@@ -68,7 +68,7 @@ router.post('/',
 
     newClass.save()
       .then(_class => 
-        _class.populate({ path: 'admin', select: ['fname', 'lname'] }, 
+        _class.populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] }, 
           (err, result) => res.json(result))
         )
   }
@@ -77,7 +77,7 @@ router.post('/',
 // Show a class
 router.get('/:id', (req, res) => {
   Class.findById(req.params.id)
-    .populate({ path: 'admin', select: ['fname', 'lname'] })
+    .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
     .populate({ path: 'classTimes', options: { sort: { startTime: 1 } }, select: ['startTime', 'endTime'] })
     .then(_class => res.json(_class))
     .catch(err => 
@@ -103,7 +103,7 @@ router.patch('/:id',
         languages: req.body.languages
       }},
       {new: true})
-      .populate({ path: 'admin', select: ['fname', 'lname'] })
+      .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
       .populate({ path: 'classTimes', options: { sort: { startTime: 1 } }, select: ['startTime', 'endTime'] })
       .then((err, result) => {
         if (err) {

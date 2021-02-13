@@ -44,14 +44,14 @@ textarea {
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.2
+  line-height: 1.2;
 }
 
 h1 {
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
-  line-height: 32px;
+  line-height: 1.2;
 }
 h2 {
   font-size: 24px;
@@ -59,15 +59,53 @@ h2 {
   font-weight: 600;
   margin-top: 16px;
   margin-bottom: 16px;
-  line-height: 1.1;
-  margin: 0 auto 1.875rem;
+  line-height: 1.2;
 }
 
 h3 {
   font-size: 19px;
   font-style: normal;
   font-weight: 600;
-  cursor: pointer;
   text-align: left;
+  line-height: 1.2;
   margin-bottom: 0;
+}
+p{
+  line-height: normal;
+}
+
+.class-detail-instructor-top {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: baseline;
+  justify-content: space-between;
+  text-align: left;
+  margin-top: 20px;
+}
+.class-detail-instructor-top > div {
+  margin-right: 50px;
+}
+
+.class-detail-instructor-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: baseline;
+  text-align: left;
+  margin-top: 20px;
+}
+.class-detail-instructor-bottom > div {
+  margin-right: 50px;
+}
+.class-detail-name {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: baseline;
+  justify-content: space-between;
+  text-align: left;
 }
