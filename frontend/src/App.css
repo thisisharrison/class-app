@@ -138,3 +138,20 @@ p{
   padding: 0;
   width: 100%;
 }
+.classtime {
+  display: flex;
+  flex-wrap: wrap; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.classtime h5 {
+  margin: 0;
+  padding: 0;
+}
+.classtime-date {
+  font-size: 24px;
+}
+.classtime-index-item {
+  margin-bottom: 30px;
+}

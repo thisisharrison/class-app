@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Grid, Chip } from '@material-ui/core'
+import DoneIcon from '@material-ui/icons/Done';
 
 export default class BookToggle extends Component {
   constructor(props) {
@@ -40,7 +42,13 @@ export default class BookToggle extends Component {
     const button = this.state.book ? 'Unbook' : 'Book'
     return (
       <div>
-        <button onClick={() => this.toggleBook(this.props.classTimeId)}>{button}</button>
+        <Chip
+          label={button}
+          clickable
+          color={this.state.book ? 'primary': 'default'}
+          variant={this.state.book ? 'default' : 'outlined'}
+          onClick={() => this.toggleBook(this.props.classTimeId)}
+        />
       </div>
     )
   }
