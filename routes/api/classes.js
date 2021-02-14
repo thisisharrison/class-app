@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
   console.log(req.query)
   
-  const { tags, languages, unix } = req.query
+  const { tags, languages, startTime } = req.query
   
   const classQuery = []
   if (tags) {
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
   if (languages) {
     classQuery.push({ languages: { $in: languages } })
   }
-  const currentUserUnix = unix ? unix : 0
+  const currentUserUnix = startTime ? startTime[0] : 0
   // ({ $and: [{ price: { $ne: 1.99 } }, { price: { $exists: true } }] })
 
   const query = classQuery.length > 0 ? {$and: classQuery} : {} 

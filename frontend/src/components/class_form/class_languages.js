@@ -5,7 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 
 
-const langscodes = languages.getAllLanguageCode()
+export const langscodes = languages.getAllLanguageCode()
 
 const Languages = ({updateLanguages, prexistLanguages}) => {
   const [_languages, setLanguages] = useState(['English']);

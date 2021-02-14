@@ -17,7 +17,7 @@ const filterReducer = (state = initialState, action) => {
     case UPDATE_FILTERS_QUERY_PARAMS:
       newState.queryParams = '?' + Object.keys(newState.options).map(filter =>
         newState.options[filter].reduce((acc, cur) => {
-          return acc += `${filter}=${cur.split(' ').join('+')}&`
+          return acc += `${filter}=${cur.toString().split(' ').join('+')}&`
         }, '')).join('')
       return newState;
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getClasses = queryString => {
   
-  return axios.get(`/api/classes${queryString}`)
+  return axios.get(`/api/classes/${queryString}`)
 }
 
 export const postClass = data => (

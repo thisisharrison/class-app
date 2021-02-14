@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react"
 import moment from 'moment';
 import languages from 'languages';
 import { INTERESTS } from '../class_form/class_taggings'
-import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Divider, Modal, Paper, Box } from "@material-ui/core";
-import styled from 'styled-components'
+import { Grid, Chip, Divider, Modal, Paper, Box, TextField } from "@material-ui/core";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { DateModal, LanguageModal } from './filter_modals' 
+import { langscodes } from '../class_form/class_languages'
 
-const langscodes = languages.getAllLanguageCode()
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +45,7 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
   
   const handleChange = (e, value = undefined) => {
     let updatedField;
+    debugger
     if (value) {
       updatedField = { [e.target.name]: [value] };
     } else {
@@ -78,48 +78,63 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
     }
   }
 
+  const handleLanguageChange = values => {
+    const updatedField = { languages: values }
+    const editedFilter = Object.assign({}, filter, updatedField)
+    setFilter(editedFilter)
+  }
+
   useEffect(() => {
     const newTags = Object.keys(tags)
     const editedFilter = Object.assign({}, filter, { tags: newTags });
     setFilter(editedFilter)
   }, [tags])
 
+  const langs = langscodes.map((langcode, i) => languages.getLanguageInfo(langcode).nativeName)
+
   return (
     <div className={styles.div}>
       <pre>Redux: {JSON.stringify(filters)}</pre>
-      <pre>Filter: {JSON.stringify(filter)}</pre>
-      <pre>Tags: {JSON.stringify(tags)}</pre>
+      <pre>Component: {JSON.stringify(filter)}</pre>
       
       <form>
         <Grid container alignitems="center" spacing={3}>
           <Grid item xs={3}>
             <Grid container spacing={1} justify="flex-start" alignItems="flex-start">
               <Grid item xs>
-                <Chip
-                  label='Dates'
-                  variant='outlined'
-                  onClick={() => setDateModal(true)}
+                <TextField
+                  label="Start Time"
+                  type="date"
+                  name="startTime"
+                  value={moment.unix(filter.startTime).format("YYYY-MM-DD")}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={handleTimeChange}
                 />
-                <Modal
-                  open={dateModal}
-                  onClose={() => setDateModal(false)}
-                >
-                  <DateModal handleTimeChange={handleTimeChange}/>
-                </Modal>
               </Grid>
         
               <Grid item xs>
-                <Chip 
-                  label='Langauge Offered'
-                  variant='outlined'
-                  onClick={() => setLangModal(true)}
+                <Autocomplete
+                  multiple
+                  options={langs}
+                  getOptionLabel={(option) => option}
+                  defaultValue={['English']}
+                  filterSelectedOptions
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Languages"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  )}
+                  onChange={(event, newValue) => {
+                    handleLanguageChange(newValue)
+                  }}
                 />
-                <Modal
-                  open={langModal}
-                  onClose={() => setLangModal(false)}
-                >
-                  <LanguageModal handleChange={handleChange}/>
-                </Modal>  
               </Grid>
             </Grid>
           </Grid>

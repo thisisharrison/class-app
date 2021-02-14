@@ -29,13 +29,9 @@ export const removeClass = (_class) => ({
   _class
 })
 
-export const fetchClasses = (data) => dispatch => { 
-  // data to query string
-
-  // temp1.tags.reduce((acc, cur) => acc + 'tags=' + cur + '?', '?')
-  const queryString = '?' + Object.keys(data).map(key => key + '=' + data[key]).join('&')
+export const fetchClasses = (queryParams) => dispatch => { 
   return (
-  getClasses(queryString)
+  getClasses(queryParams)
     .then(classes => dispatch(receiveClasses(classes)))
     .catch(err => console.log(err))
 )}
