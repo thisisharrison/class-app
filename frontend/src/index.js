@@ -7,6 +7,7 @@ import Root from './components/root';
 import configureStore from './store/store';
 import { setAuthToken } from './util/session/session_api_util';
 import { logout } from './actions/session/session_actions';
+import moment from 'moment';
 
 import * as ClassUtil from './actions/class/class_action';
 
@@ -45,5 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.ClassUtil = ClassUtil;
   window.store = store
   window.dispatch = store.dispatch;
+  window.moment = moment;
   ReactDOM.render(<Root store={store}/>, root);
 })

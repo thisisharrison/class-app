@@ -112,6 +112,7 @@ p{
 .formWrapper {
   background-color: white;
 }
+/* Using Material UI Autocomplete */
 .myTagging {
   background: white;
   border: 1px solid #d6d6d6;

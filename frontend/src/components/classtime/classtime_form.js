@@ -1,13 +1,15 @@
 import moment from 'moment';
 import React, { Component } from 'react'
 import ClassTimeIndexItem from './classtime_index_item';
+import { FormControl, Grid, TextField, Container } from '@material-ui/core'
+import { SubmitInput } from '../session/session_style'
 
 class ClassTimeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startTime: '',
-      endTime: '',
+      startTime: moment().format("YYYY-MM-DDTHH:mm"),
+      endTime: moment().add(60, 'minutes').format("YYYY-MM-DDTHH:mm"),
       newClassTime: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +20,7 @@ class ClassTimeForm extends Component {
       if (field === 'startTime') {
         this.setState({
           [field]: e.currentTarget.value,
-          endTime: e.currentTarget.value
+          endTime: moment(e.currentTarget.value).add(60, 'minutes').format("YYYY-MM-DDTHH:mm")
         })
       } else {
         this.setState({
@@ -65,26 +67,53 @@ class ClassTimeForm extends Component {
   render() {
     const btn = !!this.props.newClassTime ?  'Edit Class Time' : 'Create Class Time';
     return (
-      <div>
+      <div className="formWrapper">
+        <Container maxwidth="sm">
         <h2>Add New Class Time</h2>
+
         <form onSubmit={this.handleSubmit}>
-          <label>Start Time</label>
-          <input 
-            value={this.state.startTime}
+          <FormControl
+            fullWidth
+            variant="outlined"
+          >
+            
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            spacing={2}
+          >
+          <Grid item xs>
+          <TextField 
+            label="Start Time"
             type="datetime-local"
+            value={this.state.startTime}
+            InputLabelProps={{
+              shrink: true,
+            }}
             onChange={this.update('startTime')}
           />
-          
-          <label>End Time</label>
-          <input
-            value={this.state.endTime}
+          </Grid>
+          <Grid item xs>
+          <TextField
+            label="End Time"
             type="datetime-local"
+            value={this.state.endTime}
+            InputLabelProps={{
+              shrink: true,
+            }}
             onChange={this.update('endTime')}
           />
-          <input type="submit" value={btn} />
+          </Grid>
+          </Grid>
+          
+          <SubmitInput type="submit" value={btn} />
+          
+          </FormControl>
         </form>
         <br />
-
+        </Container>
         
       </div>
     )
