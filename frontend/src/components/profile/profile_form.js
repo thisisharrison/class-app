@@ -1,17 +1,52 @@
-// https://www.npmjs.com/package/react-languages-select
-// import React, { useState, useMemo } from 'react'
-// import Select from 'react-select'
-// import countryList from 'react-select-country-list'
 
-// function Languages() {
-//   const [value, setValue] = useState('')
-//   const options = useMemo(() => countryList().getData(), [])
+import { FormControl, TextField } from '@material-ui/core'
+import { SubmitInput } from '../session/session_style'
+import React, { useState } from 'react'
 
-//   const changeHandler = value => {
-//     setValue(value)
-//   }
+export default function ProfileForm({ currentUser }) {
+  
+  const[profile, setProfile] = useState(currentUser)
 
-//   return <Select options={options} value={value} onChange={changeHandler} />
-// }
+  const handleChange = e => {
+    const updatedProfile = Object.assign({}, profile, { [e.target.name] : e.target.value });
+    setProfile(updatedProfile);
+  }
 
-// export default Languages
+  return (
+    <div>
+      <FormControl variant="outlined" fullWidth margin="normal">
+        <TextField
+          label="First Name"
+          name='fname'
+          onChange={handleChange}
+        />
+
+        <TextField
+          label="Last Name"
+          name='lname'
+          onChange={handleChange}
+        />
+
+        <TextField
+          label="About Me"
+          name='bio'
+          onChange={handleChange}
+        />
+
+        <TextField
+          label="Location"
+          name='city'
+          onChange={handleChange}
+        />
+
+        <TextField
+          label="Affiliate"
+          name='affiliate'
+          onChange={handleChange}
+        />
+
+        <SubmitInput type="submit" value="Save"/>
+      </FormControl>
+    </div>
+  )
+}

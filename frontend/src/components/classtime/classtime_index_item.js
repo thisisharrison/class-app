@@ -49,8 +49,7 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
       {/* {classTime.class ? <p>{classTime.class.name}</p> : ''} */}
       
       <Grid item xs={6}>
-      <p>Starts: {startTime}</p>
-      <p>Ends: {endTime}</p>
+      <p>{startTime} - {endTime} (HKT)</p>
       </Grid>
       
       <Grid item xs>

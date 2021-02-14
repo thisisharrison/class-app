@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import ClassTimeIndexItem from './classtime_index_item'
 import styled from 'styled-components'
 
-const MyPaper = styled(Paper)`
+export const MyPaper = styled(Paper)`
   padding: 20px;
 `
 

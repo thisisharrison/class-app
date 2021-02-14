@@ -1,16 +1,22 @@
+import { Grid } from '@material-ui/core'
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import ClassIndexItem from '../class/class_index_item'
 import ClassTimeIndexItem from '../classtime/classtime_index_item'
 import BookContainer from '../toggles/book_container'
 import SaveContainer from '../toggles/save_container'
+import { MyPaper } from '../classtime/classtime_index'
+import ProfileForm from './profile_form'
 
 export default class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
       bookingIds: [],
-      saveIds: []
+      saveIds: [],
+      editing: false
     }
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentDidMount() {
@@ -31,43 +37,46 @@ export default class Profile extends Component {
       })
     }
   }
+
+  handleEdit() {
+    const edit = !this.state.editing;
+    this.setState({editing: edit});
+  }
  
   render() {
     const { currentUser, bookings, saves } = this.props
     
     return (
       <div>
-        <h1>{currentUser.email}</h1>
+        <h1>Hi, I'm {currentUser.email}</h1>
+        {this.state.editing ? <Link onClick={this.handleEdit}>Close Edit</Link>: <Link onClick={this.handleEdit}>Edit Profile</Link>}
+        {this.state.editing ? <ProfileForm currentUser={currentUser}/> : <></>}
+
         <h2>Your Saved Classes</h2>
-        <ul>
+        <Grid container spacing={2}>
           {saves.map(_class => 
-            <div>
+            <Grid item xs>
             <ClassIndexItem 
               key={_class._id}
               _class={_class}
               savesIds={this.state.saveIds}/>
-            </div>
+            </Grid>
             )}
-        </ul>
+        </Grid>
+        
         <h2>Your Booked Class Times</h2>
-        <ul>
+        <MyPaper>
+        <Grid container spacing={2}>
           {bookings.map(classTime => 
-            
+            <Grid item xs>
             <ClassTimeIndexItem 
               key={classTime._id}
               classTime={classTime}
               booked={this.state.bookingIds.includes(classTime._id)}/>
-            // <div key={booking._id}>
-            // <li>{booking.class.name}</li>
-            // <li>{booking.class.description}</li>
-            // <li>{booking.startTime}</li>
-            // <li>{booking.endTime}</li>
-            // <BookContainer 
-            //   classTimeId={booking._id} 
-            //   booked={this.state.bookingIds.includes(booking._id)} />
-            
+            </Grid>
           )}
-        </ul>
+        </Grid>
+        </MyPaper>
       </div>
     )
   }
