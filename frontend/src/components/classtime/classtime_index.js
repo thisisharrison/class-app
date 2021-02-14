@@ -1,6 +1,12 @@
+import { Paper } from '@material-ui/core';
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import ClassTimeIndexItem from './classtime_index_item'
+import styled from 'styled-components'
+
+const MyPaper = styled(Paper)`
+  padding: 20px;
+`
 
 class ClassTimeIndex extends Component {
   constructor(props) {
@@ -25,6 +31,7 @@ class ClassTimeIndex extends Component {
     
     return (
       <div>
+        <MyPaper>
         <h2>{this.state.classTimes.length ? 'All Class Times' : 'No Class Times Available'}</h2>
         {this.state.classTimes.map(classTime =>
           <ClassTimeIndexItem
@@ -34,6 +41,7 @@ class ClassTimeIndex extends Component {
             destroyClassTime={destroyClassTime}
             editClassTime={editClassTime}
           />)}
+        </MyPaper>
       </div>
     )
   }

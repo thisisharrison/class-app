@@ -1,7 +1,6 @@
 import moment from 'moment';
 import BookContainer from '../toggles/book_container';
-import { Grid, Chip } from '@material-ui/core'
-import { DoneIcon } from '@material-ui/icons';
+import { Grid, Button } from '@material-ui/core'
 
 // These should be handled separately
 // isEdit, destroyClassTime, updateClassTime, editClassTime
@@ -15,15 +14,19 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
   startTime = moment.unix(startTime).format("h:mm A");
   endTime = moment.unix(endTime).format("h:mm A");
   const editButtons = isEdit ? 
-    (<ul>
-      <button
+    (<>
+      <Grid item xs>
+      <Button variant="outlined"
         onClick={() => editClassTime(classTime)}>
         Edit
-      </button>
-      <button 
+      </Button>
+      </Grid>
+      <Grid item xs>
+      <Button variant="contained" disableElevation
         onClick={() => destroyClassTime(classTime._id) }
-      >Remove</button>
-    </ul>) : ''
+      >Remove</Button>
+      </Grid>
+    </>) : ''
 
   return (
     <div className="classtime-index-item">
@@ -51,7 +54,9 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
       </Grid>
       
       <Grid item xs>
-      { isEdit ? editButtons : <BookContainer classTimeId={classTime._id} /> }
+        <Grid container direction="row" justify="center" spacing={0} alignItems="center">
+          { isEdit ? editButtons : <BookContainer classTimeId={classTime._id} /> }
+        </Grid>
       </Grid>
 
       </Grid>
