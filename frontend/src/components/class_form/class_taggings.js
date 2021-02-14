@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Chip from '@material-ui/core/Chip';
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -18,9 +19,15 @@ const ColorButton = withStyles((theme) => ({
 // autocomplete feature (bonus)
 const INTERESTS = [
   'Yoga',
-  'Martial Art',
   'Meditation',
-  'CrossFit'
+  'Mindfulness',
+  'Martial Art',
+  'CrossFit',
+  'Running',
+  'HIIT',
+  'Bootcamp',
+  'Personal Development',
+  'Nutrition'
 ]
 
 const Taggings = ({ updateTags, prexistTags}) => {
@@ -48,7 +55,31 @@ const Taggings = ({ updateTags, prexistTags}) => {
   return (
     <div>
       <h2>Tags</h2>
-      <div className="myTagging">
+      {/* Using Material UI */}
+      <Autocomplete
+        multiple
+        options={INTERESTS}
+        getOptionLabel={(option) => option}
+        // defaultValue={[top100Films[13]]}
+        filterSelectedOptions
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            label="Tags"
+          />
+        )}
+        onChange = {(event, newValue) => {
+          setTaggings(newValue)
+          updateTags(newValue)
+        }}
+      />
+      
+      {/* Custom Multi Select */}
+      {/* <div className="myTagging">
         <ul>
           {taggings.map((tg, i) =>
             <Chip
@@ -81,8 +112,8 @@ const Taggings = ({ updateTags, prexistTags}) => {
           e.preventDefault()
         }}
         variant="contained" color="primary"
-      >Add</ColorButton>
-      </div>
+      >Add</ColorButton> */}
+    </div>
   )
 }
 

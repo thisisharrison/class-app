@@ -43,8 +43,8 @@ export default class NavBar extends Component {
       <Nav>
         <Avatar src="https://cdn.dribbble.com/users/87003/screenshots/926295/dri1.jpg?compress=1&resize=400x300" 
           />
-        <NavLink to={'/#'}>Women</NavLink>
-        <NavLink to={'/#'}>Men</NavLink>
+        <NavLink to={'/#'}>Kittens</NavLink>
+        <NavLink to={'/#'}>Cats</NavLink>
         <NavLink to={'/#'}>Accessories</NavLink>
         <NavLink to={'/#'}>Community</NavLink>
         <NavLink promo={"true"} to={'/classes'}>Classes</NavLink>

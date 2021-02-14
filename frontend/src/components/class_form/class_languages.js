@@ -8,7 +8,7 @@ import Chip from '@material-ui/core/Chip';
 const langscodes = languages.getAllLanguageCode()
 
 const Languages = ({updateLanguages, prexistLanguages}) => {
-  const [_languages, setLanguages] = useState([]);
+  const [_languages, setLanguages] = useState(['English']);
 
   useEffect(() => {
     setLanguages([...prexistLanguages])
@@ -21,7 +21,7 @@ const Languages = ({updateLanguages, prexistLanguages}) => {
   return (
     <div>
     <h2>Languages Offered</h2>
-    {/* Using Material UI Autocomplete Fixed Options */}
+    {/* Using Material UI */}
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -45,7 +45,7 @@ const Languages = ({updateLanguages, prexistLanguages}) => {
         }}
       />
 
-    {/* My Multi Select */}
+    {/* Custom Multi Select */}
     {/* <ul>
         {_languages.map((langcode, i) => 
         <li key={langcode}>

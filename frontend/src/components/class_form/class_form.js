@@ -96,7 +96,7 @@ class ClassForm extends Component {
   }
 
   renderDeleteButton() {
-    return this.props.isNew ? '' : <button onClick={this.handleDelete()}>Delete Class</button>
+    return this.props.isNew ? '' : <SubmitInput as={'button'} onClick={this.handleDelete()}>Delete Class</SubmitInput>
   }
   
   render() {
@@ -155,7 +155,9 @@ class ClassForm extends Component {
             updateLanguages={(languages) => this.updateLanguages(languages)}
             prexistLanguages={this.state.languages}
           />
-          <input type="submit" value={
+
+          <SubmitInput type="submit" 
+            value={
             this.props.isNew ? 'Create Class' : 'Edit Class'
           } />
           {this.renderDeleteButton()}

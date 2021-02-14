@@ -51,7 +51,11 @@ class ClassShow extends Component {
 
   render() {
     const { classId, _class } = this.props;
-
+    const breadcrumb = (
+      <BreadCrumb>
+        <BackToAll to="/classes"><ArrowBackIosIcon style={{ fontSize: 14 }} /> Back to All Classes</BackToAll>
+      </BreadCrumb>
+    )
     if (!this.isEdit()) {
       return (
         <div>
@@ -63,15 +67,15 @@ class ClassShow extends Component {
             justify="flex-start"
             alignItems="flex-start"
           >
-            <BreadCrumb>
-              <BackToAll to="/classes"><ArrowBackIosIcon style={{ fontSize: 14 }}/> Back to All Classes</BackToAll>
-            </BreadCrumb>
+
+            {breadcrumb}
             
             <Grid
               container
               direction="row"
               spacing={4}
             >
+
               <Grid item xs={8}>
                 <ClassDetail 
                   _class={_class}
@@ -86,16 +90,18 @@ class ClassShow extends Component {
                   isClassOwner={this.isClassOwner()}
                 />
               </Grid>
+
             </Grid>
           </Grid>
         </div>
       )
     } else {
       return (
-        <div>
-          <pre>Editing</pre>
+        <div className="formWrapper">
 
-          <BackToAll to="/classes">Back to All Classes</BackToAll>
+          <pre>Editing</pre>
+        
+          {breadcrumb}
 
           <ClassFormContainer 
             _class={_class}
@@ -112,7 +118,7 @@ class ClassShow extends Component {
             isEdit={true}
             isClassOwner={this.isClassOwner()}
           />
-
+        
         </div>
       )
     }
