@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react"
 import moment from 'moment';
 import languages from 'languages';
+import { INTERESTS } from '../class_form/class_taggings'
+import Chip from '@material-ui/core/Chip';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Divider, Modal, Paper, Box } from "@material-ui/core";
+import styled from 'styled-components'
+import { DateModal, LanguageModal } from './filter_modals' 
 
 const langscodes = languages.getAllLanguageCode()
 
-const FilterForm = ({ updateFilter, filters, fetchClasses, fetchAllClassTimes, fetchSaves}) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    '& > *': {
+      marginRight: theme.spacing(0.5),
+    }
+  },
+  div: {
+    marginBottom: theme.spacing(4),
+  }
+}));
+
+const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, fetchAllClassTimes, fetchSaves}) => {
   const [filter, setFilter] = useState({});
   const [tags, setTags] = useState({});
-  // {key: true,
-  // key2: true} => to deselect, if e.target.value is true in tags, delete from tags
-
-  // TODO 2 Use previous filters from state on mount
-
-  // Component did mount => fetch class with redux store's filter
-  // Other subsequent rerender will be caused by dispatching updateFilter
-  // which calls fetchClasses with redux store's filter
+  const [langModal, setLangModal] = useState(false)
+  const [dateModal, setDateModal] = useState(false)
+  
+  const styles = useStyles();
+  
   useEffect(() => {
     fetchClasses({})
   }, [])
@@ -22,20 +38,22 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, fetchAllClassTimes, f
   useEffect(() => {
     fetchSaves()
   }, [])
+
+  useEffect(() => {
+    updateFilter(filter);
+    updateFilterParams();
+  }, [filter])
   
-  // handle deselect and remove key from filter
   const handleChange = (e, value = undefined) => {
     let updatedField;
     if (value) {
-      updatedField = { [e.target.name]: value };
-      updateFilter(e.target.name, value)
+      updatedField = { [e.target.name]: [value] };
     } else {
       if (filter[e.target.name]) {
         updatedField = { [e.target.name]: [...filter[e.target.name], e.target.value] };
       } else {
         updatedField = { [e.target.name]: [e.target.value] };
       }
-      updateFilter(e.target.name, e.target.value)
     }
     const editedFitler = Object.assign({}, filter, updatedField);
     setFilter(editedFitler);
@@ -46,10 +64,10 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, fetchAllClassTimes, f
     handleChange(e, unixTime);
   }
 
-  const handleClick = (e, value) => {
+  const handleClick = (e, target, value) => {
     e.preventDefault();
     let updatedTags;
-    if (e.target.name === 'tags') {
+    if (target === 'tags') {
       if (tags[value]) {
         updatedTags = Object.assign({}, tags)
         delete updatedTags[value]
@@ -66,61 +84,68 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, fetchAllClassTimes, f
     setFilter(editedFilter)
   }, [tags])
 
-  const INTERESTS = ['Yoga', 'Meditation', 'Chess', 'Karate'];
   return (
-    <div>
-      <pre>{JSON.stringify(filters)}</pre>
-      <pre>{JSON.stringify(filter)}</pre>
-      <pre>{JSON.stringify(tags)}</pre>
+    <div className={styles.div}>
+      <pre>Redux: {JSON.stringify(filters)}</pre>
+      <pre>Filter: {JSON.stringify(filter)}</pre>
+      <pre>Tags: {JSON.stringify(tags)}</pre>
+      
       <form>
-        <label>Interests:</label>
-        {INTERESTS.map(interest => 
-          <button
-            name='tags'
-            onClick={e => handleClick(e, `${interest}`)}
-          >{interest}</button>
-        )}
-        <input 
-          name='tags' 
-          value={filter.tags}
-          placeholder='Yoga'
-          onChange={handleChange}
-        />
-      
-        <label>Languages:</label>
-        <input 
-          name='languages' 
-          value={filter.languages}
-          placeholder='English'
-          onChange={handleChange}
-        />
-      
-        <label>Date:</label>
-        <input 
-          name='unix'
-          type='datetime-local'
-          value={moment.unix(filter.unix).format("YYYY-MM-DDTHH:mm")}
-          onChange={handleTimeChange}
-        />
+        <Grid container alignitems="center" spacing={3}>
+          <Grid item xs={3}>
+            <Grid container spacing={1} justify="flex-start" alignItems="flex-start">
+              <Grid item xs>
+                <Chip
+                  label='Dates'
+                  variant='outlined'
+                  onClick={() => setDateModal(true)}
+                />
+                <Modal
+                  open={dateModal}
+                  onClose={() => setDateModal(false)}
+                >
+                  <DateModal handleTimeChange={handleTimeChange}/>
+                </Modal>
+              </Grid>
+        
+              <Grid item xs>
+                <Chip 
+                  label='Langauge Offered'
+                  variant='outlined'
+                  onClick={() => setLangModal(true)}
+                />
+                <Modal
+                  open={langModal}
+                  onClose={() => setLangModal(false)}
+                >
+                  <LanguageModal handleChange={handleChange}/>
+                </Modal>  
+              </Grid>
+            </Grid>
+          </Grid>
 
+          <Divider orientation="vertical" flexItem />
+
+          <Grid item xs>  
+            <Grid container wrap="nowrap" spacing={2} overflow="visible">
+              <Grid item xs className={styles.root}>
+              {INTERESTS.map(interest =>
+                <Chip
+                  key={`filter-form-${interest}`}
+                  label={interest}
+                  onClick={e => handleClick(e, 'tags', `${interest}`)}
+                  variant={Object.keys(tags).find(tag => tag === interest) ? 'default' : 'outlined'}
+                />
+              )}
+              </Grid>
+            </Grid>
+          </Grid>
+
+        </Grid>
       </form>
     </div>
   )
 }
 
-// class FilterForm extends React.Component {
-//   constructor(props) {
-//     super(props)
-//   }
-//   componentDidMount() {
-//     this.props.fetchClasses();
-//     this.props.fetchAllClassTimes()
-//   }
-//   render() {
-//     return (
-//       <h2>FilterForm</h2>
-//     )
-//   }
-// }
 
 export default FilterForm;

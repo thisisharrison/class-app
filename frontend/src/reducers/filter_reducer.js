@@ -1,21 +1,26 @@
-import { UPDATE_FILTERS } from '../actions/filter_actions';
+import { UPDATE_FILTERS, UPDATE_FILTERS_QUERY_PARAMS } from '../actions/filter_actions';
 
 const initialState = {
-  tags: [],
-  languages: [],
-  unix: 0
+  options: {},
+  queryParams: '?'
 }
 
-// unix to startTime endTime
 
 const filterReducer = (state = initialState, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
   switch(action.type) {
     case UPDATE_FILTERS:
-      // return Object.assign({}, state, { [action.filter]: action.value });
-      newState[action.filter] = [...newState[action.filter], action.value]
+      newState.options = action.filters;
       return newState;
+
+    case UPDATE_FILTERS_QUERY_PARAMS:
+      newState.queryParams = '?' + Object.keys(newState.options).map(filter =>
+        newState.options[filter].reduce((acc, cur) => {
+          return acc += `${filter}=${cur.split(' ').join('+')}&`
+        }, '')).join('')
+      return newState;
+
     default:
       return state;
   }

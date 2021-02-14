@@ -16,8 +16,7 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-// autocomplete feature (bonus)
-const INTERESTS = [
+export const INTERESTS = [
   'Yoga',
   'Meditation',
   'Mindfulness',

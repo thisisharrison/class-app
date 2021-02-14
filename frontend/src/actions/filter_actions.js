@@ -1,17 +1,21 @@
 import { fetchClasses } from './class/class_action'
 export const UPDATE_FILTERS = 'UPDATE_FILTERS'
+export const UPDATE_FILTERS_QUERY_PARAMS = 'UPDATE_FILTERS_QUERY_PARAMS'
 
-// filter can be tags, languages, timestamp
-export const changeFilter = (filter, value) => ({
+export const changeFilter = (filters) => ({
   type: UPDATE_FILTERS,
-  filter,
-  value
+  filters
 })
 
-// after we dispatch changeFilter
-// state will have our filter object
-// we will use the object to build req.query
-export const updateFilter = (filter, value) => (dispatch, getState) => {
-  dispatch(changeFilter(filter, value));
-  return fetchClasses(getState().ui.filters)(dispatch)
+export const changeFilterParams = () => ({
+  type: UPDATE_FILTERS_QUERY_PARAMS
+})
+
+export const updateFilter = filters => dispatch => (
+  dispatch(changeFilter(filters))
+)
+
+export const updateFilterParams = () => (dispatch, getState) => {
+  dispatch(changeFilterParams());
+  return fetchClasses(getState().ui.filters.queryParams)(dispatch)
 }
