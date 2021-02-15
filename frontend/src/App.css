@@ -155,3 +155,18 @@ p{
 .classtime-index-item {
   margin-bottom: 30px;
 }
+.filter-chip {
+  position: relative;
+  width: 0;
+}
+.filter-popup {
+  visibility: hidden;
+  height: 0;
+}
+.filter-popup-open {
+  position: absolute;
+  top: 50px;
+  left: 30px;
+  visibility: visible;
+  z-index: 100;
+}

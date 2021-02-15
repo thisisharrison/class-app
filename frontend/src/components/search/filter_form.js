@@ -25,14 +25,13 @@ const useStyles = makeStyles((theme) => ({
 const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, fetchAllClassTimes, fetchSaves}) => {
   const [filter, setFilter] = useState({});
   const [tags, setTags] = useState({});
-  const [langModal, setLangModal] = useState(false)
-  const [dateModal, setDateModal] = useState(false)
+  const [visible, setVisible] = useState({ date: false, lang: false })
   
   const styles = useStyles();
   
-  useEffect(() => {
-    fetchClasses({})
-  }, [])
+  // useEffect(() => {
+  //   fetchClasses({})
+  // }, [])
   
   useEffect(() => {
     fetchSaves()
@@ -45,7 +44,6 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
   
   const handleChange = (e, value = undefined) => {
     let updatedField;
-    debugger
     if (value) {
       updatedField = { [e.target.name]: [value] };
     } else {
@@ -84,6 +82,11 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
     setFilter(editedFilter)
   }
 
+  const handleReset = e => {
+    setFilter({})
+    setTags({})
+  }
+
   useEffect(() => {
     const newTags = Object.keys(tags)
     const editedFilter = Object.assign({}, filter, { tags: newTags });
@@ -98,52 +101,77 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
       <pre>Component: {JSON.stringify(filter)}</pre>
       
       <form>
-        <Grid container alignitems="center" spacing={3}>
-          <Grid item xs={3}>
-            <Grid container spacing={1} justify="flex-start" alignItems="flex-start">
+        <Grid container alignitems="center">
+          <Grid item xs={2}>
+            <Grid container spacing={0.5} justify="flex-start" alignItems="flex-start" direction="row">
               <Grid item xs>
-                <TextField
-                  label="Start Time"
-                  type="date"
-                  name="startTime"
-                  value={moment.unix(filter.startTime).format("YYYY-MM-DD")}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  onChange={handleTimeChange}
+                <Chip 
+                  label="All"
+                  onClick={handleReset}
                 />
+              </Grid>
+              <Grid item xs>
+                <div className="filter-chip">
+                  <Chip 
+                    label="Date"
+                    onClick={() => setVisible(Object.assign({}, visible, { date: !visible.date }))}
+                  />
+                  <div className={visible.date ? 'filter-popup-open' : 'filter-popup'}>
+                    <Paper m={10} p={10}>
+                      <TextField
+                        label="Start Time"
+                        type="date"
+                        name="startTime"
+                        value={filter.startTime ? moment.unix(filter.startTime).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD")}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        onChange={handleTimeChange}
+                      />
+                    </Paper>
+                  </div>
+                </div>
               </Grid>
         
               <Grid item xs>
-                <Autocomplete
-                  multiple
-                  options={langs}
-                  getOptionLabel={(option) => option}
-                  defaultValue={['English']}
-                  filterSelectedOptions
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="outlined"
-                      label="Languages"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />
-                  )}
-                  onChange={(event, newValue) => {
-                    handleLanguageChange(newValue)
-                  }}
-                />
+                <div className="filter-chip">
+                  <Chip
+                    label="Languages Offered"
+                    onClick={() => setVisible(Object.assign({}, visible, { lang: !visible.lang }))}
+                  />
+                  <div className={visible.lang ? 'filter-popup-open' : 'filter-popup'}>
+                    <Paper m={10} p={10}>
+                      <Autocomplete
+                        multiple
+                        options={langs}
+                        getOptionLabel={(option) => option}
+                        defaultValue={['English']}
+                        filterSelectedOptions
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="outlined"
+                            label="Languages"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                          />
+                        )}
+                        onChange={(event, newValue) => {
+                          handleLanguageChange(newValue)
+                        }}
+                      />
+                    </Paper>
+                  </div>
+                </div>
               </Grid>
             </Grid>
           </Grid>
 
-          <Divider orientation="vertical" flexItem />
-
-          <Grid item xs>  
+          <Grid item xs>    
             <Grid container wrap="nowrap" spacing={2} overflow="visible">
               <Grid item xs className={styles.root}>
+              <Divider orientation="vertical" flexItem />
               {INTERESTS.map(interest =>
                 <Chip
                   key={`filter-form-${interest}`}

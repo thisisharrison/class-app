@@ -8,6 +8,7 @@ const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
+const User = require('../../models/User')
 const Class = require('../../models/Class');
 const ClassTime = require('../../models/ClassTime');
 
@@ -27,7 +28,7 @@ router.get('/', (req, res) => {
   if (languages) {
     classQuery.push({ languages: { $in: languages } })
   }
-  const currentUserUnix = startTime ? startTime[0] : 0
+  const userStartTime = startTime ? startTime : 0
   // ({ $and: [{ price: { $ne: 1.99 } }, { price: { $exists: true } }] })
 
   const query = classQuery.length > 0 ? {$and: classQuery} : {} 
@@ -35,10 +36,51 @@ router.get('/', (req, res) => {
   Class
     .find(query)
     .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
-    .populate({ path: 'classTimes', match: { startTime: { $gte: currentUserUnix }}, options: { sort: { startTime: 1 }}, select: ['startTime', 'endTime']})
-    .then(classes => res.json(classesObject(classes)))
+    .where({ classTimes: { $exists: true, $ne: [] } })
+    .populate({ path: 'classTimes', match: { startTime: { $gte: userStartTime }}, options: { sort: { startTime: 1 }}, select: ['startTime', 'endTime']})
+    .then(classes => { 
+      const filterClasses = classes.filter(_class => _class.classTimes.length !== 0);
+      res.json(classesObject(filterClasses));
+    }) 
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
+
+  // Using Aggregate (to-do)
+  // Class.aggregate([
+  //   { 
+  //     $lookup: {
+  //       from: 'classtimes',
+  //       localField: '_id',
+  //       foreignField: 'class',
+  //       as: 'classtime_info'
+  //     }
+  //   },
+  //   {
+  //     $project: {
+  //       name: 1,
+  //       description: 1,
+  //       admin: 1,
+  //       classTimes: 1,
+  //       tags: 1,
+  //       languages: 1,
+  //       classtime_info: {
+  //         $filter: {
+  //           input: '$classtime_info',
+  //           as: 'classtime',
+  //           cond: { $gte: ['$$classtime.startTime', parseInt(req.query.startTime)]}
+  //         }
+  //       }
+  //     }
+  //   }
+  // ]).exec((err, classes) => {
+    
+  //   // Class.populate(classes, 
+  //   //   { path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
+  //   //   .then(popClasses => console.log(popClasses))
+  // })
+  
+  
 });
+
 
 // return object using class.id as key
 // [{}, {}] => {key: {}, key: {}}
