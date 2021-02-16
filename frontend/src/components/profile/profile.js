@@ -7,6 +7,7 @@ import BookContainer from '../toggles/book_container'
 import SaveContainer from '../toggles/save_container'
 import { MyPaper } from '../classtime/classtime_index'
 import ProfileForm from './profile_form'
+import AddRoundedIcon from '@material-ui/icons/AddRounded';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class Profile extends Component {
     this.state = {
       bookingIds: [],
       saveIds: [],
+      classIds: [],
       editing: false
     }
     this.handleEdit = this.handleEdit.bind(this);
@@ -22,6 +24,9 @@ export default class Profile extends Component {
   componentDidMount() {
     this.props.fetchBookings();
     this.props.fetchSaves();
+    if (this.props.currentUser.isAdmin) {
+      this.props.fetchAdminClasses();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -35,6 +40,11 @@ export default class Profile extends Component {
       this.setState({
         bookingIds
       })
+    } else if (prevProps.classes !== this.props.classes) {
+      const classIds = this.props.classes.map(_class => _class._id)
+      this.setState({
+        classIds
+      })
     }
   }
 
@@ -44,7 +54,86 @@ export default class Profile extends Component {
   }
  
   render() {
-    const { currentUser, bookings, saves } = this.props
+    const { currentUser, bookings, saves, classes } = this.props;
+
+    const addClass = (
+      <Link to='/new-class'>
+        <Grid container
+          direction="column"
+          justify="center"
+          alignItems="center"
+        >    
+          <AddRoundedIcon fontSize="large" />
+          <h3>Create New Class</h3>
+        </Grid>
+      </Link>
+    )
+
+    const adminClasses = (currentUser.isAdmin && classes.length) ? 
+    (
+      <div>
+        <h2>Your Classes</h2>
+        <Grid container spacing={2} alignItems="center">
+          {classes.map(_class =>
+            <Grid item xs={4}>
+              <ClassIndexItem
+                key={_class._id}
+                _class={_class}
+                savesIds={this.state.saveIds} />
+            </Grid>
+          )}
+          <Grid item xs={4}>
+            {addClass}
+          </Grid>
+        </Grid>
+      </div>
+    ) : (
+      <div>
+        <h2>You have no Classes yet. </h2>
+        {addClass}
+      </div>
+    )
+
+    const savedClasses = saves.length ? 
+      (
+        <div>
+          <h2>Your Saved Classes</h2>
+          <Grid container spacing={2}>
+            {saves.map(_class => 
+              <Grid item xs={4}>
+                <ClassIndexItem 
+                  key={_class._id}
+                  _class={_class}
+                  savesIds={this.state.saveIds}/>
+              </Grid>
+              )}
+          </Grid>
+        </div>
+        ) : 
+        (
+          <h2>You have no Saved Class yet.</h2>
+        )
+      
+      const bookedClassTimes = bookings.length ? 
+      (
+        <div>
+          <h2>Your Booked Class Times</h2>
+          <Grid container spacing={2}>
+            {bookings.map(classTime =>
+              <Grid item xs={6}>
+                <MyPaper>
+                  <ClassTimeIndexItem
+                    key={classTime._id}
+                    classTime={classTime}
+                    booked={this.state.bookingIds.includes(classTime._id)} />
+                </MyPaper>
+              </Grid>
+            )}
+          </Grid>
+        </div>
+      ) : (
+        <h2>You have no Booked Class Times yet.</h2>
+      )
     
     return (
       <div>
@@ -52,31 +141,12 @@ export default class Profile extends Component {
         {this.state.editing ? <Link onClick={this.handleEdit}>Close Edit</Link>: <Link onClick={this.handleEdit}>Edit Profile</Link>}
         {this.state.editing ? <ProfileForm currentUser={currentUser}/> : <></>}
 
-        <h2>Your Saved Classes</h2>
-        <Grid container spacing={2}>
-          {saves.map(_class => 
-            <Grid item xs>
-            <ClassIndexItem 
-              key={_class._id}
-              _class={_class}
-              savesIds={this.state.saveIds}/>
-            </Grid>
-            )}
-        </Grid>
-        
-        <h2>Your Booked Class Times</h2>
-        <MyPaper>
-        <Grid container spacing={2}>
-          {bookings.map(classTime => 
-            <Grid item xs>
-            <ClassTimeIndexItem 
-              key={classTime._id}
-              classTime={classTime}
-              booked={this.state.bookingIds.includes(classTime._id)}/>
-            </Grid>
-          )}
-        </Grid>
-        </MyPaper>
+        {adminClasses}
+
+        {savedClasses}
+
+        {bookedClassTimes}
+
       </div>
     )
   }

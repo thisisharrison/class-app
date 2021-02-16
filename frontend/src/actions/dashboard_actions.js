@@ -1,3 +1,4 @@
+import { getAdminClasses } from '../util/class/class_api_util';
 import {
   getBookings,
   createBooking,
@@ -13,6 +14,7 @@ export const REMOVE_BOOKING = 'REMOVE_BOOKING'
 export const RECEIVE_SAVES = 'RECEIVE_SAVES'
 export const RECEIVE_SAVE = 'RECEIVE_SAVE'
 export const REMOVE_SAVE = 'REMOVE_SAVE'
+export const RECEIVE_ADMIN_CLASSES = 'RECEIVE_ADMIN_CLASSES'
 
 export const receiveBookings = bookings => ({
   type: RECEIVE_BOOKINGS,
@@ -44,6 +46,11 @@ export const removeSave = saves => ({
   saves
 })
 
+export const receiveAdminClasses = classes => ({
+  type: RECEIVE_ADMIN_CLASSES,
+  classes
+})
+
 export const fetchBookings = () => dispatch => (
   getBookings().then(bookings => dispatch(receiveBookings(bookings)))
 )
@@ -66,5 +73,9 @@ export const newSave = classId => dispatch => (
 
 export const destroySave = classId => dispatch => (
   deleteSave(classId).then(saves => dispatch(removeSave(saves)))
+)
+
+export const fetchAdminClasses = () => dispatch => (
+  getAdminClasses().then(classes => dispatch(receiveAdminClasses(classes)))
 )
 

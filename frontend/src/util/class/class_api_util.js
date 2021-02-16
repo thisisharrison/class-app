@@ -20,3 +20,7 @@ export const patchClass = (id, data) => (
 export const deleteClass = id => (
   axios.delete(`/api/classes/${id}`)
 )
+
+export const getAdminClasses = () => (
+  axios.get('/api/classes/admin/all')
+)

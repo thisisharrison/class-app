@@ -179,6 +179,20 @@ router.delete('/:id',
   }
 )
 
+// Get admin user's classes
+router.get('/admin/all', 
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    if (req.user.isAdmin) {
+      Class.find({ admin: req.user.id })
+        .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
+        .then(_classes => res.json(_classes));
+      } else {
+      return res.status(401).json({ notadmin: 'Only admin can view admin\'s classes' });
+    }
+  }
+)
+
 
 
 module.exports = router;

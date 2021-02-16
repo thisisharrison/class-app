@@ -39,6 +39,10 @@ export const getSaves = ({ entities: { dashboard: { saves } } }) => {
   return saves.length ? saves : []
 }
 
+export const getAdminClasses = ({ entities: { dashboard: { classes } } }) => {
+  return classes.length ? classes : []
+}
+
 export const isSaved = (classId, { entities: { dashboard: { saves } } }) => {
   if (!saves) {
     return false;
