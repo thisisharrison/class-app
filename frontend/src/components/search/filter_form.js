@@ -103,7 +103,7 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
       <form>
         <Grid container alignitems="center">
           <Grid item xs={2}>
-            <Grid container spacing={0.5} justify="flex-start" alignItems="flex-start" direction="row">
+            <Grid container spacing={0} justify="flex-start" alignItems="flex-start" direction="row">
               <Grid item xs>
                 <Chip 
                   label="All"

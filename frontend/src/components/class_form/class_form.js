@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Taggings from './class_taggings'
 import Languages from './class_languages'
 
 import { Container, FormControl, Grid, TextField, ThemeProvider } from '@material-ui/core'
-import { theme, SubmitInput } from '../session/session_style';
+import { theme, SubmitInput, SecondarySubmitInput } from '../session/session_style';
 
 class ClassForm extends Component {
   constructor(props) {
@@ -15,37 +15,27 @@ class ClassForm extends Component {
       tags: [],
       languages: [],
       newClass: {},
-      redirect: false,
-      redirectPath: '/'
+      isNew: true
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    if (!this.props.isNew) {
+    if (this.props._class) {
       this.setState({
         name: this.props._class.name,
         description: this.props._class.description,
         tags: this.props._class.tags,
-        languages: this.props._class.languages
+        languages: this.props._class.languages,
+        isNew: false
       })
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.newClass !== this.props.newClass) {
-      this.setState({ 
-        newClass: this.props.newClass,
-        // name: this.props._class.name,
-        // description: this.props._class.description,
-        // tags: this.props._class.tags,
-        // languages: this.props._class.languages
-      })
-      if (this.props.isNew) {
-        this.setState({ redirect: true, redirectPath: `/classes/${this.props.newClass._id}` })
-        this.setState({ redirect: false, redirectPath: '/' })
-      }
+    if (this.props.newClass && this.props.newClass._id && (prevProps.newClass !== this.props.newClass)) {
+      this.props.history.push(`/classes/${this.props.newClass._id}`)
     }
   }
   
@@ -53,17 +43,17 @@ class ClassForm extends Component {
     e.preventDefault();
     let _class = Object.assign({}, this.state);
     delete _class.newClass;
-    const {isNew, createClass, updateClass } = this.props;
-    if (isNew) {
+    const {createClass, updateClass } = this.props;
+    if (this.state.isNew) {
       createClass(_class);
     } else {
-      updateClass(
-        this.props._class._id, 
-        _class)
-      this.setState({ redirect: true, redirectPath: `/classes/${this.props._class._id}` })
+      new Promise ((resolve, reject) => {
+        resolve(
+          updateClass(this.props._class._id, _class)
+        )
+      })
+      .then(res => this.props.history.push(`/classes/${this.props._class._id}`))
     }
-    // Clean up
-    this.setState({ redirect: false, redirectPath: '/' })
   }
 
   update(field) {
@@ -90,17 +80,17 @@ class ClassForm extends Component {
       const {destroyClass} = this.props
       const destroyed = await destroyClass(this.props._class._id)
       if (destroyed) {
-        this.setState({ redirect: true, redirectPath: '/classes' })
+        this.props.history.push('/classes')
       }
     }
   }
 
   renderDeleteButton() {
-    return this.props.isNew ? '' : <SubmitInput as={'button'} onClick={this.handleDelete()}>Delete Class</SubmitInput>
+    return this.state.isNew ? '' : <SecondarySubmitInput as={'button'} onClick={this.handleDelete()}>Delete Class</SecondarySubmitInput>
   }
   
   render() {
-    const header = this.props.isNew ? 
+    const header = this.state.isNew ? 
       (<h2>Create New Class</h2>) : 
       (<h2>Edit {this.props._class.name}</h2>)
     return (
@@ -115,11 +105,11 @@ class ClassForm extends Component {
               variant="outlined"
             >
           <TextField 
-            type="text"
             label="Name"
             InputLabelProps={{
               shrink: true,
             }}
+            value={this.state.name}
             variant="outlined"
             onChange={this.update('name')}
           />
@@ -132,20 +122,11 @@ class ClassForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            value={this.state.description}
             variant="outlined"
             onChange={this.update('description')}
           />
           <br />
-          {/* <input
-            value={this.state.name}
-            onChange={this.update('name')}
-            placeholder="name"
-          />
-          <textarea 
-            value={this.state.description}
-            onChange={this.update('description')}
-            placeholder="description"
-          /> */}
           
           <Taggings 
             updateTags={(taggings) => this.updateTags(taggings)}
@@ -158,7 +139,7 @@ class ClassForm extends Component {
 
           <SubmitInput type="submit" 
             value={
-            this.props.isNew ? 'Create Class' : 'Edit Class'
+            this.state.isNew ? 'Create Class' : 'Edit Class'
           } />
           {this.renderDeleteButton()}
           
@@ -167,9 +148,7 @@ class ClassForm extends Component {
         </form>
         
         <br />
-        {this.state.redirect && (
-          <Redirect to={this.state.redirectPath} />
-        )}
+        
         </Container>
         </ThemeProvider>
       </div>

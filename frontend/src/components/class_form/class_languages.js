@@ -2,32 +2,37 @@ import languages from 'languages';
 import { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Chip from '@material-ui/core/Chip';
 
 
 export const langscodes = languages.getAllLanguageCode()
 
 const Languages = ({updateLanguages, prexistLanguages}) => {
-  const [_languages, setLanguages] = useState(['English']);
-
-  useEffect(() => {
-    setLanguages([...prexistLanguages])
-  }, [prexistLanguages])
-
-
-  const langs = langscodes.map((langcode, i) => languages.getLanguageInfo(langcode).nativeName)
   
+  const [_languages, setLanguages] = useState([]);
+  
+  // Check if prexist languages exist and prefill autocomplete
+  // If no prexist languages, default starts with 'English'
+  useEffect(() => {
+    if (prexistLanguages.length) {
+      setLanguages([...prexistLanguages]);
+    } else {
+      setLanguages(['English']);
+      updateLanguages(['English']);
+    }
+  }, [prexistLanguages]);
 
+  // Get languages native names
+  const langs = langscodes.map((langcode, i) => languages.getLanguageInfo(langcode).nativeName);
+  
   return (
     <div>
     <h2>Languages Offered</h2>
-    {/* Using Material UI */}
       <Autocomplete
         multiple
-        id="tags-outlined"
+        id="class-languages"
         options={langs}
         getOptionLabel={(option) => option}
-        defaultValue={['English']}
+        value={[..._languages]}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField

@@ -1,6 +1,5 @@
 import ClassFormContainer from '../class_form/class_form_container';
 import SaveContainer from '../toggles/save_container';
-import languages from 'languages';
 
 import { Avatar, Divider, Grid } from '@material-ui/core'
 import styled from 'styled-components'
@@ -17,11 +16,9 @@ const H3 = styled.h3`
   margin-bottom: 32px;
 `
 
-const langscodes = languages.getAllLanguageCode()
-
 const ClassDetail = ({ _class }) => {
-  const langs = _class.languages.map((langcode) => languages.getLanguageInfo(langcode).nativeName).join(', ')
-  const tags = _class.tags.map((tag, idx) => <Chip key={`tag-${idx}`} label={tag} />)
+  const langs = _class.languages.join(', ');
+  const tags = _class.tags.map((tag, idx) => <Chip key={`tag-${idx}`} label={tag} />);
   return (
   <div>
       <Grid item xs={12}>

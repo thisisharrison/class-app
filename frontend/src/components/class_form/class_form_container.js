@@ -6,7 +6,6 @@ const mapStateToProps = (state, ownProps) => ({
   // currentUser: state.session.user,
   newClass: state.entities.classes.new,
   _class: ownProps._class,
-  isNew: ownProps.isNew
 });
 
 const mapDispatchToProps = dispatch => ({

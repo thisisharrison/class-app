@@ -16,7 +16,7 @@ export default class NavBar extends Component {
     if (this.props.loggedIn) {
       return (
         <>
-          {this.props.isAdmin ? (<NavLink to={'/new-class'}>New Class</NavLink>) : ''}
+          <NavLink to={'/new-class'}>New Class</NavLink>
           <NavLink to={`/profile`}>My Account</NavLink>
           {/* Polymorphic button looks like NavLink */}
           <NavLink as="button" onClick={this.logoutUser}>Sign Out</NavLink>

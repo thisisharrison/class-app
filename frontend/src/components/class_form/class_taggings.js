@@ -1,21 +1,9 @@
 import { useEffect, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Chip from '@material-ui/core/Chip';
 
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: "#fff",
-    backgroundColor: "#d31334",
-    '&:hover': {
-      backgroundColor: "#b81c29",
-    },
-    marginTop: "20px"
-  },
-}))(Button);
-
+// export preset list of tags for users to choose from
+// filter form uses the exported list
 export const INTERESTS = [
   'Yoga',
   'Meditation',
@@ -31,35 +19,40 @@ export const INTERESTS = [
 
 const Taggings = ({ updateTags, prexistTags}) => {
   
-  const [tag, setTag] = useState('');
-  const [taggings, setTaggings] = useState([])
+  const [taggings, setTaggings] = useState([]);
   
+  // Load prexist tags when editing Class
+  useEffect(() => {
+    setTaggings([...prexistTags]);
+  }, [prexistTags]);
+  
+  // Only when using custom multi select
+  const [tag, setTag] = useState('');
+  
+  // Only when using custom multi select
   const onKeyDown = e => {
     if ((e.key === 'Enter' || e.keyCode === 13) && tag) {
-      setTaggings([...taggings, tag])
-      updateTags([...taggings, tag])
-      setTag('')
+      setTaggings([...taggings, tag]);
+      updateTags([...taggings, tag]);
+      setTag('');
       e.preventDefault()
     } else if ((e.key === 'Backspace' || e.keyCode === 8 || e.keyCode === 46) && !tag) {
       taggings.pop();
-      setTaggings([...taggings])
-      updateTags([...taggings])
+      setTaggings([...taggings]);
+      updateTags([...taggings]);
     }
   }
-
-  useEffect(() => {
-    setTaggings([...prexistTags])
-  }, [prexistTags])
   
+  // On change update state's tags and class form's state tags
   return (
     <div>
       <h2>Tags</h2>
-      {/* Using Material UI */}
       <Autocomplete
         multiple
+        id="class-tags"
         options={INTERESTS}
         getOptionLabel={(option) => option}
-        // defaultValue={[top100Films[13]]}
+        value={[...taggings]}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField

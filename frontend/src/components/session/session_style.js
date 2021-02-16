@@ -29,6 +29,30 @@ export const SubmitInput = styled.input`
   }
 `
 
+export const SecondarySubmitInput = styled(SubmitInput)`
+  background-color :#fff;
+  border-color: #000;
+  color: #000;
+  transition-property: background-color,color,border;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+  :hover {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+  }
+  :active {
+    background-color: #911620;
+    border-color: #911620;
+  }
+  :disabled {
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
+  }
+`
+
+
+
 export const theme = createMuiTheme({
   typography: {
     fontFamily: 'Sans-Serif',
