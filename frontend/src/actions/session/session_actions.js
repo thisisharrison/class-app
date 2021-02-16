@@ -18,8 +18,9 @@ export const receiveUserSignIn = () => ({
 });
 
 // show authentication errors on the frontend
-export const receiveErrors = errors => ({
+export const receiveErrors = (key, errors) => ({
   type: RECEIVE_SESSION_ERRORS,
+  key,
   errors
 });
 
@@ -33,7 +34,7 @@ export const signup = user => dispatch => (
   APIUtil.signup(user).then(() => (
     dispatch(receiveUserSignIn())
   ), err => (
-    dispatch(receiveErrors(err.response.data))
+    dispatch(receiveErrors('register', err.response.data))
   ))
 );
 
@@ -46,8 +47,7 @@ export const login = user => dispatch => (
     const decoded = jwt_decode(token);
     dispatch(receiveCurrentUser(decoded));
   }).catch(err => {
-    debugger
-    dispatch(receiveErrors(err.response.data))
+    dispatch(receiveErrors('login', err.response.data))
   })
 )
 

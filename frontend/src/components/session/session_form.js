@@ -53,26 +53,48 @@ class SessionForm extends Component {
     return e => this.setState({ [field]: e.currentTarget.value })
   }
 
-  renderErrors() {
-    return (
-      <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.state.errors[error]}
-          </li>
-        ))}
-      </ul>
-    );
+  // keys = login, register 
+  // key.props = email, password, password2
+  
+  renderErrors(prop) {
+    if (this.props.formType === 'Sign Up') {
+      if (this.state.errors.register) {
+        return this.state.errors.register[prop];
+      } else {
+        return false;
+      }
+    } else {
+      if (this.state.errors.login) {
+        return this.state.errors.login[prop];
+      } else {
+        return false;
+      }
+    }
+
+    // if (this.state.errors[key]) {
+    //   const errors = this.state.errors[key]
+    // return (
+    //   <ul>
+    //     {Object.keys(errors).map((err, i) => (
+    //       <li key={`${key}-error-${i}`}>{errors[err]}</li>
+    //     ))}
+    //   </ul>
+    // );
+    
   }
 
   renderHeaders() {
     if (this.props.formType === 'Sign Up') {
       return (
+        <div>
         <h2>Create an account</h2>
+        </div>
       )
     } else {
       return (
+        <div>
         <h2>Sign in to your account</h2>
+        </div>
       )
     }
   }
@@ -93,12 +115,14 @@ class SessionForm extends Component {
     if (this.props.formType === "Sign Up") {
       return (
         <TextField 
-            type="password"
-            label="Confirm Password"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={this.update('password2')} 
+          error={this.renderErrors('password2') ? true : false}
+          helperText={this.renderErrors('password2') ? this.renderErrors('password2') : false}
+          type="password"
+          label="Confirm Password"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={this.update('password2')} 
           />
       )
     }
@@ -110,7 +134,6 @@ class SessionForm extends Component {
         <ThemeProvider theme={theme}>
 
         {this.renderHeaders()}
-        {this.renderErrors()}    
 
         <form onSubmit={this.handleSubmit}>
         
@@ -119,6 +142,8 @@ class SessionForm extends Component {
           variant="outlined"
         >
           <TextField
+            error={this.renderErrors('email') ? true : false}
+            helperText={this.renderErrors('email') ? this.renderErrors('email') : false}
             type="text"
             label="Email Address"
             InputLabelProps={{
@@ -129,6 +154,8 @@ class SessionForm extends Component {
           <br />
           
           <TextField 
+            error={this.renderErrors('password') ? true : false}
+            helperText={this.renderErrors('password') ? this.renderErrors('password') : false}
             type="password"
             label="Password"
             InputLabelProps={{

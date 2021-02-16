@@ -22,13 +22,13 @@ const validateRegisterInput = data => {
     errors.password = 'Password is required.'
   }
   if (Validator.isEmpty(password2)) {
-    errors.password = 'Confirm password field is required.'
+    errors.password2 = 'Confirm password field is required.'
   }
   if (!Validator.isLength(password, {min: 6, max: 30})) {
     errors.password = 'Password must be at least 6 characters.'
   }
   if (!Validator.equals(password, password2)) {
-    errors.password = 'Passwords must match.'
+    errors.password2 = 'Passwords must match.'
   }
 
   // return error object with messages if any
