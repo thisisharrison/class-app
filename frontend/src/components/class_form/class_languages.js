@@ -6,20 +6,30 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 export const langscodes = languages.getAllLanguageCode()
 
-const Languages = ({updateLanguages, prexistLanguages}) => {
+const Languages = ({updateLanguages, prexistLanguages, error}) => {
   
   const [_languages, setLanguages] = useState([]);
+
+  const [_error, setError] = useState(false);
   
   // Check if prexist languages exist and prefill autocomplete
   // If no prexist languages, default starts with 'English'
   useEffect(() => {
     if (prexistLanguages.length) {
       setLanguages([...prexistLanguages]);
-    } else {
+    } 
+  }, [prexistLanguages]);
+
+  useEffect(() => {
+    if (!prexistLanguages.length) {
       setLanguages(['English']);
       updateLanguages(['English']);
     }
-  }, [prexistLanguages]);
+  }, []);
+
+  useEffect(() => {
+    setError(error);
+  }, [error]);
 
   // Get languages native names
   const langs = langscodes.map((langcode, i) => languages.getLanguageInfo(langcode).nativeName);
@@ -42,6 +52,8 @@ const Languages = ({updateLanguages, prexistLanguages}) => {
             InputLabelProps={{
               shrink: true,
             }}
+            error={_error ? true : false}
+            helperText={_error ? _error : ''}
           />
         )}
         onChange={(event, newValue) => {

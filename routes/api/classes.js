@@ -11,6 +11,7 @@ const passport = require('passport');
 const User = require('../../models/User')
 const Class = require('../../models/Class');
 const ClassTime = require('../../models/ClassTime');
+const { validateClassInput } = require('../../validation/classes')
 
 router.get("/test", (req, res) => res.json({ msg: "This is the classes route" }));
 
@@ -96,9 +97,16 @@ router.post('/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
 
-    // Validation
+    // Validate authorization
     if (!req.user.isAdmin) {
       return res.status(401).json({ notadmin: 'Only admin can create a class' })
+    }
+
+    // Validate input
+    const { errors, isValid } = validateClassInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
     }
 
     const newClass = new Class ({
@@ -114,6 +122,7 @@ router.post('/',
         _class.populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] }, 
           (err, result) => res.json(result))
         )
+      .catch(err => res.status(422).json(err))
   }
 );
 
@@ -132,50 +141,63 @@ router.get('/:id', (req, res) => {
 router.patch('/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // Validation
+    // Validate authorization
     if (!req.user.isAdmin) {
-      return res.status(401).json({ notadmin: 'Only admin can create a class' })
+      return res.status(401).json({ notadmin: 'Only admin can edit a class' })
+    }
+    // Validate input
+    const { errors, isValid } = validateClassInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
     }
 
-    // find by id, update, return modified class
-    Class.findByIdAndUpdate(req.params.id,
-      {$set: {
-        name: req.body.name,
-        description: req.body.description, 
-        tags: req.body.tags,
-        languages: req.body.languages
-      }},
-      {new: true})
-      .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
-      .populate({ path: 'classTimes', options: { sort: { startTime: 1 } }, select: ['startTime', 'endTime'] })
-      .then((err, result) => {
-        if (err) {
-          res.status(404).json({ noclassfound: 'No class found with that ID' })
-        } else {
-          res.json(result)
+    // Validate class admin is request user then perform update
+    Class.findById(req.params.id)
+      .then(_class => {
+        if (_class.admin._id.toString() !== req.user.id) {
+          errors.ownership = 'Only class owner can edit this class.';
+          return res.status(401).json(errors);
         }
-      }
-    )
+        Class.findByIdAndUpdate(req.params.id,
+          {
+            $set: {
+              name: req.body.name,
+              description: req.body.description,
+              tags: req.body.tags,
+              languages: req.body.languages
+            }
+          },
+          { new: true })
+          .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
+          .populate({ path: 'classTimes', options: { sort: { startTime: 1 } }, select: ['startTime', 'endTime'] })
+          .then(result => res.json(result))
+          .catch(err => res.status(422).json(err))
+      })
+      .catch(err => {
+        res.status(404).json({ noclassfound: 'No class found with that ID' })
+      })
 });
 
 // Delete a class
 router.delete('/:id', 
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // Validation
+    // Validate authorization
     if (!req.user.isAdmin) {
-      return res.status(401).json({ notadmin: 'Only admin can create a class' })
+      return res.status(401).json({ notadmin: 'Only admin can delete a class' })
     }
     
-    // find by id, delete
     Class.findById(req.params.id)
       .then(_class => {
-        _class.remove()
-        res.json(_class)
+        // Validate class admin is request user
+        if (_class.admin._id.toString() !== req.user.id) {
+          return res.status(401).json({ ownership: 'Only clas owner can delete this class'})
+        }
+        _class.remove();
+        res.json(_class);
       })
-      .catch(err => res.status(404).json({ noclassfound: 'No class found with that ID' })) 
-
-
+      .catch(err => res.status(404).json({ noclassfound: 'No class found with that ID' }));
   }
 )
 

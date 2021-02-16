@@ -17,15 +17,21 @@ export const INTERESTS = [
   'Nutrition'
 ]
 
-const Taggings = ({ updateTags, prexistTags}) => {
+const Taggings = ({ updateTags, prexistTags, error}) => {
   
   const [taggings, setTaggings] = useState([]);
+
+  const [_error, setError] = useState(false);
   
   // Load prexist tags when editing Class
   useEffect(() => {
     setTaggings([...prexistTags]);
   }, [prexistTags]);
   
+  useEffect(() => {
+    setError(error);
+  }, [error]);
+
   // Only when using custom multi select
   const [tag, setTag] = useState('');
   
@@ -62,6 +68,8 @@ const Taggings = ({ updateTags, prexistTags}) => {
               shrink: true,
             }}
             label="Tags"
+            error={_error ? true : false}
+            helperText={_error ? _error : ''}
           />
         )}
         onChange = {(event, newValue) => {

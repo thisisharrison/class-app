@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Taggings from './class_taggings'
 import Languages from './class_languages'
 
-import { Container, FormControl, Grid, TextField, ThemeProvider } from '@material-ui/core'
+import { Container, FormControl, FormHelperText, Grid, TextField, ThemeProvider } from '@material-ui/core'
 import { theme, SubmitInput, SecondarySubmitInput } from '../session/session_style';
 
 class ClassForm extends Component {
@@ -15,10 +15,12 @@ class ClassForm extends Component {
       tags: [],
       languages: [],
       newClass: {},
-      isNew: true
+      isNew: true,
+      errors: {}
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.renderErrors = this.renderErrors.bind(this)
   }
 
   componentDidMount() {
@@ -35,7 +37,10 @@ class ClassForm extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.newClass && this.props.newClass._id && (prevProps.newClass !== this.props.newClass)) {
-      this.props.history.push(`/classes/${this.props.newClass._id}`)
+      this.props.history.push(`/classes/${this.props.newClass._id}`);
+    }
+    if (this.props.errors !== prevProps.errors) {
+      this.setState({ errors: this.props.errors });
     }
   }
   
@@ -50,7 +55,7 @@ class ClassForm extends Component {
       new Promise ((resolve, reject) => {
         resolve(
           updateClass(this.props._class._id, _class)
-        )
+        );
       })
       .then(res => this.props.history.push(`/classes/${this.props._class._id}`))
     }
@@ -89,6 +94,13 @@ class ClassForm extends Component {
     return this.state.isNew ? '' : <SecondarySubmitInput as={'button'} onClick={this.handleDelete()}>Delete Class</SecondarySubmitInput>
   }
   
+  renderErrors(key) {
+    if (this.state.errors[key]) {
+      return this.state.errors[key]
+    }
+    return false;
+  } 
+
   render() {
     const header = this.state.isNew ? 
       (<h2>Create New Class</h2>) : 
@@ -96,60 +108,74 @@ class ClassForm extends Component {
     return (
       <div className="formWrapper">
         <ThemeProvider theme={theme}>
-        <Container maxwidth="sm">
-        {header}
-        <form onSubmit={this.handleSubmit}>
-          
-          <FormControl
-              fullWidth
-              variant="outlined"
-            >
-          <TextField 
-            label="Name"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={this.state.name}
-            variant="outlined"
-            onChange={this.update('name')}
-          />
-          <br />
+          <Container maxwidth="sm">
+            
+            {header}
+            
+            <FormHelperText>
+              {this.renderErrors('ownership')}
+            </FormHelperText>
+            
+            <form onSubmit={this.handleSubmit}>
+              
+              <FormControl
+                  fullWidth
+                  variant="outlined"
+                >
+                <TextField 
+                  error={this.renderErrors('name') ? true : false}
+                  helperText={this.renderErrors('name') ? this.renderErrors('name') : ''}
+                  label="Name"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={this.state.name}
+                  variant="outlined"
+                  onChange={this.update('name')}
+                />
+                <br />
 
-          <TextField
-            label="Description"
-            multiline
-            rows={4}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={this.state.description}
-            variant="outlined"
-            onChange={this.update('description')}
-          />
-          <br />
-          
-          <Taggings 
-            updateTags={(taggings) => this.updateTags(taggings)}
-            prexistTags={this.state.tags}
-          />
-          <Languages 
-            updateLanguages={(languages) => this.updateLanguages(languages)}
-            prexistLanguages={this.state.languages}
-          />
+                <TextField
+                  error={this.renderErrors('description') ? true : false}
+                  helperText={this.renderErrors('description') ? this.renderErrors('description') : ''}
+                  label="Description"
+                  multiline
+                  rows={4}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={this.state.description}
+                  variant="outlined"
+                  onChange={this.update('description')}
+                />
+                <br />
+                
+                <Taggings 
+                  updateTags={(taggings) => this.updateTags(taggings)}
+                  prexistTags={this.state.tags}
+                  error={this.renderErrors('tags')}
+                />
 
-          <SubmitInput type="submit" 
-            value={
-            this.state.isNew ? 'Create Class' : 'Edit Class'
-          } />
-          {this.renderDeleteButton()}
+                <Languages 
+                  updateLanguages={(languages) => this.updateLanguages(languages)}
+                  prexistLanguages={this.state.languages}
+                  error={this.renderErrors('languages')}
+                />
+
+                <SubmitInput type="submit" 
+                  value={
+                  this.state.isNew ? 'Create Class' : 'Edit Class'
+                } />
+
+                {this.renderDeleteButton()}
+              
+              </FormControl>
+            
+            </form>
+            
+            <br />
           
-          </FormControl>
-        
-        </form>
-        
-        <br />
-        
-        </Container>
+          </Container>
         </ThemeProvider>
       </div>
     )

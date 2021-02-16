@@ -10,6 +10,7 @@ export const RECEIVE_CLASSES = 'RECEIVE_CLASSES';
 export const RECEIVE_NEW_CLASS = 'RECEIVE_NEW_CLASS';
 export const RECEIVE_CLASS = 'RECEIVE_CLASS';
 export const REMOVE_CLASS = 'REMOVE_CLASS';
+export const RECEIVE_CLASS_ERRORS = 'RECEIVE_CLASS_ERRORS';
 
 
 export const receiveClasses = classes => ({ 
@@ -28,18 +29,22 @@ export const removeClass = (_class) => ({
   type: REMOVE_CLASS,
   _class
 })
+export const receiveClassErrors = errors => ({
+  type: RECEIVE_CLASS_ERRORS,
+  errors
+})
 
 export const fetchClasses = (queryParams) => dispatch => { 
   return (
   getClasses(queryParams)
     .then(classes => dispatch(receiveClasses(classes)))
-    .catch(err => console.log(err))
+    .catch(err => dispatch(receiveClassErrors(err.response.data)))
 )}
 
 export const fetchClass = id => dispatch => (
   showClass(id)
     .then(_class => dispatch(receiveClass(_class)))
-    .catch(err => console.log(err))
+    .catch(err => dispatch(receiveClassErrors(err.response.data)))
 )
 
 export const createClass = data => dispatch => {
@@ -48,18 +53,18 @@ export const createClass = data => dispatch => {
     .then(_class => {
       dispatch(receiveNewClass(_class))
     })
-    .catch(err => console.log(err))
+    .catch(err => dispatch(receiveClassErrors(err.response.data)))
   )
 }
 
 export const updateClass = (id, data) => dispatch => (
   patchClass(id, data)
     .then(_class => dispatch(receiveClass(_class)))
-    .catch(err => console.log(err))
+    .catch(err => dispatch(receiveClassErrors(err.response.data)))
 )
 
 export const destroyClass = id => dispatch => (
   deleteClass(id)
     .then(_class => dispatch(removeClass(_class)))
-    .catch(err => console.log(err))
+    .catch(err => dispatch(receiveClassErrors(err.response.data)))
 )
