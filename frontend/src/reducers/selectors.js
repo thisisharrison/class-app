@@ -4,7 +4,7 @@ export const toArray = obj => (
 
 // access from state or return empty object
 export const selectClass = (classes, id ) => {
-  return classes.all[id] || {tags: [], languages: []}
+  return classes.all[id] || {tags: [], languages: [], admin: {}}
 }
 
 export const selectClassTimes = (classTimes, id) => {
