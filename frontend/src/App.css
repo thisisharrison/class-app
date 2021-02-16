@@ -48,7 +48,7 @@ textarea {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 600;
   line-height: 1.2;
@@ -169,4 +169,32 @@ p{
   left: 30px;
   visibility: visible;
   z-index: 100;
+}
+.homepage-hero-links {
+  top: 10rem;
+  position: absolute;
+  width: 15rem;
+  padding: 30px 0;
+  z-index: 200;
+  background-color: #fafafa;
+  line-height: 2;
+}
+.homepage-hero-links li {
+  font-weight: 400;
+  cursor: pointer;
+}
+.homepage-hero-links li:hover {
+  text-decoration-line: underline;
+  text-decoration-color: #d31334;
+  text-decoration-thickness: 3px;
+}
+.homepage-hero-paragraph {
+  text-align: right;
+  line-height: 1.5;
+  font-size: 18px;
+}
+.homepage-hero-cta {
+  position: absolute;
+  top: 80%;
+  left: 60%;
 }
