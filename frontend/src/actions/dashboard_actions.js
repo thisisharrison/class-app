@@ -7,6 +7,7 @@ import {
   createSave,
   deleteSave
 } from '../util/dashboard_api_util';
+import { receiveErrors } from './session/session_actions';
 
 export const RECEIVE_BOOKINGS = 'RECEIVE_BOOKINGS'
 export const RECEIVE_BOOKING = 'RECEIVE_BOOKING'
@@ -53,29 +54,36 @@ export const receiveAdminClasses = classes => ({
 
 export const fetchBookings = () => dispatch => (
   getBookings().then(bookings => dispatch(receiveBookings(bookings)))
+  .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
 export const newBooking = classTimeId => dispatch => (
   createBooking(classTimeId).then(bookings => dispatch(receiveBooking(bookings)))
+  .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
 export const destroyBooking = classTimeId => dispatch => (
   deleteBooking(classTimeId).then(bookings => dispatch(removeBooking(bookings)))
+  .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
 export const fetchSaves = () => dispatch => (
   getSaves().then(saves => dispatch(receiveSaves(saves)))
+  .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
 export const newSave = classId => dispatch => (
   createSave(classId).then(saves => dispatch(receiveSave(saves)))
+  .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
 export const destroySave = classId => dispatch => (
   deleteSave(classId).then(saves => dispatch(removeSave(saves)))
+  .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
 export const fetchAdminClasses = () => dispatch => (
   getAdminClasses().then(classes => dispatch(receiveAdminClasses(classes)))
+  .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 

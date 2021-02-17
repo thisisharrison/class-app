@@ -3,7 +3,7 @@ import {
   RECEIVE_CURRENT_USER
 } from '../../actions/session/session_actions';
 
-const _nullErrors = {login: [], register: []};
+const _nullErrors = { login: [], register: [], unauthorized: [] };
 
 export default function (state = _nullErrors, action) {
   Object.freeze(state);

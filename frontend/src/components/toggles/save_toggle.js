@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 
-export default class SaveToggle extends Component {
+class SaveToggle extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,7 +31,10 @@ export default class SaveToggle extends Component {
 
 
   toggleSave() {
-    console.log('Toggle Save')
+    if (!this.props.isAuthenticated) {
+      this.props.promptLogin();
+      return;
+    }
     if (this.state.save) {
       this.props.destroySave(this.props.classId)
     } else {
@@ -48,3 +52,5 @@ export default class SaveToggle extends Component {
     )
   }
 }
+
+export default withRouter(SaveToggle);

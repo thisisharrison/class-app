@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { Grid, Chip } from '@material-ui/core'
-import DoneIcon from '@material-ui/icons/Done';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import { Chip } from '@material-ui/core';
 
-export default class BookToggle extends Component {
+class BookToggle extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -29,7 +29,10 @@ export default class BookToggle extends Component {
 
 
   toggleBook() {
-    console.log('Toggle Book')
+    if (!this.props.isAuthenticated) {
+      this.props.promptLogin();
+      return;
+    }
     if (this.state.book) {
       this.props.destroyBooking(this.props.classTimeId)
     } else {
@@ -53,3 +56,5 @@ export default class BookToggle extends Component {
     )
   }
 }
+
+export default withRouter(BookToggle);

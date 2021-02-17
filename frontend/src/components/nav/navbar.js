@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink, NavWrapper, Nav } from '../styles/nav_styles';
 
-export default class NavBar extends Component {
+class NavBar extends Component {
   constructor(props) {
     super(props);
     this.getLinks = this.getLinks.bind(this);
@@ -30,7 +31,7 @@ export default class NavBar extends Component {
   logoutUser(e) {
     e.preventDefault();
     this.props.logout();
-    
+    this.props.history.push('/');
   }
   
   render() {
@@ -50,3 +51,5 @@ export default class NavBar extends Component {
     )
   }
 }
+
+export default withRouter(NavBar);

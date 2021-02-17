@@ -14,6 +14,7 @@ import ClassFormContainer from './class_form/class_form_container';
 
 import styled, { createGlobalStyle } from 'styled-components'
 import { Container } from '@material-ui/core'
+import PromptLoginContainer from './greeting/prompt_login_container';
 
 // Homepage: landing page of e-commerce site
 // Class Pass Landing Page: show classes, fitlers, prompt user to register / login
@@ -53,6 +54,7 @@ const Global = createGlobalStyle`
 const App = () => (
   <div>
     <NavBarContainer />
+      <PromptLoginContainer />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <AuthRoute exact path="/account/login" component={Session} />

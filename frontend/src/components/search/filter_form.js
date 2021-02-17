@@ -8,7 +8,7 @@ import { langscodes } from '../class_form/class_languages'
 import { useStyles } from '../styles/filter_styles';
 
 
-const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, fetchAllClassTimes, fetchSaves}) => {
+const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, fetchAllClassTimes, fetchSaves, fetchBookings, isAuthenticated}) => {
   const [filter, setFilter] = useState({});
   const [tags, setTags] = useState({});
   const [visible, setVisible] = useState({ date: false, lang: false })
@@ -20,7 +20,10 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
   // }, [])
   
   useEffect(() => {
-    fetchSaves()
+    if (isAuthenticated) {
+      fetchSaves();
+      fetchBookings();
+    }
   }, [])
 
   useEffect(() => {

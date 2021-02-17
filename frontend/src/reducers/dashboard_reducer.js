@@ -8,7 +8,8 @@ import {
   RECEIVE_ADMIN_CLASSES
 } from '../actions/dashboard_actions';
 import {
-  RECEIVE_CURRENT_USER
+  RECEIVE_CURRENT_USER,
+  RECEIVE_USER_LOGOUT
 } from '../actions/session/session_actions';
 import {
   REMOVE_CLASS
@@ -49,6 +50,8 @@ const dashboardReducer = (state = initialState, action) => {
     case REMOVE_CLASS:
       newState.classes = newState.classes.filter(_class => _class._id !== action._class.data._id);
       return newState;
+    case RECEIVE_USER_LOGOUT:
+      return initialState;
     default:
       return state;
   }

@@ -8,8 +8,10 @@ const Search = ({
   updateFilter,
   updateFilterParams,
   fetchSaves,
+  fetchBookings,
   fetchClasses, 
   fetchAllClassTimes,
+  isAuthenticated
   }) => (
   <div>
     <FilterForm 
@@ -19,6 +21,8 @@ const Search = ({
       fetchClasses={fetchClasses}
       fetchAllClassTimes={fetchAllClassTimes}
       fetchSaves={fetchSaves}
+      fetchBookings={fetchBookings}
+      isAuthenticated={isAuthenticated}
     />
     <ClassIndexContainer />
     

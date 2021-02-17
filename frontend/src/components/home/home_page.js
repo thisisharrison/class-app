@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <div>
       <Container maxwidth='sm'>
-        <Grid container xs>
+        <Grid container>
           <Grid item xs={1}>
             <div className='homepage-hero-links'>
               <h1>lulukittens</h1>
@@ -22,10 +22,10 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={11}>
             <GridList>
-              <GridListTile key='Img1' rows='3'>
+              <GridListTile key='Img1' rows={3}>
                 <img src='https://tn.fishki.net/26/upload/en/201305/16/10539/249ef8594bfc63ff717e6048dc454285.jpg' alt='Img1' />
               </GridListTile>
-              <GridListTile key='Img2' rows='3'>
+              <GridListTile key='Img2' rows={3}>
                 <img src='https://tn.fishki.net/26/upload/en/201305/16/10539/f6a0aefbf36aa3feee14cd6fc7013603.jpg' alt='Img2' />
                 <div className="homepage-hero-cta">
                   <SecondarySubmitInput as="a" href="#/classes">EXPLORE CLASSES</SecondarySubmitInput>
@@ -35,7 +35,7 @@ const HomePage = () => {
           </Grid>
 
         </Grid>
-        <Grid container xs alignItems="center">
+        <Grid container alignItems="center">
           <Grid item xs={6}>
             <h2>Sweat with Us Virtually on our Class App.</h2>
           </Grid>
