@@ -5,6 +5,7 @@ import ClassTimeForm from './classtime_form'
 const mapStateToProps = (state, ownProps) => ({
   classId: ownProps.classId,
   newClassTime: state.entities.classTimes.new,
+  errors: state.errors.classtimes
 });
 
 const mapDispatchToProps = dispatch => ({

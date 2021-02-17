@@ -112,10 +112,6 @@ class ClassForm extends Component {
             
             {header}
             
-            <FormHelperText>
-              {this.renderErrors('ownership')}
-            </FormHelperText>
-            
             <form onSubmit={this.handleSubmit}>
               
               <FormControl

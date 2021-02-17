@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { Component } from 'react'
 import ClassTimeIndexItem from './classtime_index_item';
-import { FormControl, Grid, TextField, Container } from '@material-ui/core'
+import { FormControl, Grid, TextField, Container, FormHelperText } from '@material-ui/core'
 import { SubmitInput } from '../session/session_style'
 
 class ClassTimeForm extends Component {
@@ -10,9 +10,11 @@ class ClassTimeForm extends Component {
     this.state = {
       startTime: moment().format("YYYY-MM-DDTHH:mm"),
       endTime: moment().add(60, 'minutes').format("YYYY-MM-DDTHH:mm"),
-      newClassTime: ''
+      newClassTime: '',
+      errors: {}
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
   }
 
   update(field) {
@@ -30,21 +32,25 @@ class ClassTimeForm extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ newClassTime: nextProps.newClassTime })
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({ newClassTime: nextProps.newClassTime })
+  // }
 
   componentDidUpdate(prevProps) {
     if (this.props.newClassTime !== prevProps.newClassTime && this.props.newClassTime) {
       const { startTime, endTime } = this.props.newClassTime;
       this.setState({
         startTime: moment.unix(startTime).format("YYYY-MM-DDTHH:mm"), 
-        endTime: moment.unix(endTime).format("YYYY-MM-DDTHH:mm")
+        endTime: moment.unix(endTime).format("YYYY-MM-DDTHH:mm"),
+        newClassTime: this.props.newClassTime
       })
+    }
+    if (this.props.errors !== prevProps.errors) {
+      this.setState({ errors: this.props.errors })
     }
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     const payload = {
       startTime: moment(this.state.startTime).unix(),
@@ -52,16 +58,37 @@ class ClassTimeForm extends Component {
     }
     if (this.props.newClassTime) {
       // Editing
-      this.props.updateClassTime(this.props.newClassTime._id, payload);
+      const update = await this.props.updateClassTime(this.props.newClassTime._id, payload);
+      if (update.errors) {
+        return;
+      } else {
+        this.resetForm();
+      }
     } else {
       // Creating
-      this.props.createClassTime(this.props.classId, payload);
+      const create = await this.props.createClassTime(this.props.classId, payload);
+      if (create.errors) {
+        return;
+      } else {
+        this.resetForm();
+      }
     }
+    this.resetForm();
+  }
+
+  resetForm() {
     this.setState({
-      startTime: '',
-      endTime: '',
-      newClassTime: ''
+      startTime: moment().format("YYYY-MM-DDTHH:mm"),
+      endTime: moment().add(60, 'minutes').format("YYYY-MM-DDTHH:mm"),
     })
+  }
+
+  renderErrors(key) {
+    debugger
+    if (this.state.errors[key]) {
+      return this.state.errors[key]
+    }
+    return false;
   }
 
   render() {
@@ -70,13 +97,12 @@ class ClassTimeForm extends Component {
       <div className="formWrapper">
         <Container maxwidth="sm">
         <h2>Add New Class Time</h2>
-
+        
         <form onSubmit={this.handleSubmit}>
           <FormControl
             fullWidth
             variant="outlined"
           >
-            
           <Grid
             container
             direction="row"
@@ -86,6 +112,8 @@ class ClassTimeForm extends Component {
           >
           <Grid item xs>
           <TextField 
+            error={this.renderErrors('startTime') ? true: false}
+            helperText={this.renderErrors('startTime') ? this.renderErrors('startTime') : ''}
             label="Start Time"
             type="datetime-local"
             value={this.state.startTime}
@@ -97,6 +125,8 @@ class ClassTimeForm extends Component {
           </Grid>
           <Grid item xs>
           <TextField
+            error={this.renderErrors('endTime') ? true : false}
+            helperText={this.renderErrors('endTime') ? this.renderErrors('endTime') : ''}
             label="End Time"
             type="datetime-local"
             value={this.state.endTime}
