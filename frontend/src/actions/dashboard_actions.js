@@ -8,6 +8,7 @@ import {
   deleteSave
 } from '../util/dashboard_api_util';
 import { receiveErrors } from './session/session_actions';
+import { startLoadingAllClasses } from './class/class_action'
 
 export const RECEIVE_BOOKINGS = 'RECEIVE_BOOKINGS'
 export const RECEIVE_BOOKING = 'RECEIVE_BOOKING'
@@ -67,10 +68,12 @@ export const destroyBooking = classTimeId => dispatch => (
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
-export const fetchSaves = () => dispatch => (
+export const fetchSaves = () => dispatch => {
+  dispatch(startLoadingAllClasses());
+  return (
   getSaves().then(saves => dispatch(receiveSaves(saves)))
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
-)
+)};
 
 export const newSave = classId => dispatch => (
   createSave(classId).then(saves => dispatch(receiveSave(saves)))
@@ -82,8 +85,9 @@ export const destroySave = classId => dispatch => (
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
-export const fetchAdminClasses = () => dispatch => (
+export const fetchAdminClasses = () => dispatch => {
+  dispatch(startLoadingAllClasses());
+  return (
   getAdminClasses().then(classes => dispatch(receiveAdminClasses(classes)))
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
-)
-
+)};

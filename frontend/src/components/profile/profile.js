@@ -53,7 +53,11 @@ export default class Profile extends Component {
   }
  
   render() {
-    const { currentUser, bookings, saves, classes } = this.props;
+    const { currentUser, bookings, saves, classes, loading } = this.props;
+
+    if (loading) {
+      return (<h1>LOADING!!!</h1>)
+    }
 
     const addClass = (
       <Link to='/new-class'>

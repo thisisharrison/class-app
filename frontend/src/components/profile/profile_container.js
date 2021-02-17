@@ -7,7 +7,8 @@ const mapStateToProps = (state) => ({
   bookings: getBookings(state),
   saves: getSaves(state),
   currentUser: state.session.user,
-  classes: getAdminClasses(state)
+  classes: getAdminClasses(state),
+  loading: state.ui.loading.indexLoading
 })
 
 const mapDispatchToProps = dispatch => ({

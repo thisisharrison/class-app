@@ -38,12 +38,15 @@ class ClassShow extends Component {
   }
 
   render() {
-    const { classId, _class } = this.props;
+    const { classId, _class, loading } = this.props;
     const breadcrumb = (
       <BreadCrumb>
         <BackToAll to="/classes"><ArrowBackIosIcon style={{ fontSize: 14 }} /> Back to All Classes</BackToAll>
       </BreadCrumb>
     )
+    if (loading) {
+      return <h1>LOADING!!!!</h1>
+    }
     if (!this.isEdit()) {
       return (
         <div>

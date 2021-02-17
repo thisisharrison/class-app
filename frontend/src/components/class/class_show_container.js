@@ -7,7 +7,8 @@ const mapStateToProps = (state, ownProps) => ({
   classId: ownProps.match.params.id,
   _class: selectClass(state.entities.classes, ownProps.match.params.id),
   isAdmin: state.session.isAdmin,
-  currentUserId: currentUserId(state.session)
+  currentUserId: currentUserId(state.session),
+  loading: state.ui.loading.detailLoading
 })
 
 const mapDispatchToProps = dispatch => ({
