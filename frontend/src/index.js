@@ -9,6 +9,8 @@ import { setAuthToken } from './util/session/session_api_util';
 import { logout } from './actions/session/session_actions';
 import moment from 'moment';
 
+import './spinner.css';
+
 import * as ClassUtil from './actions/class/class_action';
 
 document.addEventListener('DOMContentLoaded', () => {
