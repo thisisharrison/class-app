@@ -8,6 +8,7 @@ import ClassTimeFormContainer from '../classtime/classtime_form_container';
 import { BackToAll, BreadCrumb } from '../styles/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Grid } from '@material-ui/core'
+import LoadingIcon from './loading_icon';
 
 class ClassShow extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class ClassShow extends Component {
       </BreadCrumb>
     )
     if (loading) {
-      return <h1>LOADING!!!!</h1>
+      return (<LoadingIcon />);
     }
     if (!this.isEdit()) {
       return (

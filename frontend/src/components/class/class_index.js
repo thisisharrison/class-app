@@ -1,10 +1,11 @@
 import { withRouter } from 'react-router-dom';
 import ClassIndexItem from './class_index_item';
 import { Grid } from '@material-ui/core'
+import LoadingIcon from './loading_icon';
 
 const ClassIndex = ({classes, loading}) => {
   if (loading) {
-    return <h1>LOADING!!!</h1>
+    return (<LoadingIcon />);
   }
   if (classes.length === 0) {
     return (<div>There are no classes.</div>)

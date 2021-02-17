@@ -7,6 +7,7 @@ import ProfileForm from './profile_form'
 
 import { MyPaper } from '../styles/class_styles'
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
+import LoadingIcon from '../class/loading_icon'
 
 export default class Profile extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class Profile extends Component {
     const { currentUser, bookings, saves, classes, loading } = this.props;
 
     if (loading) {
-      return (<h1>LOADING!!!</h1>)
+      return (<LoadingIcon />);
     }
 
     const addClass = (
