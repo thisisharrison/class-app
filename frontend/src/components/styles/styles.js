@@ -1,5 +1,20 @@
 import { createMuiTheme } from '@material-ui/core'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+export const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Sans-Serif',
+  },
+  palette: {
+    primary: {
+      main: "#000"
+    },
+    secondary: {
+      main: "#d22030"
+    }
+  }
+})
 
 export const SubmitInput = styled.input`
   font-weight: 600;
@@ -51,18 +66,15 @@ export const SecondarySubmitInput = styled(SubmitInput)`
   }
 `
 
-
-
-export const theme = createMuiTheme({
-  typography: {
-    fontFamily: 'Sans-Serif',
-  },
-  palette: {
-    primary: {
-      main: "#000"
-    },
-    secondary: {
-      main: "#d22030"
-    }
+export const BackToAll = styled(Link)`
+  font-size: 14px;
+  border-bottom: 1px solid #d5d5d5;
+  :hover {
+    border-bottom: 3px solid #d22030;
   }
-})
+`
+export const BreadCrumb = styled.section`
+  padding-top: 40px;
+  padding-bottom: 40px;
+`
+

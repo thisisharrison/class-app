@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { destroyClassTime, fetchClassTimes, editClassTime } from "../../actions/classtime_action";
 import { fetchClass } from '../../actions/class/class_action';
-import { selectClass, selectClassTimes, currentUserId } from '../../reducers/selectors'
+import { selectClass, currentUserId } from '../../reducers/selectors'
 import ClassShow from './class_show';
 
 const mapStateToProps = (state, ownProps) => ({

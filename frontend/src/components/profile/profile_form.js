@@ -1,6 +1,6 @@
 
 import { FormControl, TextField } from '@material-ui/core'
-import { SubmitInput } from '../session/session_style'
+import { SubmitInput } from '../styles/styles'
 import React, { useState } from 'react'
 
 export default function ProfileForm({ currentUser }) {

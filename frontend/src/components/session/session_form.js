@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { FormControl, TextField, ThemeProvider } from '@material-ui/core';
-import { theme, SubmitInput } from './session_style';
+import { theme, SubmitInput } from '../styles/styles';
 
 class SessionForm extends Component {
   constructor(props) {

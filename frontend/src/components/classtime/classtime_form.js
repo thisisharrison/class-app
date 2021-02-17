@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React, { Component } from 'react'
-import ClassTimeIndexItem from './classtime_index_item';
-import { FormControl, Grid, TextField, Container, FormHelperText } from '@material-ui/core'
-import { SubmitInput } from '../session/session_style'
+
+import { FormControl, Grid, TextField, Container } from '@material-ui/core'
+import { SubmitInput } from '../styles/styles'
 
 class ClassTimeForm extends Component {
   constructor(props) {

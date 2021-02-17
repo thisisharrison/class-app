@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import Taggings from './class_taggings'
 import Languages from './class_languages'
 
-import { Container, FormControl, FormHelperText, Grid, TextField, ThemeProvider } from '@material-ui/core'
-import { theme, SubmitInput, SecondarySubmitInput } from '../session/session_style';
+import { Container, FormControl, Grid, TextField, ThemeProvider } from '@material-ui/core'
+import { theme, SubmitInput, SecondarySubmitInput } from '../styles/styles';
 
 class ClassForm extends Component {
   constructor(props) {

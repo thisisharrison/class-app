@@ -1,20 +1,9 @@
-import ClassFormContainer from '../class_form/class_form_container';
 import SaveContainer from '../toggles/save_container';
 
 import { Avatar, Divider, Grid } from '@material-ui/core'
-import styled from 'styled-components'
-import { ContentUl } from './class_chip_style'
+import { DetailSection, H3, ContentUl } from '../styles/class_styles';
 import Chip from '@material-ui/core/Chip';
 
-
-const DetailSection = styled.section`
-  padding-top: 48px;
-  padding-bottom: 48px;
-`
-const H3 = styled.h3`
-  line-height: 30px;
-  margin-bottom: 32px;
-`
 
 const ClassDetail = ({ _class }) => {
   const langs = _class.languages.join(', ');

@@ -1,9 +1,7 @@
-import React, { Component } from 'react'
-import { Container, FormControl, FormHelperText, Grid, Paper, TextField, ThemeProvider } from '@material-ui/core'
+import { Container, Grid } from '@material-ui/core'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import styled from 'styled-components'
-import { SecondarySubmitInput } from '../session/session_style';
+import { SecondarySubmitInput } from '../styles/styles';
 
 const HomePage = () => {
   return (

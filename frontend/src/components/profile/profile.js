@@ -3,10 +3,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ClassIndexItem from '../class/class_index_item'
 import ClassTimeIndexItem from '../classtime/classtime_index_item'
-import BookContainer from '../toggles/book_container'
-import SaveContainer from '../toggles/save_container'
-import { MyPaper } from '../classtime/classtime_index'
 import ProfileForm from './profile_form'
+
+import { MyPaper } from '../styles/class_styles'
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 
 export default class Profile extends Component {

@@ -2,25 +2,11 @@ import React, { useEffect, useState } from "react"
 import moment from 'moment';
 import languages from 'languages';
 import { INTERESTS } from '../class_form/class_taggings'
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Chip, Divider, Modal, Paper, Box, TextField } from "@material-ui/core";
+import { Grid, Chip, Divider, Paper, TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { DateModal, LanguageModal } from './filter_modals' 
 import { langscodes } from '../class_form/class_languages'
+import { useStyles } from '../styles/filter_styles';
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    '& > *': {
-      marginRight: theme.spacing(0.5),
-    }
-  },
-  div: {
-    marginBottom: theme.spacing(4),
-  }
-}));
 
 const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, fetchAllClassTimes, fetchSaves}) => {
   const [filter, setFilter] = useState({});

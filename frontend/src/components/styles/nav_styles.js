@@ -1,7 +1,26 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const NavLink = styled(Link)`
+
+export const Nav = styled.nav`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 85.75rem;
+  line-height: 20px;
+  font-size: 15px;
+  font-weight: 600px;
+  letter-spacing: 1.2px;
+  height: 75px;
+  grid-template-columns: 6rem auto 1fr;
+  grid-template-rows: 5rem minmax(0,auto);
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 1.5rem
+`
+
+export const NavLink = styled(Link)`
   text-transform: uppercase;
   text-decoration: none;
   padding-bottom: 5px;
@@ -34,7 +53,7 @@ const NavLink = styled(Link)`
     right: 0;
   }
 
-  ${props => props.promo && 
+  ${props => props.promo &&
     `
       color: #d31334;
       :visited {
@@ -44,4 +63,7 @@ const NavLink = styled(Link)`
   }}
 `
 
-export default NavLink;
+export const NavWrapper = styled.div`
+  width: 100%;
+  background-color: #fafafa;
+`

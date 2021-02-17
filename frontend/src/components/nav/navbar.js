@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
-import NavLink from './NavLink'
-import { NavWrapper, Nav } from './Nav'
+import { NavLink, NavWrapper, Nav } from '../styles/nav_styles';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -11,14 +9,12 @@ export default class NavBar extends Component {
     this.logoutUser = this.logoutUser.bind(this);
   }
 
-  // BONUS: render Logout under My Account
   getLinks() {
     if (this.props.loggedIn) {
       return (
         <>
           <NavLink to={'/new-class'}>New Class</NavLink>
           <NavLink to={`/profile`}>My Account</NavLink>
-          {/* Polymorphic button looks like NavLink */}
           <NavLink as="button" onClick={this.logoutUser}>Sign Out</NavLink>
         </>
       )

@@ -1,7 +1,5 @@
 import { withRouter } from 'react-router-dom';
 import ClassIndexItem from './class_index_item';
-import React, { Component, useEffect, useState } from 'react'
-import { Container } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
 
 const ClassIndex = ({classes}) => {
@@ -10,7 +8,6 @@ const ClassIndex = ({classes}) => {
   } else {
     return (
       <div>
-        
           <h1>All Classes</h1>
           <Grid container spacing={4}>
             {classes.map((_class, i) => (

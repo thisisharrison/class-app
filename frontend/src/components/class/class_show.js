@@ -4,22 +4,10 @@ import { Link, withRouter } from 'react-router-dom';
 import ClassTimeIndexContainer from '../classtime/classtime_index_container';
 import ClassFormContainer from '../class_form/class_form_container'
 import ClassTimeFormContainer from '../classtime/classtime_form_container';
-import styled from 'styled-components';
+
+import { BackToAll, BreadCrumb } from '../styles/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Grid } from '@material-ui/core'
-
-const BackToAll = styled(Link)`
-  font-size: 14px;
-  border-bottom: 1px solid #d5d5d5;
-  :hover {
-    border-bottom: 3px solid #d22030;
-  }
-`
-const BreadCrumb = styled.section`
-  padding-top: 40px;
-  padding-bottom: 40px;
-`
-
 
 class ClassShow extends Component {
   constructor(props) {

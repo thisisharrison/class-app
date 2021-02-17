@@ -1,12 +1,7 @@
-import { Paper } from '@material-ui/core';
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import ClassTimeIndexItem from './classtime_index_item'
-import styled from 'styled-components'
-
-export const MyPaper = styled(Paper)`
-  padding: 20px;
-`
+import { MyPaper } from '../styles/class_styles';
 
 class ClassTimeIndex extends Component {
   constructor(props) {
