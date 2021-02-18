@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import SaveContainer from "../toggles/save_container";
 import CalendarTodayRoundedIcon from '@material-ui/icons/CalendarTodayRounded';
 import { Grid, Chip, IconButton, Divider, Avatar, CardActions, CardContent, CardHeader, Card  } from '@material-ui/core';
-import { ContentUl, useStyles } from '../styles/class_styles';
+import { useStyles, TileH2 } from '../styles/class_styles';
 
 
 const ClassIndexItem = ({ _class }) => {
@@ -13,17 +13,17 @@ const ClassIndexItem = ({ _class }) => {
   const teacherName = _class.admin.fname + ' ' + _class.admin.lname
   
   const header = (
-  <h3>
-    <Link to={`/classes/${_class._id}`} as="h3">
-      {_class.name}
-    </Link>
-  </h3>)
+    <TileH2>
+      <Link to={`/classes/${_class._id}`} as="h3">
+        {_class.name}
+      </Link>
+    </TileH2>
+  )
 
   const subheader = (
   <ul>
     <li>{teacherName}</li>
-    <li>{_class.admin.city}</li>
-    <li>{_class.admin.affiliate}</li>
+    <li>{_class.admin.affiliate}, {_class.admin.city}</li>
   </ul>
   )
 
@@ -42,37 +42,39 @@ const ClassIndexItem = ({ _class }) => {
   return (
     <div>
       <Card className={styles.card}>
-        <CardHeader
-          avatar={avatar}
-          title={header}
-          subheader={subheader}
-        >
-        </CardHeader>
-        <CardContent>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <ContentUl>
-              {tags}
-            </ContentUl>
-            <ContentUl>
-              {languages}
-            </ContentUl>
-          </Grid>
-        </CardContent>
         
-        <Divider />
-        <CardActions disableSpacing>
-          <SaveContainer 
-            classId={_class._id}
+        <Grid container spacing={1} justify='space-between' alignItems='flex-start'>
+          <Grid item xs>
+            <CardHeader
+              avatar={avatar}
+              title={header}
+              subheader={subheader}
             />
-          <IconButton aria-label="open calendar" >
-            <CalendarTodayRoundedIcon />
-          </IconButton>
-        </CardActions>
+          </Grid>
+          <Grid item xs={2}>
+            <CardActions disableSpacing>
+              <SaveContainer
+                classId={_class._id}
+              />
+            </CardActions>
+          </Grid>
+        </Grid>
+
+        <CardContent>  
+          
+          <div className={styles.chip}>
+            {tags}
+          </div>
+
+          <div className={styles.divider}>
+          <Divider />
+          </div>
+
+          <div className={styles.chip}>
+            {languages}
+          </div>
+            
+        </CardContent>
       </Card>
     </div>
   )

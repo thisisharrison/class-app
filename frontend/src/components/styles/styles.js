@@ -77,6 +77,11 @@ export const PrimaryHref = styled(Link)`
   :hover {
     border-bottom: 3px solid #d22030;
   }
+  display: inline-flex;
+  align-items: center;
+  transition-property: border-bottom;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
 `
 export const BreadCrumbSection = styled.section`
   padding: 1.5rem;

@@ -18,7 +18,7 @@ const HomePage = () => {
               <li>All Accessories</li>
             </ul>
           </div>
-          <Grid container>
+          {/* <Grid container> */}
             <div className="hero-image-container">
               <Grid item sm={12} md={12}>
                 <GridList>
@@ -34,7 +34,7 @@ const HomePage = () => {
                 <HomePageHeroCTA as="a" href="#/classes">EXPLORE CLASSES</HomePageHeroCTA>
               </div>
             </div>
-          </Grid>
+          {/* </Grid> */}
         </div>
         
         <Grid container alignItems="center">
