@@ -58,14 +58,14 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={HomePage} />
         <AuthRoute exact path="/account/login" component={Session} />
-        {/* <Route exact path="/new-class" render={(props) => <ClassFormContainer {...props} isNew={true} />} /> */}
         <Route exact path="/new-class" component={ClassFormContainer} />
+        <Route exact path="/classes/:id/edit" component={ClassShowContainer} />     
         <Container maxwidth="sm">
             <Route exact path="/classes" component={SearchContainer} />
             <Route exact path="/classes/:id" component={ClassShowContainer} />
-            <Route exact path="/classes/:id/edit" component={ClassShowContainer} />     
             <Route exact path="/profile" component={ProfileContainer} />
         </Container>
+        {/* <Route exact path="/new-class" render={(props) => <ClassFormContainer {...props} isNew={true} />} /> */}
       </Switch>
   </div>
 );

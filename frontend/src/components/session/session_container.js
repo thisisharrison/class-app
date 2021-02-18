@@ -5,17 +5,17 @@ import { Container, Grid } from '@material-ui/core'
 
 const Session = () => {
   return (
-    <div className="formWrapper">
+    <div className="formWrapper-end">
       <Container maxwidth="sm">
-      <Grid container spacing={4}>
-        <Grid item xs={6}>
-          <LoginFormContainer />
-        </Grid>
+        <Grid container spacing={4}>
+          <Grid item sm={12} md={6}>
+            <LoginFormContainer />
+          </Grid>
 
-        <Grid item xs={6}>
-          <SignUpFormContainer />
+          <Grid item sm={12} md={6}>
+            <SignUpFormContainer />
+          </Grid>
         </Grid>
-      </Grid>
       </Container>
     </div>
   )

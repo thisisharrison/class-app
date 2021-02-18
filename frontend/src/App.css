@@ -114,6 +114,9 @@ h3 {
 }
 .formWrapper {
   background-color: white;
+}
+.formWrapper-end {
+  background-color: white;
   height: 100vh;
 }
 /* Using Material UI Autocomplete */

@@ -7,7 +7,7 @@ import ClassTimeFormContainer from '../classtime/classtime_form_container';
 
 import { PrimaryHref, BreadCrumbSection } from '../styles/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Grid } from '@material-ui/core'
+import { Container, Grid } from '@material-ui/core'
 import LoadingIcon from './loading_icon';
 
 class ClassShow extends Component {
@@ -91,10 +91,10 @@ class ClassShow extends Component {
     } else {
       return (
         <div className="formWrapper">
-
-          <pre>Editing</pre>
-        
-          {breadcrumb}
+            
+          <Container maxwidth="sm">
+            {breadcrumb}
+          </Container>
 
           <ClassFormContainer 
             _class={_class}
@@ -105,13 +105,17 @@ class ClassShow extends Component {
             classId={classId}
           />
 
-          <ClassTimeIndexContainer
-            // _class={_class}
-            classId={classId}
-            isEdit={true}
-            isClassOwner={this.isClassOwner()}
-          />
-        
+          <Container maxwidth="sm">
+            <div className="formWrapper-end">
+              <ClassTimeIndexContainer
+                // _class={_class}
+                classId={classId}
+                isEdit={true}
+                isClassOwner={this.isClassOwner()}
+              />
+            </div>
+          </Container>
+
         </div>
       )
     }
