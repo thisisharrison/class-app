@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Avatar from '@material-ui/core/Avatar';
-import { NavLink, NavWrapper, Nav } from '../styles/nav_styles';
+import { NavLink, NavWrapper, Nav, NavLogoLink } from '../styles/nav_styles';
+import NavLogo from './nav_logo';
 
 class NavBar extends Component {
   constructor(props) {
@@ -38,8 +39,9 @@ class NavBar extends Component {
     return (
       <NavWrapper>
       <Nav>
-        <Avatar src="https://cdn.dribbble.com/users/87003/screenshots/926295/dri1.jpg?compress=1&resize=400x300" 
-          />
+        <NavLogoLink to={'/#'}>
+          <NavLogo />
+        </NavLogoLink>
         <NavLink to={'/#'}>Kittens</NavLink>
         <NavLink to={'/#'}>Cats</NavLink>
         <NavLink to={'/#'}>Accessories</NavLink>

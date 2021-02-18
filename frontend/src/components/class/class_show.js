@@ -56,7 +56,7 @@ class ClassShow extends Component {
             container
             spacing={4}
             direction="column"
-            justify="flex-start"
+            justify="center"
             alignItems="flex-start"
           >
 
@@ -65,16 +65,17 @@ class ClassShow extends Component {
             <Grid
               container
               direction="row"
+              justify="center"
               spacing={4}
             >
 
-              <Grid item xs={8}>
+              <Grid item sm={12} md={8}>
                 <ClassDetail 
                   _class={_class}
                 />
               </Grid>
               
-              <Grid item xs={4}>
+              <Grid item sm={12} md={4}>
                 <ClassTimeIndexContainer 
                   // _class={_class}
                   classId={classId}

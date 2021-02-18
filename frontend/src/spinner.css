@@ -3,6 +3,7 @@
   place-items: center;
 }
 
+/* Adapted from https://codepen.io/EastingAndNorthing/pen/aNWrZz */
 .loadingspinner {
   pointer-events: none;
   width: 5em;

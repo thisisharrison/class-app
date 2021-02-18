@@ -62,6 +62,14 @@ export const NavLink = styled(Link)`
     `}
   }}
 `
+export const NavLogoLink = styled(Link)`
+  @media screen and (max-width: 600px) {
+    svg {
+      height: 24px;
+      width: 24px;
+    }
+  }
+`
 
 export const NavWrapper = styled.div`
   width: 100%;

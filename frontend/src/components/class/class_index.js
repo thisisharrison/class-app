@@ -15,7 +15,7 @@ const ClassIndex = ({classes, loading}) => {
           <h1>All Classes</h1>
           <Grid container spacing={4}>
             {classes.map((_class, i) => (
-              <Grid item xs={4} key={`classindexitem-${i}`}>
+              <Grid item xs={12} sm={6} md={4} key={`classindexitem-${i}`}>
                 <ClassIndexItem
                   key={`${_class._id}-${i}`}
                   _class={_class}
