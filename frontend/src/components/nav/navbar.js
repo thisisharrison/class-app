@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import Avatar from '@material-ui/core/Avatar';
 import { NavLink, NavWrapper, Nav, NavLogoLink } from '../styles/nav_styles';
 import NavLogo from './nav_logo';
 

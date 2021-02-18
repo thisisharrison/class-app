@@ -84,7 +84,6 @@ class ClassTimeForm extends Component {
   }
 
   renderErrors(key) {
-    debugger
     if (this.state.errors[key]) {
       return this.state.errors[key]
     }

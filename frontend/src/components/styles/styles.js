@@ -66,15 +66,14 @@ export const SecondarySubmitInput = styled(SubmitInput)`
   }
 `
 
-export const BackToAll = styled(Link)`
-  font-size: 14px;
+export const PrimaryHref = styled(Link)`
+  font-size: 1rem;
   border-bottom: 1px solid #d5d5d5;
   :hover {
     border-bottom: 3px solid #d22030;
   }
 `
-export const BreadCrumb = styled.section`
-  padding-top: 40px;
-  padding-bottom: 40px;
+export const BreadCrumbSection = styled.section`
+  padding: 1.5rem;
 `
 

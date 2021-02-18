@@ -5,7 +5,7 @@ import ClassTimeIndexContainer from '../classtime/classtime_index_container';
 import ClassFormContainer from '../class_form/class_form_container'
 import ClassTimeFormContainer from '../classtime/classtime_form_container';
 
-import { BackToAll, BreadCrumb } from '../styles/styles';
+import { PrimaryHref, BreadCrumbSection } from '../styles/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Grid } from '@material-ui/core'
 import LoadingIcon from './loading_icon';
@@ -41,9 +41,9 @@ class ClassShow extends Component {
   render() {
     const { classId, _class, loading } = this.props;
     const breadcrumb = (
-      <BreadCrumb>
-        <BackToAll to="/classes"><ArrowBackIosIcon style={{ fontSize: 14 }} /> Back to All Classes</BackToAll>
-      </BreadCrumb>
+      <BreadCrumbSection>
+        <PrimaryHref to="/classes"><ArrowBackIosIcon style={{ fontSize: 14 }} /> Back to All Classes</PrimaryHref>
+      </BreadCrumbSection>
     )
     if (loading) {
       return (<LoadingIcon />);
