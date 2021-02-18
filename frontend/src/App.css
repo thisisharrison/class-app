@@ -78,30 +78,31 @@ h3 {
 }
 
 .class-detail-instructor-top {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   flex-direction: row;
-  align-content: flex-start;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  text-align: left;
-  margin-top: 20px;
 }
+
 .class-detail-instructor-top > div {
-  margin-right: 50px;
+  text-align: right;
+  margin-left: 1rem;
+  height: 3rem;
+  width: auto;
 }
 
 .class-detail-instructor-bottom {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-content: flex-start;
-  align-items: baseline;
-  text-align: left;
-  margin-top: 20px;
+  align-items: center;
 }
 .class-detail-instructor-bottom > div {
-  margin-right: 50px;
+  margin-right: 1rem;
+  height: 3rem;
+  width: auto;
 }
 .class-detail-name {
   display: flex;
@@ -110,7 +111,9 @@ h3 {
   align-content: flex-start;
   align-items: baseline;
   justify-content: space-between;
-  text-align: left;
+}
+.class-detail-name h2 {
+  margin: 0 0 1.875rem;
 }
 .formWrapper {
   background-color: white;

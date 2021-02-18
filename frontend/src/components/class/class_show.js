@@ -42,7 +42,7 @@ class ClassShow extends Component {
     const { classId, _class, loading } = this.props;
     const breadcrumb = (
       <BreadCrumbSection>
-        <PrimaryHref to="/classes"><ArrowBackIosIcon style={{ fontSize: 14 }} /> Back to All Classes</PrimaryHref>
+        <PrimaryHref to="/classes"><ArrowBackIosIcon style={{ fontSize: '0.875rem' }} /> Back to All Classes</PrimaryHref>
       </BreadCrumbSection>
     )
     if (loading) {
@@ -51,7 +51,6 @@ class ClassShow extends Component {
     if (!this.isEdit()) {
       return (
         <div>
-          <pre>Not editing</pre>
           <Grid
             container
             spacing={4}

@@ -9,12 +9,14 @@ export const ContentUl = styled.ul`
 `
 
 export const DetailSection = styled.section`
-  padding-top: 48px;
-  padding-bottom: 48px;
-`
-export const H3 = styled.h3`
-  line-height: 30px;
-  margin-bottom: 32px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  h3 {
+    margin: 1.875rem 0 1.875rem;
+  }
+  p {
+    margin: 0 auto 1.2rem;
+  }
 `
 
 export const useStyles = makeStyles((theme) => ({

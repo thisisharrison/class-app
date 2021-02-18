@@ -1,28 +1,29 @@
 import SaveContainer from '../toggles/save_container';
 
-import { Avatar, Divider, Grid } from '@material-ui/core'
-import { DetailSection, H3, ContentUl } from '../styles/class_styles';
+import { Avatar, Divider } from '@material-ui/core'
+import { DetailSection, useStyles } from '../styles/class_styles';
 import Chip from '@material-ui/core/Chip';
 
 
 const ClassDetail = ({ _class }) => {
   const langs = _class.languages.join(', ');
   const tags = _class.tags.map((tag, idx) => <Chip key={`tag-${idx}`} label={tag} />);
+
+  const styles = useStyles();
+
   return (
   <div>
-      <Grid item xs={12}>
-        <div className="class-detail-name">
+      <div className="class-detail-name">
         <h2>{_class.name}</h2>
         <SaveContainer classId={_class._id} />
-        </div>
-      <p>{_class.admin.city}</p>
-      <p>{_class.admin.affiliate}</p>
+      </div>
+      <p>{_class.admin.affiliate}, {_class.admin.city}</p>
       
 
       <DetailSection>
       <Divider />
       <div className="class-detail-instructor-top">
-        <H3>Online Class taught by {_class.admin.fname + _class.admin.lname}</H3>
+        <h3>Online Class taught by {_class.admin.fname + _class.admin.lname}</h3>
         <Avatar alt={`${_class.admin.fname + _class.admin.lname}`} src={_class.admin.photo} />
       </div>
       <ul>
@@ -32,16 +33,16 @@ const ClassDetail = ({ _class }) => {
       
       <DetailSection>
       <Divider />
-        <H3>What you'll do</H3>
+        <h3>What you'll do</h3>
         <p>{_class.description}</p> 
-        <ContentUl>
+        <div className={styles.chip}>
           {tags}
-        </ContentUl>
+        </div>
       </DetailSection>
 
       <DetailSection>
       <Divider />
-        <H3>How to participate</H3>
+        <h3>How to participate</h3>
         <p>Zoom</p>
       </DetailSection>
 
@@ -49,12 +50,11 @@ const ClassDetail = ({ _class }) => {
       <Divider />
           <div className="class-detail-instructor-bottom">
             <Avatar alt={`${_class.admin.fname + _class.admin.lname}`} src={_class.admin.photo} />
-            <H3>Meet your instructor, {_class.admin.fname + _class.admin.lname}</H3>
+            <h3>Meet your instructor, {_class.admin.fname + _class.admin.lname}</h3>
           </div>
           <p>{_class.admin.bio}</p>
       </DetailSection>
 
-      </Grid>
 
   </div>
 )}

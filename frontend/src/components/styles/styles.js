@@ -83,7 +83,8 @@ export const PrimaryHref = styled(Link)`
   transition-duration: 0.1s;
   transition-timing-function: ease-in-out;
 `
+
 export const BreadCrumbSection = styled.section`
-  padding: 1.5rem;
+  padding: 2rem 0 2rem 0;
 `
 
