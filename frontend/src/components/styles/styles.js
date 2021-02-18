@@ -66,6 +66,11 @@ export const SecondarySubmitInput = styled(SubmitInput)`
   }
 `
 
+export const HomePageHeroCTA = styled(SecondarySubmitInput)`
+  font-weight: 700;
+  font-size: .875rem;
+`
+
 export const PrimaryHref = styled(Link)`
   font-size: 1rem;
   border-bottom: 1px solid #d5d5d5;

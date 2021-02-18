@@ -119,32 +119,6 @@ h3 {
   background-color: white;
   height: 100vh;
 }
-/* Using Material UI Autocomplete */
-.myTagging {
-  background: white;
-  border: 1px solid #d6d6d6;
-  border-radius: 2px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  padding: 5px 5px 0;
-  height: 45px;
-}
-.myTagging:hover {
-  border: 1px solid #000;
-  cursor: text;
-}
-.myTagging input {
-  width: 100%;
-}
-.myTagging ul {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
 
 /* Class Time date styling */
 .classtime {
@@ -183,10 +157,14 @@ h3 {
 }
 
 /* Homepage styling */
+.hero {
+  position: relative;
+}
 .homepage-hero-links {
-  top: 10rem;
+  top: 5rem;
+  left: -5rem;
   position: absolute;
-  width: 15rem;
+  width: 18rem;
   padding: 30px 0;
   z-index: 200;
   background-color: #fafafa;
@@ -204,12 +182,25 @@ h3 {
 .homepage-hero-paragraph {
   text-align: right;
   line-height: 1.5;
-  font-size: 18px;
+  font-size: 1rem;
+}
+.hero-image-container {
+  text-align: left;
 }
 .homepage-hero-cta {
-  position: absolute;
-  top: 80%;
-  left: 60%;
+  position: relative;
+}
+
+@media only screen and (min-width: 62rem) {
+  .hero-image-container {
+    position: relative;
+    text-align: right;
+  }
+  .homepage-hero-cta {
+    position: absolute;
+    top: 80%;
+    left: 80%;
+  }
 }
 
 /* SVG logo styling */
@@ -218,4 +209,31 @@ h3 {
 }
 .cls-2 {
   fill:#db2659;
+}
+
+/* Using Material UI Autocomplete */
+.myTagging {
+  background: white;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 5px 5px 0;
+  height: 45px;
+}
+.myTagging:hover {
+  border: 1px solid #000;
+  cursor: text;
+}
+.myTagging input {
+  width: 100%;
+}
+.myTagging ul {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
