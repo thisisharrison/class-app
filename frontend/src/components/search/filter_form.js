@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import moment from 'moment';
 import languages from 'languages';
 import { INTERESTS } from '../class_form/class_taggings'
-import { Grid, Chip, Divider, Paper, TextField } from "@material-ui/core";
+import { Grid, Chip, Divider, Paper, TextField, Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { langscodes } from '../class_form/class_languages'
 import { useStyles } from '../styles/filter_styles';
@@ -85,97 +85,84 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
   const langs = langscodes.map((langcode, i) => languages.getLanguageInfo(langcode).nativeName)
 
   return (
-    <div className={styles.div}>
-      <pre>Redux: {JSON.stringify(filters)}</pre>
-      <pre>Component: {JSON.stringify(filter)}</pre>
-      
-      <form>
-        <Grid container alignitems="center">
-          <Grid item xs={2}>
-            <Grid container spacing={0} justify="flex-start" alignItems="flex-start" direction="row">
-              <Grid item xs>
-                <Chip 
-                  label="All"
-                  onClick={handleReset}
-                />
-              </Grid>
-              <Grid item xs>
-                <div className="filter-chip">
-                  <Chip 
-                    label="Date"
-                    onClick={() => setVisible(Object.assign({}, visible, { date: !visible.date }))}
-                  />
-                  <div className={visible.date ? 'filter-popup-open' : 'filter-popup'}>
-                    <Paper m={10} p={10}>
-                      <TextField
-                        label="Start Time"
-                        type="date"
-                        name="startTime"
-                        value={filter.startTime ? moment.unix(filter.startTime).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD")}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        onChange={handleTimeChange}
-                      />
-                    </Paper>
-                  </div>
-                </div>
-              </Grid>
-        
-              <Grid item xs>
-                <div className="filter-chip">
-                  <Chip
-                    label="Languages Offered"
-                    onClick={() => setVisible(Object.assign({}, visible, { lang: !visible.lang }))}
-                  />
-                  <div className={visible.lang ? 'filter-popup-open' : 'filter-popup'}>
-                    <Paper m={10} p={10}>
-                      <Autocomplete
-                        multiple
-                        options={langs}
-                        getOptionLabel={(option) => option}
-                        defaultValue={['English']}
-                        filterSelectedOptions
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            label="Languages"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                          />
-                        )}
-                        onChange={(event, newValue) => {
-                          handleLanguageChange(newValue)
-                        }}
-                      />
-                    </Paper>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          </Grid>
+    // <pre>Redux: {JSON.stringify(filters)}</pre>
+    // <pre>Component: {JSON.stringify(filter)}</pre>
 
-          <Grid item xs>    
-            <Grid container wrap="nowrap" spacing={2} overflow="visible">
-              <Grid item xs className={styles.root}>
-              <Divider orientation="vertical" flexItem />
-              {INTERESTS.map(interest =>
-                <Chip
-                  key={`filter-form-${interest}`}
-                  label={interest}
-                  onClick={e => handleClick(e, 'tags', `${interest}`)}
-                  variant={Object.keys(tags).find(tag => tag === interest) ? 'default' : 'outlined'}
+    <div className={styles.div}>
+      <div className={styles.root}>
+        <Chip 
+          label="All"
+          onClick={handleReset}
+        />
+        <Chip 
+          label="Date"
+          onClick={() => setVisible(Object.assign({}, visible, { date: !visible.date }))}
+        />
+        <Dialog open={visible.date} onClose={(e) => setVisible(Object.assign({}, visible, { date: !visible.date }))}>
+          <DialogTitle>
+            Choose when you want to join a class
+          </DialogTitle>
+          <DialogContent>
+            <TextField
+              label="Start Time"
+              type="date"
+              name="startTime"
+              fullWidth
+              value={filter.startTime ? moment.unix(filter.startTime).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD")}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={handleTimeChange}
+            />
+          </DialogContent>
+        </Dialog>
+
+        <Chip
+          label="Languages Offered"
+          onClick={() => setVisible(Object.assign({}, visible, { lang: !visible.lang }))}
+        />
+        <Dialog open={visible.lang} onClose={(e) => setVisible(Object.assign({}, visible, { lang: !visible.lang }))}>
+          <DialogTitle>
+            Choose languages you prefer
+          </DialogTitle>
+          <DialogContent>
+            <Autocomplete
+              multiple
+              options={langs}
+              getOptionLabel={(option) => option}
+              defaultValue={['English']}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Languages"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               )}
-              </Grid>
-            </Grid>
-          </Grid>
-
-        </Grid>
-      </form>
-    </div>
+              onChange={(event, newValue) => {
+                handleLanguageChange(newValue)
+              }}
+            />
+          </DialogContent>
+        </Dialog>
+          
+        <Divider orientation="vertical" flexItem />
+    
+        {INTERESTS.map(interest =>
+          <Chip
+            key={`filter-form-${interest}`}
+            label={interest}
+            onClick={e => handleClick(e, 'tags', `${interest}`)}
+            variant={Object.keys(tags).find(tag => tag === interest) ? 'default' : 'outlined'}
+          />
+        )}
+          
+      </div>
+    </div>        
+      
   )
 }
 

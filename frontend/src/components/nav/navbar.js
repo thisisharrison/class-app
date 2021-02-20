@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import MenuIcon from '@material-ui/icons/Menu';
 import { NavLink, NavWrapper, NavWrapperMobile, Nav, NavLogoLink } from '../styles/nav_styles';
 import NavLogo from './nav_logo';
-import { Drawer, IconButton, List, ListItem } from '@material-ui/core';
+import { Container, Drawer, IconButton, List, ListItem } from '@material-ui/core';
 
 
 
@@ -84,15 +84,17 @@ function NavBar({ history, logout, loggedIn }) {
       </div>
     ) : 
     (
-    <NavWrapper>
-      <Nav>
-        <NavLogoLink to={'/#'}>
-          <NavLogo />
-        </NavLogoLink>
-        {links.map((link, i) => link)}
-        {getLinks().map((link, i) => link)}
-      </Nav>
-    </NavWrapper>
+    <Container>
+      <NavWrapper>
+        <Nav>
+          <NavLogoLink to={'/#'}>
+            <NavLogo />
+          </NavLogoLink>
+          {links.map((link, i) => link)}
+          {getLinks().map((link, i) => link)}
+        </Nav>
+      </NavWrapper>
+    </Container>
     )
   )
 }
