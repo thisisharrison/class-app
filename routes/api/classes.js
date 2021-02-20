@@ -30,7 +30,6 @@ router.get('/', (req, res) => {
     classQuery.push({ languages: { $in: languages } })
   }
   const userStartTime = startTime ? startTime : 0
-  // ({ $and: [{ price: { $ne: 1.99 } }, { price: { $exists: true } }] })
 
   const query = classQuery.length > 0 ? {$and: classQuery} : {} 
   
@@ -49,47 +48,10 @@ router.get('/', (req, res) => {
       // res.json(classesObject(classes));
     }) 
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
-
-  // Using Aggregate (to-do)
-  // Class.aggregate([
-  //   { 
-  //     $lookup: {
-  //       from: 'classtimes',
-  //       localField: '_id',
-  //       foreignField: 'class',
-  //       as: 'classtime_info'
-  //     }
-  //   },
-  //   {
-  //     $project: {
-  //       name: 1,
-  //       description: 1,
-  //       admin: 1,
-  //       classTimes: 1,
-  //       tags: 1,
-  //       languages: 1,
-  //       classtime_info: {
-  //         $filter: {
-  //           input: '$classtime_info',
-  //           as: 'classtime',
-  //           cond: { $gte: ['$$classtime.startTime', parseInt(req.query.startTime)]}
-  //         }
-  //       }
-  //     }
-  //   }
-  // ]).exec((err, classes) => {
-    
-  //   // Class.populate(classes, 
-  //   //   { path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
-  //   //   .then(popClasses => console.log(popClasses))
-  // })
-  
-  
 });
 
 
 // return object using class.id as key
-// [{}, {}] => {key: {}, key: {}}
 function classesObject(classes) {
   return classes.reduce((acc, curr) => {
     return { ...acc, [curr.id]: curr }
