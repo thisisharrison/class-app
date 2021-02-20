@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core'
+import { Card, Grid } from '@material-ui/core'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ClassIndexItem from '../class/class_index_item'
@@ -8,6 +8,7 @@ import ProfileForm from './profile_form'
 import { MyPaper } from '../styles/class_styles'
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import LoadingIcon from '../class/loading_icon'
+import { PrimaryHref } from '../styles/styles'
 
 export default class Profile extends Component {
   constructor(props) {
@@ -62,14 +63,16 @@ export default class Profile extends Component {
 
     const addClass = (
       <Link to='/new-class'>
+        <Card>
         <Grid container
           direction="column"
           justify="center"
           alignItems="center"
-        >    
-          <AddRoundedIcon fontSize="large" />
-          <h3>Create New Class</h3>
+        >
+            <AddRoundedIcon fontSize="large" />
+            <h3>Create New Class</h3>
         </Grid>
+        </Card>
       </Link>
     )
 
@@ -77,9 +80,9 @@ export default class Profile extends Component {
     (
       <div>
         <h2>Your Classes</h2>
-        <Grid container spacing={2} alignItems="center">
+        <Grid container spacing={4}>
           {classes.map(_class =>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
               <ClassIndexItem
                 key={_class._id}
                 _class={_class}
@@ -102,9 +105,9 @@ export default class Profile extends Component {
       (
         <div>
           <h2>Your Saved Classes</h2>
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             {saves.map(_class => 
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={12} md={6} lg={4}>
                 <ClassIndexItem 
                   key={_class._id}
                   _class={_class}
@@ -122,9 +125,9 @@ export default class Profile extends Component {
       (
         <div>
           <h2>Your Booked Class Times</h2>
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             {bookings.map(classTime =>
-              <Grid item xs={6}>
+              <Grid item sm={12} md={6}>
                 <MyPaper>
                   <ClassTimeIndexItem
                     key={classTime._id}
@@ -140,9 +143,9 @@ export default class Profile extends Component {
       )
     
     return (
-      <div>
+      <div className="profile-page">
         <h1>Hi, I'm {currentUser.email}</h1>
-        {this.state.editing ? <Link onClick={this.handleEdit}>Close Edit</Link>: <Link onClick={this.handleEdit}>Edit Profile</Link>}
+        {this.state.editing ? <PrimaryHref onClick={this.handleEdit} to='/profile'>Close Edit</PrimaryHref> : <PrimaryHref onClick={this.handleEdit} to='/profile'>Edit Profile</PrimaryHref>}
         {this.state.editing ? <ProfileForm currentUser={currentUser}/> : <></>}
 
         {adminClasses}

@@ -164,14 +164,9 @@ h3 {
   position: relative;
 }
 .homepage-hero-links {
-  top: 5rem;
-  left: -5rem;
-  position: absolute;
-  width: 18rem;
-  padding: 30px 0;
-  z-index: 200;
-  background-color: #fafafa;
-  line-height: 2;
+  position: relative;
+  visibility: hidden;
+  height: 0;
 }
 .homepage-hero-links li {
   font-weight: 400;
@@ -183,7 +178,7 @@ h3 {
   text-decoration-thickness: 3px;
 }
 .homepage-hero-paragraph {
-  text-align: right;
+  text-align: center;
   line-height: 1.5;
   font-size: 1rem;
 }
@@ -192,6 +187,9 @@ h3 {
 }
 .homepage-hero-cta {
   position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1rem;
 }
 
 @media only screen and (min-width: 62rem) {
@@ -204,6 +202,42 @@ h3 {
     top: 80%;
     left: 80%;
   }
+  .homepage-hero-paragraph {
+    text-align: right;
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+  .homepage-hero-links {
+    top: 5rem;
+    left: 0rem;
+    height: auto;
+    position: absolute;
+    visibility: visible;
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    z-index: 200;
+    background-color: #fafafa;
+    line-height: 2;
+  }
+}
+
+@media only screen and (max-width: 62rem) {
+  .homepage-hero-h2 {
+    text-align: center;
+  }
+}
+
+.profile-page > div > h2 {
+  margin: 2rem 0 2rem;
+}
+
+.mobile-logo {
+  display: inline-flex;
+  justify-content: center;
+}
+.mobile-nav {
+  display: inline-flex;
+  justify-content: flex-end;
+  text-align: right;
 }
 
 /* SVG logo styling */

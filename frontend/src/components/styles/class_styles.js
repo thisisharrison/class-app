@@ -53,6 +53,19 @@ export const useStyles = makeStyles((theme) => ({
   }
 }))
 
+export const bookStyles = makeStyles((theme) => ({
+  root: {
+    palette: {
+      primary: {
+        main: '#000'
+      }
+    },
+    typography: {
+      fontFamily: 'Sans-Serif'
+    }
+  }
+}));
+
 export const MyPaper = styled(Paper)`
   padding: 20px;
 `

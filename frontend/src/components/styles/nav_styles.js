@@ -7,12 +7,11 @@ export const Nav = styled.nav`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  max-width: 85.75rem;
-  line-height: 20px;
-  font-size: 15px;
-  font-weight: 600px;
-  letter-spacing: 1.2px;
-  height: 75px;
+  line-height: 1.2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 1.2;
+  height: 4rem;
   grid-template-columns: 6rem auto 1fr;
   grid-template-rows: 5rem minmax(0,auto);
   align-items: center;
@@ -23,10 +22,7 @@ export const Nav = styled.nav`
 export const NavLink = styled(Link)`
   text-transform: uppercase;
   text-decoration: none;
-  padding-bottom: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 5px;
+  margin: 0 1rem;
   cursor: pointer;
   font-weight: 600;
   letter-spacing: .075rem;
@@ -43,14 +39,14 @@ export const NavLink = styled(Link)`
     content: '';
     height: 5px;
     bottom: -.3125rem;
+    width: 0;
     top: auto;
     left: 0;
-    right: 100%;
     background: #d31334;
-    transition: right .25s ease-in-out
+    transition: width .25s ease-in-out
   }
   :hover:after {
-    right: 0;
+    width: 2rem;
   }
 
   ${props => props.promo &&
@@ -63,15 +59,31 @@ export const NavLink = styled(Link)`
   }}
 `
 export const NavLogoLink = styled(Link)`
-  @media screen and (max-width: 600px) {
+  ${props => props.mobile && 
+  `
     svg {
       height: 24px;
       width: 24px;
+      margin-right: 0.5rem;
     }
-  }
+    padding-left: 1rem;
+  `}  
+  padding-right: 1rem;
 `
 
 export const NavWrapper = styled.div`
   width: 100%;
   background-color: #fafafa;
+`
+
+export const NavWrapperMobile = styled(NavWrapper)`
+  display: flex;
+  align-items: baseline;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  h1 {
+   margin: 0; 
+   font-size: 1.5rem;
+  }
 `
