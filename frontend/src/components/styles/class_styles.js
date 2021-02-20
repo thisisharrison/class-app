@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
 
 export const ContentUl = styled.ul`
   display: flex;
@@ -20,22 +21,14 @@ export const DetailSection = styled.section`
 `
 
 export const useStyles = makeStyles((theme) => ({
-  palette: {
-    primary: {
-      main: "#212121",
-    },
-    secondary: {
-      main: "#9e9e9e"
-    }
-  },
   card: {
-    // maxWidth: 400,
-    // height: 250,
     boxSizing: "border-box",
     display: "block",
     margin: "auto",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16)",
-    fontFamily: 'sans-serif'
+    typography: {
+      fontFamily: 'sans-serif'
+    }
   },
   content: {
     textAlign: "left"
@@ -53,19 +46,6 @@ export const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const bookStyles = makeStyles((theme) => ({
-  root: {
-    palette: {
-      primary: {
-        main: '#000'
-      }
-    },
-    typography: {
-      fontFamily: 'Sans-Serif'
-    }
-  }
-}));
-
 export const MyPaper = styled(Paper)`
   padding: 20px;
 `
@@ -75,4 +55,14 @@ export const TileH2 = styled.h2`
   font-weight: 500;
   font-family: Sans-serif;
   margin: 0;
+`
+
+export const NewClassLink = styled(Link)`
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem;
 `

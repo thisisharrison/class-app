@@ -11,21 +11,25 @@ const Search = ({
   fetchBookings,
   fetchClasses, 
   fetchAllClassTimes,
-  isAuthenticated
+  isAuthenticated,
+  bookings, 
+  saves,
   }) => (
   <div>
     <Container maxwidth="sm">
-    <FilterForm 
-      filters={filters}
-      updateFilter={updateFilter}
-      updateFilterParams={updateFilterParams}
-      fetchClasses={fetchClasses}
-      fetchAllClassTimes={fetchAllClassTimes}
-      fetchSaves={fetchSaves}
-      fetchBookings={fetchBookings}
-      isAuthenticated={isAuthenticated}
-    />
-    <ClassIndexContainer />
+      <FilterForm 
+        filters={filters}
+        updateFilter={updateFilter}
+        updateFilterParams={updateFilterParams}
+        fetchClasses={fetchClasses}
+        fetchAllClassTimes={fetchAllClassTimes}
+        fetchSaves={fetchSaves}
+        fetchBookings={fetchBookings}
+        isAuthenticated={isAuthenticated}
+        bookings={bookings}
+        saves={saves}
+      />
+      <ClassIndexContainer />
     </Container>
   </div>
 )

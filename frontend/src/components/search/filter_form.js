@@ -8,16 +8,12 @@ import { langscodes } from '../class_form/class_languages'
 import { useStyles } from '../styles/filter_styles';
 
 
-const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, fetchAllClassTimes, fetchSaves, fetchBookings, isAuthenticated}) => {
+const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, fetchAllClassTimes, fetchSaves, fetchBookings, isAuthenticated, bookings, saves}) => {
   const [filter, setFilter] = useState({});
   const [tags, setTags] = useState({});
   const [visible, setVisible] = useState({ date: false, lang: false })
   
   const styles = useStyles();
-  
-  // useEffect(() => {
-  //   fetchClasses({})
-  // }, [])
   
   useEffect(() => {
     if (isAuthenticated) {
@@ -27,6 +23,10 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
   }, [])
 
   useEffect(() => {
+    // if (filters) {
+    //   updateFilter(filters);
+    //   updateFilterParams();  
+    // }
     updateFilter(filter);
     updateFilterParams();
   }, [filter])
@@ -150,7 +150,7 @@ const FilterForm = ({ updateFilter, filters, fetchClasses, updateFilterParams, f
         </Dialog>
           
         <Divider orientation="vertical" flexItem />
-    
+        
         {INTERESTS.map(interest =>
           <Chip
             key={`filter-form-${interest}`}

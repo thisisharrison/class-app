@@ -9,9 +9,9 @@ import { updateFilter, updateFilterParams } from '../../actions/filter_actions';
 const mapStateToProps = state => ({
   // classes: toArray(state.entities.classes.all),  
   filters: state.ui.filters,
-  isAuthenticated: state.session.isAuthenticated
-  // bookingsIds: getBookingsIds(state),
-  // savesIds: getSavesIds(state),
+  isAuthenticated: state.session.isAuthenticated,
+  bookings: getBookingsIds(state),
+  saves: getSavesIds(state),
 })
 
 const mapDispatchToProps = dispatch => ({

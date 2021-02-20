@@ -25,6 +25,7 @@ export const NavLink = styled(Link)`
   margin: 0 1rem;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.875rem;
   letter-spacing: .075rem;
   line-height: 1.25rem;
   display: inline-block;

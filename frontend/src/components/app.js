@@ -14,7 +14,6 @@ import ClassFormContainer from './class_form/class_form_container';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './styles/styles';
-import { Container } from '@material-ui/core'
 import PromptLoginContainer from './greeting/prompt_login_container';
 
 
@@ -30,9 +29,7 @@ const App = () => (
           <Route exact path="/classes/:id/edit" component={ClassShowContainer} />     
           <Route exact path="/classes" component={SearchContainer} />
           <Route exact path="/classes/:id" component={ClassShowContainer} />
-          <Container maxwidth="sm">
-              <Route exact path="/profile" component={ProfileContainer} />
-          </Container>
+          <Route exact path="/profile" component={ProfileContainer} />
         </Switch>
       </ThemeProvider>
   </div>
