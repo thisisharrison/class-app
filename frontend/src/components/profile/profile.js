@@ -139,11 +139,12 @@ export default class Profile extends Component {
     return (
       <div className="profile-page">
         <Container maxwidth="sm">
-        <h1>Hi, I'm {currentUser.email}</h1>
+          <h1>Dashboard</h1>
+        {/* <h1>Hi, I'm {currentUser.email}</h1> */}
         {/* {this.state.editing ? <PrimaryHref onClick={this.handleEdit} to='/profile'>Close Edit</PrimaryHref> : <PrimaryHref onClick={this.handleEdit} to='/profile'>Edit Profile</PrimaryHref>}
         {this.state.editing ? <ProfileForm currentUser={currentUser}/> : <></>} */}
 
-        <ProfileTabs adminClasses={adminClasses} savedClasses={savedClasses} bookedClassTimes={bookedClassTimes}/>
+          <ProfileTabs adminClasses={adminClasses} savedClasses={savedClasses} bookedClassTimes={bookedClassTimes}/>
         
         </Container>
       </div>

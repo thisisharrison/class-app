@@ -50,7 +50,7 @@ const Admin = ({ component: Component, isAdmin, loggedIn, ...rest}) => (
 const mapStateToProps = state => (
   { 
     loggedIn: state.session.isAuthenticated, 
-    isAdmin: state.session.isAdmin || false
+    isAdmin: state.session.isAdmin
   }
 );
 

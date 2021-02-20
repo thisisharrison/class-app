@@ -19,17 +19,6 @@ class ClassShow extends Component {
     this.props.fetchClass(this.props.classId)
   }
 
-  // only admin can see the edit button on their own classes
-  renderEditButton() {
-    if (this.isClassOwner()) {
-      return (
-        <div>
-        <Link to={`/classes/${this.props.classId}/edit`}>Edit</Link>
-        </div>
-      )
-    }
-  }
-
   isClassOwner() {
     return this.props._class.admin._id === this.props.currentUserId;
   }

@@ -25,11 +25,11 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={HomePage} />
           <AuthRoute exact path="/account/login" component={Session} />
-          <Route exact path="/new-class" component={ClassFormContainer} />
-          <Route exact path="/classes/:id/edit" component={ClassShowContainer} />     
+          <AdminRoute exact path="/new-class" component={ClassFormContainer} />
+          <AdminRoute exact path="/classes/:id/edit" component={ClassShowContainer} />     
           <Route exact path="/classes" component={SearchContainer} />
           <Route exact path="/classes/:id" component={ClassShowContainer} />
-          <Route exact path="/profile" component={ProfileContainer} />
+          <ProtectedRoute exact path="/profile" component={ProfileContainer} />
         </Switch>
       </ThemeProvider>
   </div>
