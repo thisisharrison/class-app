@@ -4,14 +4,20 @@ import styled from 'styled-components';
 
 export const theme = createMuiTheme({
   typography: {
-    fontFamily: 'Sans-Serif',
+    fontFamily: "sans-serif"
   },
   palette: {
     primary: {
-      main: "#000"
+      light: "#000",
+      main: "#000",
+      dark: "#000",
+      contrastText: "#fff"
     },
     secondary: {
-      main: "#d22030"
+      light: "#000",
+      main: "#000",
+      dark: "#000",
+      contrastText: "#fff"
     }
   }
 })
