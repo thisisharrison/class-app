@@ -37,12 +37,16 @@ router.get('/', (req, res) => {
   Class
     .find(query)
     .populate({ path: 'admin', select: ['fname', 'lname', 'affiliate', 'city', 'photo', 'bio'] })
-    // .where({ classTimes: { $exists: true, $ne: [] } })
+    // filters out classes with no class times
+    .where({ classTimes: { $exists: true, $ne: [] } })
     .populate({ path: 'classTimes', match: { startTime: { $gte: userStartTime }}, options: { sort: { startTime: 1 }}, select: ['startTime', 'endTime']})
     .then(classes => { 
-      // const filterClasses = classes.filter(_class => _class.classTimes.length !== 0);
-      // res.json(classesObject(filterClasses));
-      res.json(classesObject(classes));
+      // filters out no class time based on user's filter date
+      const filterClasses = classes.filter(_class => _class.classTimes.length !== 0);
+      // return filter result
+      res.json(classesObject(filterClasses));
+      // for debugging 
+      // res.json(classesObject(classes));
     }) 
     .catch(err => res.status(404).json({ noclassesfound: 'No classes found' }))
 
