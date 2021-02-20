@@ -79,9 +79,9 @@ export const HomePageHeroCTA = styled(SecondarySubmitInput)`
 
 export const PrimaryHref = styled(Link)`
   font-size: 1rem;
-  border-bottom: 1px solid #d5d5d5;
+  border-bottom: 2px solid #d5d5d5;
   :hover {
-    border-bottom: 3px solid #d22030;
+    border-bottom: 2px solid #d22030;
   }
   display: inline-flex;
   align-items: center;

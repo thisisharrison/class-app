@@ -1,5 +1,5 @@
 /* CSS Reset */
-html, body, header, nav, h1, h2, h3, a,
+html, body, header, nav, h1, h2, h3, small, a,
 ul, li, strong, main, button, i,
 section, img, div, p, form,
 fieldset, label, input, textarea,
@@ -51,6 +51,10 @@ textarea {
 p {
   line-height: 1.25;
   font-size: 1.125rem;
+}
+
+small {
+  font-size: 0.8rem;
 }
 
 h1, h2, h3 {

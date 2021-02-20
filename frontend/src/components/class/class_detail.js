@@ -23,7 +23,7 @@ const ClassDetail = ({ _class }) => {
       <DetailSection>
       <Divider />
       <div className="class-detail-instructor-top">
-        <h3>Online Class taught by {_class.admin.fname + _class.admin.lname}</h3>
+        <h3>Online Class taught by {_class.admin.fname + ' ' + _class.admin.lname}</h3>
         <Avatar alt={`${_class.admin.fname + _class.admin.lname}`} src={_class.admin.photo} />
       </div>
       <ul>

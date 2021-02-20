@@ -125,7 +125,8 @@ export default class Profile extends Component {
                   <ClassTimeIndexItem
                     key={classTime._id}
                     classTime={classTime}
-                    booked={this.state.bookingIds.includes(classTime._id)} />
+                    booked={this.state.bookingIds.includes(classTime._id)}
+                    showName={true} />
                 </MyPaper>
               </Grid>
             )}

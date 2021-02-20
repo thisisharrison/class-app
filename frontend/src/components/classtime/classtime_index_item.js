@@ -1,11 +1,13 @@
 import moment from 'moment';
 import BookContainer from '../toggles/book_container';
 import { Grid, Button } from '@material-ui/core'
+import momentTz from 'moment-timezone';
+import { PrimaryHref } from '../styles/styles';
 
 // These should be handled separately
 // isEdit, destroyClassTime, updateClassTime, editClassTime
 
-const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTime, updateClassTime, editClassTime }) => {
+const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTime, updateClassTime, editClassTime, showName = undefined }) => {
   
   let { startTime, endTime } = classTime;
   const weekday = moment.unix(startTime).format("ddd")
@@ -27,6 +29,7 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
       >Remove</Button>
       </Grid>
     </>) : ''
+  const timezone = momentTz.tz.guess().split('_').join(' ');
 
   return (
     <div className="classtime-index-item">
@@ -46,10 +49,9 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
       </div>
       </Grid>
       
-      {/* {classTime.class ? <p>{classTime.class.name}</p> : ''} */}
-      
       <Grid item xs={6}>
-      <p>{startTime} - {endTime} (HKT)</p>
+          {showName && <PrimaryHref to={`/classes/${classTime.class._id}`}>{classTime.class.name}</PrimaryHref>}
+          <p>{startTime} - {endTime} <small>({timezone})</small></p>
       </Grid>
       
       <Grid item xs>
