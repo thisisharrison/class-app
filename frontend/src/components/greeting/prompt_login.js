@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router';
 
 const PromptLogin = ({ promptLogin, closeLoginPrompt, history }) => {
-  const [ open, setOpen ] = useState(null);
+  const [ open, setOpen ] = useState(false);
 
   const handleClose = async () => {
     setOpen(false);

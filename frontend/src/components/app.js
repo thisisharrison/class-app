@@ -28,9 +28,9 @@ const App = () => (
           <AuthRoute exact path="/account/login" component={Session} />
           <Route exact path="/new-class" component={ClassFormContainer} />
           <Route exact path="/classes/:id/edit" component={ClassShowContainer} />     
+          <Route exact path="/classes" component={SearchContainer} />
+          <Route exact path="/classes/:id" component={ClassShowContainer} />
           <Container maxwidth="sm">
-              <Route exact path="/classes" component={SearchContainer} />
-              <Route exact path="/classes/:id" component={ClassShowContainer} />
               <Route exact path="/profile" component={ProfileContainer} />
           </Container>
         </Switch>

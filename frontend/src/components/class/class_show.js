@@ -51,6 +51,7 @@ class ClassShow extends Component {
     if (!this.isEdit()) {
       return (
         <div>
+          <Container maxwidth="sm">
           <Grid
             container
             spacing={4}
@@ -85,6 +86,7 @@ class ClassShow extends Component {
 
             </Grid>
           </Grid>
+          </Container>
         </div>
       )
     } else {

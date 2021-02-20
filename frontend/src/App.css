@@ -82,12 +82,14 @@ h3 {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
 }
 
 .class-detail-instructor-top > div {
+  margin-left: 2rem;
+}
+
+.class-detail-instructor-top > div > img {
   text-align: right;
-  margin-left: 1rem;
   height: 3rem;
   width: auto;
 }
@@ -99,8 +101,13 @@ h3 {
   align-content: flex-start;
   align-items: center;
 }
+
 .class-detail-instructor-bottom > div {
-  margin-right: 1rem;
+  margin-right: 2rem;
+}
+
+.class-detail-instructor-bottom > div > img {
+  text-align: left;
   height: 3rem;
   width: auto;
 }

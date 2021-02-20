@@ -39,7 +39,7 @@ const HomePage = () => {
         </div>
         
         <Grid container>
-          <Grid item xs={0} lg={1}></Grid>
+          <Grid item xs={false} lg={1}></Grid>
           <Grid item xs={12 }lg ={11}>
             <Grid container alignItems="baseline" justify="center">
               <Grid item sm={12} md={6}>

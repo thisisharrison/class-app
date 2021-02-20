@@ -17,18 +17,22 @@ class SessionForm extends Component {
     this.renderHeaders = this.renderHeaders.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.formType === "Log In") {
-      if (nextProps.currentUser === true) {
-        this.props.history.push('/classes');
-      }
-    } else {
-      if (nextProps.isSignedIn === true) {
-        this.props.history.push('/account/login');
-      }
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentUser !== this.props.currentUser) {
+      this.props.history.push('/classes');
     }
-    // Set or clear errors
-    this.setState({ errors: nextProps.errors })
+    if (prevProps.isSignedIn !== this.props.isSignedIn) {
+      // Log in user when new user signed up
+      const { email, password } = this.state;
+      this.props.login({
+        email,
+        password
+      })
+    }
+    if (prevProps.errors !== this.props.errors) {
+      // Set or clear errors
+      this.setState({ errors: this.props.errors })
+    }
   }
 
   handleSubmit(e) {
@@ -178,4 +182,4 @@ class SessionForm extends Component {
   }
 }
 
-export default SessionForm;
+export default withRouter(SessionForm);

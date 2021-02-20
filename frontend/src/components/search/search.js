@@ -1,5 +1,6 @@
 import ClassIndexContainer from '../class/class_index_container';
 import FilterForm from './filter_form'
+import { Container } from '@material-ui/core'
 
 const Search = ({
   // classes, 
@@ -13,6 +14,7 @@ const Search = ({
   isAuthenticated
   }) => (
   <div>
+    <Container maxwidth="sm">
     <FilterForm 
       filters={filters}
       updateFilter={updateFilter}
@@ -24,6 +26,7 @@ const Search = ({
       isAuthenticated={isAuthenticated}
     />
     <ClassIndexContainer />
+    </Container>
   </div>
 )
 
