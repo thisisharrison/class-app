@@ -31,7 +31,7 @@ class ClassShow extends Component {
   }
 
   isClassOwner() {
-    return this.props._class && this.props.currentUserId
+    return this.props._class.admin._id === this.props.currentUserId;
   }
 
   isEdit() {
@@ -41,9 +41,9 @@ class ClassShow extends Component {
   render() {
     const { classId, _class, loading } = this.props;
     const breadcrumb = (
-      <BreadCrumbSection>
+      <Grid item xs>
         <PrimaryHref to="/classes"><ArrowBackIosIcon style={{ fontSize: '0.875rem' }} /> Back to All Classes</PrimaryHref>
-      </BreadCrumbSection>
+      </Grid>
     )
     if (loading) {
       return (<LoadingIcon />);
@@ -55,13 +55,14 @@ class ClassShow extends Component {
           <Grid
             container
             spacing={4}
-            direction="column"
-            justify="center"
+            direction="row"
+            justify="space-between"
             alignItems="flex-start"
           >
+            <BreadCrumbSection>
+              {breadcrumb}  
+            </BreadCrumbSection>
 
-            {breadcrumb}
-            
             <Grid
               container
               direction="row"
@@ -72,6 +73,7 @@ class ClassShow extends Component {
               <Grid item sm={12} md={8}>
                 <ClassDetail 
                   _class={_class}
+                  editLink={this.isClassOwner() ? <PrimaryHref to={`/classes/${classId}/edit`}>Edit Class</PrimaryHref>: null}
                 />
               </Grid>
               

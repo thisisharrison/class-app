@@ -5,7 +5,7 @@ import { DetailSection, useStyles } from '../styles/class_styles';
 import Chip from '@material-ui/core/Chip';
 
 
-const ClassDetail = ({ _class }) => {
+const ClassDetail = ({ _class, editLink = null }) => {
   const langs = _class.languages.join(', ');
   const tags = _class.tags.map((tag, idx) => <Chip key={`tag-${idx}`} label={tag} />);
 
@@ -14,7 +14,7 @@ const ClassDetail = ({ _class }) => {
   return (
   <div>
       <div className="class-detail-name">
-        <h2>{_class.name}</h2>
+        <h2>{_class.name} <span>{editLink}</span></h2>
         <SaveContainer classId={_class._id} />
       </div>
       <p>{_class.admin.affiliate}, {_class.admin.city}</p>

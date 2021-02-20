@@ -81,6 +81,13 @@ h3 {
   }
 }
 
+.class-detail-cta {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .class-detail-instructor-top {
   display: inline-flex;
   flex-wrap: wrap;
