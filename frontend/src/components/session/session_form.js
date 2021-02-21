@@ -67,9 +67,9 @@ class SessionForm extends Component {
   async handleDemo(e) {
     e.preventDefault();
     if (e.target.value === 'user') {
-      await this.setState({ email: 'jlawrence@email.com', password: demo.password })
-    } else if (this.target.value === 'admin') {
       await this.setState({ email: 'mdiaz@email.com', password: demo.password })
+    } else if (this.target.value === 'admin') {
+      await this.setState({ email: 'jlawrence@email.com', password: demo.password })
     }
     this.handleSubmit(e);
   }
