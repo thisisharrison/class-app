@@ -44,8 +44,10 @@ class SessionForm extends Component {
     }
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(e = undefined) {
+    if (e) {
+      e.preventDefault();
+    }
     const { login, signup, formType, history } = this.props;
     const { email, password, password2 } = this.state;
     if (formType === "Sign Up") {
@@ -71,7 +73,7 @@ class SessionForm extends Component {
     } else if (this.target.value === 'admin') {
       await this.setState({ email: 'jlawrence@email.com', password: demo.password })
     }
-    this.handleSubmit(e);
+    this.handleSubmit();
   }
 
   update(field) {
