@@ -144,7 +144,7 @@ export default class Profile extends Component {
         {/* {this.state.editing ? <PrimaryHref onClick={this.handleEdit} to='/profile'>Close Edit</PrimaryHref> : <PrimaryHref onClick={this.handleEdit} to='/profile'>Edit Profile</PrimaryHref>}
         {this.state.editing ? <ProfileForm currentUser={currentUser}/> : <></>} */}
 
-          <ProfileTabs adminClasses={adminClasses} savedClasses={savedClasses} bookedClassTimes={bookedClassTimes}/>
+          <ProfileTabs adminClasses={adminClasses} savedClasses={savedClasses} bookedClassTimes={bookedClassTimes} isAdmin={this.props.currentUser.isAdmin} />
         
         </Container>
       </div>

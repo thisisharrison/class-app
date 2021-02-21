@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 export default function ProfileTabs({ 
   adminClasses,
   savedClasses,
-  bookedClassTimes}) {
+  bookedClassTimes, 
+  isAdmin}) {
   
   const [value, setValue] = useState(0)
 
@@ -27,7 +28,10 @@ export default function ProfileTabs({
             aria-label="Vertical tabs example"
             
           >
-            {OPTIONS.map((option, i) => <Tab label={option} key={`option-${i}`} />)}
+            {isAdmin ? 
+              OPTIONS.map((option, i) => <Tab label={option} key={`option-${i}`} />) : 
+              OPTIONS.filter(option => option !== 'Your Classes')
+                .map((option, i) => <Tab label={option} key={`option-${i}`} />)}
           </Tabs>
         </Grid>
         <Grid item xs={9}>
@@ -37,9 +41,10 @@ export default function ProfileTabs({
           <TabPanel value={value} index={1}>
             {bookedClassTimes}
           </TabPanel>
+          {isAdmin && 
           <TabPanel value={value} index={2}>
             {adminClasses}
-          </TabPanel>
+          </TabPanel>}
         </Grid>
       </Grid>
     </div>
