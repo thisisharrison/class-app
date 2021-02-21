@@ -8,11 +8,11 @@ const Session = () => {
     <div className="formWrapper-end">
       <Container maxwidth="sm">
         <Grid container spacing={4}>
-          <Grid item sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <LoginFormContainer />
           </Grid>
 
-          <Grid item sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <SignUpFormContainer />
           </Grid>
         </Grid>

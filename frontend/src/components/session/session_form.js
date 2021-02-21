@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { FormControl, TextField, ThemeProvider } from '@material-ui/core';
-import { theme, SubmitInput } from '../styles/styles';
+import { theme, SubmitInput, SubmitButton } from '../styles/styles';
+import * as demo from './demo';
 
 class SessionForm extends Component {
   constructor(props) {
@@ -10,16 +11,24 @@ class SessionForm extends Component {
       email: '',
       password: '',
       password2: '',
-      errors: {}
+      errors: {},
+      timer: null,
+      demo: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
     this.renderHeaders = this.renderHeaders.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
+  }
+
+  componentDidMount() {
+    const timer = setTimeout(() => this.setState({demo: true}), 3000);
+    this.setState({ timer })
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.currentUser !== this.props.currentUser) {
-      this.props.history.push('/classes');
+      this.props.history.push('/classes'); 
     }
     if (prevProps.isSignedIn !== this.props.isSignedIn) {
       // Log in user when new user signed up
@@ -51,14 +60,23 @@ class SessionForm extends Component {
         password
       });
     }
+    clearTimeout(this.state.timer);
+    this.setState({ timer: null, demo: false });
+  }
+
+  async handleDemo(e) {
+    e.preventDefault();
+    if (e.target.value === 'user') {
+      await this.setState({ email: 'jlawrence@email.com', password: demo.password })
+    } else if (this.target.value === 'admin') {
+      await this.setState({ email: 'mdiaz@email.com', password: demo.password })
+    }
+    this.handleSubmit(e);
   }
 
   update(field) {
     return e => this.setState({ [field]: e.currentTarget.value })
   }
-
-  // keys = login, register 
-  // key.props = email, password, password2
   
   renderErrors(prop) {
     if (this.props.formType === 'Sign Up') {
@@ -74,17 +92,6 @@ class SessionForm extends Component {
         return false;
       }
     }
-
-    // if (this.state.errors[key]) {
-    //   const errors = this.state.errors[key]
-    // return (
-    //   <ul>
-    //     {Object.keys(errors).map((err, i) => (
-    //       <li key={`${key}-error-${i}`}>{errors[err]}</li>
-    //     ))}
-    //   </ul>
-    // );
-    
   }
 
   renderHeaders() {
@@ -132,6 +139,16 @@ class SessionForm extends Component {
     }
   }
 
+  renderDemoButtons() {
+    return this.state.demo && this.props.formType === 'Log In' ? 
+      (
+      <>
+        <SubmitButton value='user' onClick={this.handleDemo}>Demo User</SubmitButton>
+        <SubmitButton value='admin' onClick={this.handleDemo}>Demo Admin</SubmitButton>
+      </>
+      ) : null
+  }
+
   render() {
     return (
       <div>
@@ -172,6 +189,9 @@ class SessionForm extends Component {
           {this.renderConfirmPassword()}
           
           <SubmitInput type="submit" value={this.renderButton()} />
+          
+          {this.renderDemoButtons()}
+
         </FormControl>
         
         </form>

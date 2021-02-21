@@ -72,6 +72,30 @@ export const SecondarySubmitInput = styled(SubmitInput)`
   }
 `
 
+export const SubmitButton = styled.button`
+  font-weight: 600;
+  background-color :#4d4c7d;
+  border-color: #4d4c7d;
+  color: #fff;
+  border: .0625rem solid;
+  border-radius: .25rem;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 20px;
+  :hover {
+    background-color: #363062;
+    border-color: #363062;
+  }
+  :active {
+    background-color: #363062;
+    border-color: #363062;
+  }
+`
+
 export const HomePageHeroCTA = styled(SecondarySubmitInput)`
   font-weight: 700;
   font-size: .875rem;

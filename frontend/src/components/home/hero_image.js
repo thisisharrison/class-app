@@ -6,7 +6,7 @@ export default function HeroImage({ img1, img2 }) {
   return img1 && img2 ? 
   (
     <div>
-      <GridList cellHeight={'auto'} >
+      <GridList cellHeight='auto'>
         <GridListTile key='Img1' rows={2.5}>
           <img src={img1} alt='Img1' />
         </GridListTile>

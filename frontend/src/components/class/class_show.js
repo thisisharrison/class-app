@@ -41,22 +41,15 @@ class ClassShow extends Component {
       return (
         <div>
           <Container maxwidth="sm">
-          <Grid
-            container
-            spacing={4}
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
             <BreadCrumbSection>
               {breadcrumb}  
             </BreadCrumbSection>
-
             <Grid
               container
-              direction="row"
-              justify="center"
               spacing={4}
+              direction="row"
+              justify="flex-start"
+              alignItems="flex-start"
             >
 
               <Grid item sm={12} md={8}>
@@ -74,9 +67,7 @@ class ClassShow extends Component {
                   isClassOwner={this.isClassOwner()}
                 />
               </Grid>
-
             </Grid>
-          </Grid>
           </Container>
         </div>
       )
