@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { FormControl, TextField, ThemeProvider } from '@material-ui/core';
 import { theme, SubmitInput, SubmitButton } from '../styles/styles';
-import * as demo from './demo';
 
 class SessionForm extends Component {
   constructor(props) {
@@ -69,9 +68,9 @@ class SessionForm extends Component {
   async handleDemo(e) {
     e.preventDefault();
     if (e.target.value === 'user') {
-      await this.setState({ email: 'mdiaz@email.com', password: demo.password })
+      await this.setState({ email: 'mdiaz@email.com', password: '123123' })
     } else if (this.target.value === 'admin') {
-      await this.setState({ email: 'jlawrence@email.com', password: demo.password })
+      await this.setState({ email: 'jlawrence@email.com', password: '123123' })
     }
     this.handleSubmit();
   }
