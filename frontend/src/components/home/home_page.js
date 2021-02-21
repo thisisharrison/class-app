@@ -1,7 +1,6 @@
 import { Container, Grid } from '@material-ui/core'
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import { HomePageHeroCTA } from '../styles/styles';
+import HeroImage from './hero_image';
 
 const HomePage = () => {
   return (
@@ -22,14 +21,9 @@ const HomePage = () => {
           <Grid container alignItems="flex-end">
             <Grid item lg={1}></Grid>
             <Grid item xs={12} lg={11} cols={2}>
-              <GridList cellHeight={'auto'} >
-                <GridListTile key='Img1' rows={2.5}>
-                  <img src='https://tn.fishki.net/26/upload/en/201305/16/10539/249ef8594bfc63ff717e6048dc454285.jpg' alt='Img1' />
-                </GridListTile>
-                <GridListTile key='Img2' rows={2.5}>
-                  <img src='https://tn.fishki.net/26/upload/en/201305/16/10539/f6a0aefbf36aa3feee14cd6fc7013603.jpg' alt='Img2' />
-                </GridListTile>
-              </GridList>
+                <HeroImage img1={'https://tn.fishki.net/26/upload/en/201305/16/10539/249ef8594bfc63ff717e6048dc454285.jpg'} 
+                  img2={'https://tn.fishki.net/26/upload/en/201305/16/10539/f6a0aefbf36aa3feee14cd6fc7013603.jpg'}
+                />
             </Grid>
           </Grid>
             <div className="homepage-hero-cta">

@@ -236,11 +236,31 @@ h3 {
     background-color: #fafafa;
     line-height: 2;
   }
+  .category-hero {
+    display: block;
+    position: relative;
+  }
+  .category-hero-text {
+    display: block;
+    position: absolute;
+    top: 10rem;
+    right: 2rem;
+    color: #fff;
+    width: 50%;
+    text-align: right;
+  }
 }
 
 @media only screen and (max-width: 62rem) {
   .homepage-hero-h2 {
     text-align: center;
+  }
+  .category-hero > ul > img {
+    height: 10rem !important;
+  }
+  .category-hero-text {
+    font-size: 2rem;
+    margin: 0;
   }
 }
 

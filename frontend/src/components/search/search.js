@@ -1,6 +1,7 @@
 import ClassIndexContainer from '../class/class_index_container';
 import FilterForm from './filter_form'
 import { Container } from '@material-ui/core'
+import HeroImage from '../home/hero_image';
 
 const Search = ({
   // classes, 
@@ -17,6 +18,13 @@ const Search = ({
   }) => (
   <div>
     <Container maxwidth="sm">
+      <div className="category-hero">
+        <HeroImage img1={'https://tn.fishki.net/26/upload/en/201305/16/10539/244866f48d04f3aa4e363be2036a094f.jpg'}
+        />
+        <h3 className="category-hero-text">
+          Enjoy Online Classes with our Ambasssadors
+        </h3>
+      </div>
       <FilterForm 
         filters={filters}
         updateFilter={updateFilter}
