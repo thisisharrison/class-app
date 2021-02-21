@@ -35,7 +35,7 @@ export const SubmitInput = styled.input`
   padding: 1rem;
   text-align: center;
   text-decoration: none;
-  margin-top: 20px;
+  margin-top: 1rem;
   :hover {
     background-color: #b81c29;
     border-color: #b81c29;
@@ -74,9 +74,9 @@ export const SecondarySubmitInput = styled(SubmitInput)`
 
 export const SubmitButton = styled.button`
   font-weight: 600;
-  background-color :#4d4c7d;
-  border-color: #4d4c7d;
-  color: #fff;
+  background-color :#fff;
+  border-color: #fff;
+  color: #000;
   border: .0625rem solid;
   border-radius: .25rem;
   cursor: pointer;
@@ -85,14 +85,22 @@ export const SubmitButton = styled.button`
   padding: 1rem;
   text-align: center;
   text-decoration: none;
-  margin-top: 20px;
+  margin-top: 1rem;
+  text-transform: uppercase;
   :hover {
-    background-color: #363062;
-    border-color: #363062;
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
   }
-  :active {
-    background-color: #363062;
-    border-color: #363062;
+  animation: fadeIn ease 2.5s;
+  -webkit-animation: fadeIn ease 2.5s;
+  @keyframes fadeIn{
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
   }
 `
 

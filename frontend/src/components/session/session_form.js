@@ -21,8 +21,10 @@ class SessionForm extends Component {
   }
 
   componentDidMount() {
-    const timer = setTimeout(() => this.setState({demo: true}), 3000);
-    this.setState({ timer })
+    if (this.props.formType === 'Log In') {
+      const timer = setTimeout(() => this.setState({demo: true}), 5000);
+      this.setState({ timer })
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -68,9 +70,9 @@ class SessionForm extends Component {
   async handleDemo(e) {
     e.preventDefault();
     if (e.target.value === 'user') {
-      await this.setState({ email: 'mdiaz@email.com', password: '123123' })
-    } else if (this.target.value === 'admin') {
-      await this.setState({ email: 'jlawrence@email.com', password: '123123' })
+      await this.setState({ email: 'mdiaz@email.com', password: '123123' });
+    } else if (e.target.value === 'admin') {
+      await this.setState({ email: 'jlawrence@email.com', password: '123123' });
     }
     this.handleSubmit();
   }
@@ -144,8 +146,8 @@ class SessionForm extends Component {
     return this.state.demo && this.props.formType === 'Log In' ? 
       (
       <>
-        <SubmitButton value='user' onClick={this.handleDemo}>Demo User</SubmitButton>
-        <SubmitButton value='admin' onClick={this.handleDemo}>Demo Admin</SubmitButton>
+        <SubmitButton value='user' onClick={this.handleDemo}>🏃‍♀️ Demo User</SubmitButton>
+        <SubmitButton value='admin' onClick={this.handleDemo}>🧘 Demo Admin</SubmitButton>
       </>
       ) : null
   }
