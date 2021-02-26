@@ -17,7 +17,7 @@ export default function HeroImage({ img1, img2 }) {
     </div>
   ) : 
   (
-    <GridList cellHeight='380' cols={1}>
+    <GridList cellHeight={380} cols={1}>
       <img src={img1} alt='Img1' style={{ objectFit: 'cover' }}/>
     </GridList>
   )
