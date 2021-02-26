@@ -1,8 +1,10 @@
 import SaveContainer from '../toggles/save_container';
 
-import { Avatar, Divider } from '@material-ui/core'
+import { Divider } from '@material-ui/core'
 import { DetailSection, useStyles } from '../styles/class_styles';
+import MyAvatar from '../profile/avatar';
 import Chip from '@material-ui/core/Chip';
+import * as AvatarStyle from '../styles/avatar_styles'
 
 
 const ClassDetail = ({ _class, editLink = null }) => {
@@ -10,6 +12,7 @@ const ClassDetail = ({ _class, editLink = null }) => {
   const tags = _class.tags.map((tag, idx) => <Chip key={`tag-${idx}`} label={tag} />);
 
   const styles = useStyles();
+  const avatarStyles = AvatarStyle.useStyles();
 
   return (
   <div>
@@ -24,7 +27,7 @@ const ClassDetail = ({ _class, editLink = null }) => {
       <Divider />
       <div className="class-detail-instructor-top">
         <h3>Online Class taught by {_class.admin.fname + ' ' + _class.admin.lname}</h3>
-        <Avatar alt={`${_class.admin.fname + _class.admin.lname}`} src={_class.admin.photo} />
+        <MyAvatar user={_class.admin} klass={avatarStyles.large}/>
       </div>
       <ul>
         <li>Taught in {langs}</li>
@@ -49,7 +52,7 @@ const ClassDetail = ({ _class, editLink = null }) => {
       <DetailSection>
       <Divider />
           <div className="class-detail-instructor-bottom">
-            <Avatar alt={`${_class.admin.fname + _class.admin.lname}`} src={_class.admin.photo} />
+            <MyAvatar user={_class.admin} klass={avatarStyles.large} />
             <h3>Meet your instructor, {_class.admin.fname + _class.admin.lname}</h3>
           </div>
           <p>{_class.admin.bio}</p>

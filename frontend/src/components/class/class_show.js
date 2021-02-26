@@ -52,14 +52,14 @@ class ClassShow extends Component {
               alignItems="flex-start"
             >
 
-              <Grid item sm={12} md={8}>
+              <Grid item xs={12} sm={12} md={8}>
                 <ClassDetail 
                   _class={_class}
                   editLink={this.isClassOwner() ? <PrimaryHref to={`/classes/${classId}/edit`}>Edit Class</PrimaryHref>: null}
                 />
               </Grid>
               
-              <Grid item sm={12} md={4}>
+              <Grid item xs={12} sm={12} md={4}>
                 <ClassTimeIndexContainer 
                   // _class={_class}
                   classId={classId}

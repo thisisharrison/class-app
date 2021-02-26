@@ -107,6 +107,7 @@ Front-end:
 * [axios](https://www.npmjs.com/package/axios) - Used for API calls
 * [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Language for site functionality
 * [Material-UI](https://material-ui.com/) - Used for advanced styling and design system
+* [Styled-Component](https://styled-components.com/) - Used for custom styling React components
 * [CSS3](http://www.css3.info/) - Used in conjunction with Material-UI for styling
 * [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - Used for general structure of webpage
 
@@ -118,6 +119,7 @@ Back-end:
 * [mongoose](https://mongoosejs.com/) - Object modeling for node.js and mongodb
 
 ## Potential Additions/ Unsolved Issues
+- Show avatars of students in Class Time Index Item
 - Reviews on Classes and Ambassadors
 - Use [`react-dates`](https://github.com/airbnb/react-dates) from Airbnb in Filter Form
 - Expired Class Times should be deleted from the database and Users' bookings

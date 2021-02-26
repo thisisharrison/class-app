@@ -1,11 +1,12 @@
 import moment from 'moment';
 import BookContainer from '../toggles/book_container';
 import { Grid, Button } from '@material-ui/core'
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import momentTz from 'moment-timezone';
 import { PrimaryHref } from '../styles/styles';
+import MyAvatar from '../profile/avatar';
+import { useStyles } from '../styles/avatar_styles';
 
-// These should be handled separately
-// isEdit, destroyClassTime, updateClassTime, editClassTime
 
 const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTime, updateClassTime, editClassTime, showName = undefined }) => {
   
@@ -31,6 +32,13 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
     </>) : ''
   const timezone = momentTz.tz.guess().split('_').join(' ');
 
+  
+  const studentsCount = classTime.students.length;
+  
+  const styles = useStyles()
+
+  const studentsAvatars = classTime.students.map(student => <MyAvatar key={student._id} user={student} klass={styles.small}/>)
+
   return (
     <div className="classtime-index-item">
       <Grid
@@ -51,7 +59,13 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
       
       <Grid item xs={6}>
           {showName && <PrimaryHref to={`/classes/${classTime.class._id}`}>{classTime.class.name}</PrimaryHref>}
-          <p>{startTime} - {endTime} <small>({timezone})</small></p>
+          <p>{startTime} - {endTime}</p>
+          <small>({timezone})</small>
+          <AvatarGroup max={3} classes={{
+            avatar: styles.small
+          }}>
+            {studentsAvatars}
+          </AvatarGroup>
       </Grid>
       
       <Grid item xs>

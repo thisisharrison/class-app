@@ -22,7 +22,7 @@ class SessionForm extends Component {
 
   componentDidMount() {
     if (this.props.formType === 'Log In') {
-      const timer = setTimeout(() => this.setState({demo: true}), 5000);
+      const timer = setTimeout(() => this.setState({demo: true}), 1500);
       this.setState({ timer })
     }
   }
