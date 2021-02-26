@@ -68,7 +68,10 @@ export const newBooking = classTimeId => dispatch => {
 }
 
 export const destroyBooking = classTimeId => dispatch => (
-  deleteBooking(classTimeId).then(bookings => dispatch(removeBooking(bookings)))
+  deleteBooking(classTimeId).then(classtime => {
+    // dispatch(removeBooking(bookings))
+    dispatch(receiveUpdateClassTime(classtime))
+  })
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 

@@ -49,16 +49,20 @@ router.delete('/:classTimeId', passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     
     try {
-      await ClassTime.findByIdAndUpdate(req.params.classTimeId,
-        { $pull: { students: { _id: req.user._id } } }
-      ).exec()
       await User.findByIdAndUpdate(req.user._id,
         { $pull: { bookings: req.params.classTimeId } },
         { new: true })
         .populate({ path: 'bookings', select: ['class', 'startTime', 'endTime'], populate: { path: 'class', select: ['name', 'description'] } })
-        .exec(
-          (err, result) => res.json(result.bookings)
-        )
+        .exec()
+      await ClassTime.findByIdAndUpdate(req.params.classTimeId,
+        { $pull: { students: { _id: req.user._id } } },
+        { new: true }
+      )
+      .sort({ startTime: 1 })
+      .populate({ path: 'class', select: ['name', 'description'] })
+      .exec(
+        (err, result) => res.json(result)
+      )
     } catch (err) {
       res.status(422)
     }
