@@ -24,16 +24,16 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     const newStudent = req.user.toObject();
   
     try {
-      await ClassTime.findByIdAndUpdate(classTimeId,
-        { $addToSet: { students: newStudent } }
-      ).exec()
       await User.findByIdAndUpdate(req.user._id,
         { $addToSet: { bookings: classTimeId } },
         { new: true })
         .populate({ path: 'bookings', select: ['class', 'startTime', 'endTime'], populate: { path: 'class', select: ['name', 'description'] } })
-        .exec(
-          (err, result) => res.json(result.bookings)
-        )
+        .exec()
+      await ClassTime.findByIdAndUpdate(classTimeId,
+        { $addToSet: { students: newStudent } }
+      ).exec(
+        (err, result) => res.json(result)
+      )
     } catch (err) {
       res.status(422)
     }

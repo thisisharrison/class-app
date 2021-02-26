@@ -22,7 +22,7 @@ class ClassTimeIndex extends Component {
   }
 
   render() {
-    const { currentUser, isEdit, destroyClassTime, editClassTime } = this.props
+    const { isEdit, destroyClassTime, editClassTime } = this.props
     
     return (
       <div>

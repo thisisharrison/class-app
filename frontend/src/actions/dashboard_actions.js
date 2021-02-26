@@ -9,6 +9,7 @@ import {
 } from '../util/dashboard_api_util';
 import { receiveErrors } from './session/session_actions';
 import { startLoadingAllClasses } from './class/class_action'
+import { receiveUpdateClassTime } from './classtime_action';
 
 export const RECEIVE_BOOKINGS = 'RECEIVE_BOOKINGS'
 export const RECEIVE_BOOKING = 'RECEIVE_BOOKING'
@@ -23,9 +24,9 @@ export const receiveBookings = bookings => ({
   bookings
 })
 
-export const receiveBooking = bookings => ({
+export const receiveBooking = classtime => ({
   type: RECEIVE_BOOKING,
-  bookings
+  classtime
 })
 
 export const removeBooking = bookings => ({
@@ -58,10 +59,13 @@ export const fetchBookings = () => dispatch => (
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 )
 
-export const newBooking = classTimeId => dispatch => (
-  createBooking(classTimeId).then(bookings => dispatch(receiveBooking(bookings)))
+export const newBooking = classTimeId => dispatch => {
+  createBooking(classTimeId).then(classtime => {
+    dispatch(receiveBooking(classtime))
+    // return (receiveUpdateClassTime(classtime)(dispatch))
+  })
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
-)
+}
 
 export const destroyBooking = classTimeId => dispatch => (
   deleteBooking(classTimeId).then(bookings => dispatch(removeBooking(bookings)))

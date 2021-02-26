@@ -29,9 +29,9 @@ const dashboardReducer = (state = initialState, action) => {
     case RECEIVE_BOOKINGS:
       newState.bookings = action.bookings.data;
       return newState;
-    case RECEIVE_BOOKING:
-      newState.bookings = [...action.bookings.data];
-      return newState;
+    // case RECEIVE_BOOKING:
+    //   newState.bookings = [...action.bookings.data];
+    //   return newState;
     case REMOVE_BOOKING:
       newState.bookings = [...action.bookings.data];
       return newState;

@@ -5,6 +5,9 @@ import {
   EDIT_CLASSTIME,
   RECEIVE_UPDATE_CLASSTIME
 } from '../../actions/classtime_action';
+import {
+  RECEIVE_BOOKING
+} from '../../actions/dashboard_actions';
 
 const _initialState = {
   all: [],
@@ -41,6 +44,10 @@ const classTimeReducer = (state = _initialState, action) => {
         }
       })
       return newState;
+    
+    case RECEIVE_BOOKING:
+      
+      return state;
       
     default: 
       return state;

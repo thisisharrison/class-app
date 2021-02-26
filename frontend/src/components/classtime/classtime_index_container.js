@@ -7,8 +7,7 @@ const mapStateToProps = (state, ownProps) => ({
   classId: ownProps.classId,
   classTimes: sortClassTimes(state.entities.classTimes.all),
   isEdit: ownProps.isEdit,
-  isClassOwner: ownProps.isClassOwner,
-  currentUser: state.session.user
+  isClassOwner: ownProps.isClassOwner
 })
 
 const mapDispatchToProps = dispatch => ({
