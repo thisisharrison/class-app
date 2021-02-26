@@ -11,6 +11,11 @@ import {
   RECEIVE_UPDATE_CLASSTIME
 } from '../../actions/classtime_action';
 
+import {
+  RECEIVE_BOOKING
+} from '../../actions/dashboard_actions';
+
+
 const _initialState = {
   all: {},
   new: undefined

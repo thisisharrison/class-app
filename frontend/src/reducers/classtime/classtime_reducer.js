@@ -41,7 +41,7 @@ const classTimeReducer = (state = _initialState, action) => {
         }
       })
       return newState;
-
+      
     default: 
       return state;
 

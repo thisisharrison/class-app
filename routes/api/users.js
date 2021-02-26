@@ -50,7 +50,10 @@ router.post("/register", (req, res) => {
                   email: user.email, 
                   isAdmin: user.isAdmin,
                   saves: user.saves,
-                  bookings: user.bookings
+                  bookings: user.bookings,
+                  fname: user.fname,
+                  lname: user.lname,
+                  photo: user.photo
                 };
 
                 jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
@@ -90,7 +93,10 @@ router.post("/login", (req, res) => {
               email: user.email,
               isAdmin: user.isAdmin,
               saves: user.saves,
-              bookings: user.bookings
+              bookings: user.bookings,
+              fname: user.fname,
+              lname: user.lname,
+              photo: user.photo
             };
             
             // Add webtoken so user stays signed in across multiple requests to backend

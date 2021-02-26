@@ -8,7 +8,7 @@ import MyAvatar from '../profile/avatar';
 import { useStyles } from '../styles/avatar_styles';
 
 
-const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTime, updateClassTime, editClassTime, showName = undefined }) => {
+const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTime, updateClassTime, editClassTime, showName = undefined, showStudents = true }) => {
   
   let { startTime, endTime } = classTime;
   const weekday = moment.unix(startTime).format("ddd")
@@ -33,11 +33,15 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
   const timezone = momentTz.tz.guess().split('_').join(' ');
 
   
-  const studentsCount = classTime.students.length;
-  
   const styles = useStyles()
 
-  const studentsAvatars = classTime.students.map(student => <MyAvatar key={student._id} user={student} klass={styles.small}/>)
+  const studentsAvatars = showStudents ? (
+    <AvatarGroup max={3} classes={{
+      avatar: styles.small
+    }}>
+      {classTime.students.map(student => <MyAvatar key={student._id} user={student} klass={styles.small}/>)}
+    </AvatarGroup>
+  ) : null
 
   return (
     <div className="classtime-index-item">
@@ -61,11 +65,7 @@ const ClassTimeIndexItem = ({ classTime, isEdit, fetchClassTimes, destroyClassTi
           {showName && <PrimaryHref to={`/classes/${classTime.class._id}`}>{classTime.class.name}</PrimaryHref>}
           <p>{startTime} - {endTime}</p>
           <small>({timezone})</small>
-          <AvatarGroup max={3} classes={{
-            avatar: styles.small
-          }}>
-            {studentsAvatars}
-          </AvatarGroup>
+          {studentsAvatars}
       </Grid>
       
       <Grid item xs>
