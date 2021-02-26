@@ -30,8 +30,12 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         .populate({ path: 'bookings', select: ['class', 'startTime', 'endTime'], populate: { path: 'class', select: ['name', 'description'] } })
         .exec()
       await ClassTime.findByIdAndUpdate(classTimeId,
-        { $addToSet: { students: newStudent } }
-      ).exec(
+        { $addToSet: { students: newStudent } },
+        { new: true }
+      )
+      .sort({ startTime: 1 })
+      .populate({ path: 'class', select: ['name', 'description'] })
+      .exec(
         (err, result) => res.json(result)
       )
     } catch (err) {

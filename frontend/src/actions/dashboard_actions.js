@@ -61,8 +61,8 @@ export const fetchBookings = () => dispatch => (
 
 export const newBooking = classTimeId => dispatch => {
   createBooking(classTimeId).then(classtime => {
-    dispatch(receiveBooking(classtime))
-    // return (receiveUpdateClassTime(classtime)(dispatch))
+    // dispatch(receiveBooking(classtime))
+    dispatch(receiveUpdateClassTime(classtime))
   })
   .catch(err => dispatch(receiveErrors('unauthorized', err.response.data)))
 }
