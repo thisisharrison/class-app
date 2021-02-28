@@ -67,6 +67,8 @@ class SessionForm extends Component {
     this.setState({ timer: null, demo: false });
   }
 
+  // better-demo
+  // do not expose password in component
   async handleDemo(e) {
     e.preventDefault();
     if (e.target.value === 'user') {
