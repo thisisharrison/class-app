@@ -46,7 +46,6 @@ const HomePage = () => {
           </Grid>
         </Grid>
         <footer>
-          <p>Coming Soon 🚧</p>
           <p>Copyright &copy; 2021 H.L.</p>
         </footer>
       </Container>
